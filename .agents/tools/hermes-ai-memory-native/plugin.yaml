@@ -1,0 +1,4 @@
+name: ai-memory-native
+version: 0.1.0
+description: Native ai-memory lifecycle adapter; existing MCP owns recall.
+kind: exclusive

@@ -12,3 +12,4 @@ __pycache__/
 # Local outputs and reports
 .agents/outputs/
 outputs/
+.worktrees/
