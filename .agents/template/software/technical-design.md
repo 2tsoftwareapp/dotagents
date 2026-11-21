@@ -1,41 +1,41 @@
-# Thiết kế kỹ thuật: <thay đổi>
+# Technical design: <change>
 
-- **Trạng thái:** Bản nháp | Đã review | Đã chấp nhận
-- **Spec/ADR liên quan:** <link>
-- **Ngày:** YYYY-MM-DD
+- **Status:** Draft | Reviewed | Accepted
+- **Related spec/ADR:** <link>
+- **Date:** YYYY-MM-DD
 
-## Bối cảnh
+## Context
 
-Hiện trạng, lý do chưa đáp ứng yêu cầu và các ràng buộc quan trọng.
+Current state, why it does not meet the requirements, and key constraints.
 
-## Thiết kế đề xuất
+## Proposed design
 
-- Thành phần/module thay đổi:
-- Trách nhiệm và ranh giới:
-- Luồng dữ liệu/điều khiển:
-- Thay đổi API, event, schema hoặc chuyển trạng thái:
-- Xử lý lỗi, retry, idempotency và observability:
+- Components/modules changed:
+- Responsibilities and boundaries:
+- Data/control flow:
+- API, event, schema, or state-transition changes:
+- Error handling, retries, idempotency, and observability:
 
-## Phương án thay thế
+## Alternatives
 
-| Phương án | Lợi ích | Chi phí/rủi ro | Lý do chọn/loại bỏ |
+| Option | Benefits | Cost/risk | Why chosen/rejected |
 |---|---|---|---|
-| Đề xuất | | | |
-| Thay thế | | | |
+| Proposed | | | |
+| Alternative | | | |
 
-## Bảo mật và vận hành
+## Security and operations
 
-- Authentication/authorization và ranh giới tin cậy:
-- Độ nhạy dữ liệu và xử lý secret:
-- Capacity/hiệu năng/độ tin cậy:
-- Triển khai, migration, feature flag, rollback:
+- Authentication/authorization and trust boundaries:
+- Data sensitivity and secret handling:
+- Capacity/performance/reliability:
+- Deployment, migration, feature flags, rollback:
 
-## Kiểm chứng
+## Verification
 
-- Tầng test và case chính:
-- Metric/log/alert cần kiểm tra:
-- Tiêu chí chấp nhận được liên kết với test:
+- Test layers and key cases:
+- Metrics/logs/alerts to check:
+- Acceptance criteria linked to tests:
 
-## Câu hỏi mở
+## Open questions
 
-- [ ] <câu hỏi> — người phụ trách / hạn xử lý
+- [ ] <question> — owner / deadline

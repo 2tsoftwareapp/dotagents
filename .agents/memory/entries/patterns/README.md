@@ -1,3 +1,3 @@
-# Mẫu triển khai (patterns)
+# Patterns
 
-Mỗi entry mô tả pattern triển khai/kiến trúc có thể tái sử dụng, đã được kiểm chứng và nêu rõ giới hạn áp dụng.
+Each entry describes a reusable implementation or architecture pattern that has been verified, and states its applicable limits.

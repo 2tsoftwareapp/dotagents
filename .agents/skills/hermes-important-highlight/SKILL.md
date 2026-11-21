@@ -1,29 +1,29 @@
 ---
 name: hermes-important-highlight
-description: "Dùng khi phản hồi trong Hermes Desktop cần làm nổi bật một kết luận hoặc cảnh báo then chốt bằng directive inline. Chỉ đánh dấu tối đa một ý chính; nếu directive không khả dụng, dùng Markdown in đậm."
+description: "Use when a response in Hermes Desktop must highlight one key conclusion or warning with an inline directive. Mark at most one main point; if the directive is unavailable, use bold Markdown."
 ---
 
-# Làm nổi bật ý quan trọng trong Hermes Desktop
+# Highlight key points in Hermes Desktop
 
-Khi phản hồi có một kết luận, cảnh báo hoặc hành động quan trọng mà người dùng cần nhận ra ngay, hãy đặt đúng **một ý quan trọng nhất** vào directive riêng:
+When a response contains an important conclusion, warning or action the user must notice immediately, put exactly **one most important point** in a dedicated directive:
 
 ```markdown
-::important{text="Nội dung ngắn, tự đủ nghĩa, tối đa 1000 ký tự."}
+::important{text="Short, self-contained content, at most 1000 characters."}
 ```
 
-## Quy tắc
+## Rules
 
-- Chỉ dùng cho ý có tác động thực tế: kết luận trả lời câu hỏi, cảnh báo cần hành động, quyết định hoặc blocker. Không tô nổi bật lời dẫn, trạng thái thường lệ hay từng bullet.
-- Chọn tối đa một directive trong mỗi phản hồi; giữ các chi tiết hỗ trợ ở phần văn bản thường.
-- Viết nguyên câu dễ hiểu độc lập. Dùng cú pháp attribute có dấu ngoặc kép; escape dấu `"` bên trong nếu có.
-- Đặt directive gần phần giải thích liên quan, thường ở đầu hoặc cuối câu trả lời.
-- Nếu giao diện không hỗ trợ directive, viết ý đó bằng `**in đậm**`; không lặp cả hai cách khi directive đã render thành khối.
-- Directive xuất hiện dạng chữ inline, không có khung/nền. Khi assistant hoàn tất phản hồi, ý chính chỉ đổi sang màu nhấn và có quầng sáng nhẹ; không scale chữ. Các phần chữ khác trong cùng phản hồi mờ còn 18% độ rõ trong 1,8 giây, rồi tự trở lại bình thường. `prefers-reduced-motion` tắt chuyển động.
+- Use it only for points with real impact: the conclusion that answers the question, a warning that requires action, a decision or a blocker. Do not highlight lead-ins, routine status or individual bullets.
+- Choose at most one directive per response; keep supporting details in normal text.
+- Write a complete sentence that stands on its own. Use the quoted attribute syntax; escape any inner `"` characters.
+- Place the directive near the related explanation, usually at the start or end of the answer.
+- If the interface does not support the directive, write the point in `**bold**`; do not use both approaches when the directive already renders as a block.
+- The directive appears as inline text, with no frame or background. When the assistant finishes the response, the main point only shifts to an accent color with a soft glow; the text does not scale. Other text in the same response dims to 18% opacity for 1.8 seconds, then returns to normal. `prefers-reduced-motion` disables the animation.
 
-Ví dụ:
+Example:
 
 ```markdown
-::important{text="Dữ liệu hiện tại chưa được sao lưu; hãy tạo bản sao trước khi chạy migration."}
+::important{text="The current data has not been backed up; create a copy before running the migration."}
 
-Migration có thể rollback bằng lệnh `db rollback` nếu bước xác minh thất bại.
+You can roll back the migration with `db rollback` if the verification step fails.
 ```

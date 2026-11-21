@@ -1,38 +1,38 @@
 ---
 name: solution-design
-description: "Thiết kế giải pháp kỹ thuật, luồng dữ liệu, API contract, thay đổi schema, trade-off và quyết định kiến trúc trước khi implement. Dùng cho feature nhiều thành phần, thay đổi kiến trúc, tích hợp hoặc migration có rủi ro."
+description: "Design the technical solution, data flow, API contract, schema changes, trade-offs and architecture decisions before implementation. Use for multi-component features, architecture changes, integrations or risky migrations."
 ---
-# Thiết kế giải pháp
+# Solution design
 
-## Khi nào dùng
-- Thay đổi nhiều module/service hoặc ranh giới giữa FE, API và dữ liệu.
-- Thêm dependency, đổi data model, API contract, auth flow, async flow hoặc kiến trúc.
-- Có nhiều phương án với trade-off đáng kể.
+## When to use
+- Changes across multiple modules/services or across the boundaries between FE, API and data.
+- Adding dependencies, changing the data model, API contract, auth flow, async flow or architecture.
+- Several options with significant trade-offs.
 
-## Không dùng khi
-- Sửa lỗi cục bộ hoặc thay đổi hiển nhiên không cần lựa chọn kiến trúc.
+## When not to use
+- A local fix or an obvious change that needs no architecture choice.
 
-## Quy trình
-1. Đọc memory/ADR hiện có và xác minh các quyết định liên quan còn đúng.
-2. Khảo sát kiến trúc, pattern và contract đang dùng; tránh thiết kế dựa trên tên file mà chưa đọc code.
-3. Xác định các thành phần, luồng request/event, nguồn dữ liệu, trạng thái, lỗi, timeout/retry, idempotency và ranh giới tin cậy khi liên quan.
-4. So sánh tối thiểu phương án hợp lý, tiêu chí lựa chọn và trade-off. Không tạo bảng so sánh hình thức nếu chỉ có một phương án thực tế.
-5. Dùng `technical-design.md` cho thiết kế ảnh hưởng nhiều thành phần. Dùng `adr.md` khi quyết định có giá trị dài hạn hoặc khó đảo ngược.
-6. Dùng `implementation-plan.md` nếu cần chia thành bước nhỏ có thứ tự, dependency và tiêu chí xác minh.
-7. Xác định chiến lược test, rollout, migration và rollback tương ứng với rủi ro.
-8. Tiếp tục implement sau khi các quyết định trọng yếu đã rõ; task nhỏ không cần đợi tài liệu hình thức.
+## Process
+1. Read existing memory/ADR and verify the related decisions still hold.
+2. Survey the architecture, patterns and contracts in use; avoid designing from file names without reading the code.
+3. Identify components, request/event flows, data sources, states, errors, timeout/retry, idempotency and trust boundaries where relevant.
+4. Compare at least the reasonable options, selection criteria and trade-offs. Do not create a token comparison table when only one option is realistic.
+5. Use `technical-design.md` for designs affecting many components. Use `adr.md` when a decision has long-term value or is hard to reverse.
+6. Use `implementation-plan.md` when you need to split the work into ordered steps with dependencies and verification criteria.
+7. Define the test, rollout, migration and rollback strategy matching the risk.
+8. Continue to implementation once the key decisions are clear; small tasks do not need to wait for a formal document.
 
-## Quy tắc
-- Bám convention và dependency hiện có, trừ khi có bằng chứng cần thay đổi.
-- Mọi đề xuất thay đổi contract phải xác định bên tiêu thụ và tương thích ngược.
-- Với dữ liệu, phân biệt schema, dữ liệu hiện hữu, backfill và hành vi ứng dụng trong giai đoạn chuyển tiếp.
-- Không tự thêm công nghệ/dependency chỉ để giải quyết vấn đề nhỏ.
+## Rules
+- Follow existing conventions and dependencies unless there is evidence a change is needed.
+- Every proposed contract change must identify its consumers and backward compatibility.
+- For data, distinguish schema, existing data, backfill and application behavior during the transition period.
+- Do not add technology/dependencies just to solve a small problem.
 
-## Điều kiện hoàn tất
-- Luồng chính, failure mode, rủi ro, quyết định và cách kiểm chứng đã đủ rõ để triển khai.
-- Mọi ADR cần thiết đã được ghi nhận hoặc lý do không tạo ADR được nêu rõ.
+## Completion criteria
+- The main flow, failure modes, risks, decisions and verification approach are clear enough to implement.
+- Every necessary ADR has been recorded, or the reason for not creating one is stated.
 
-## Template liên quan
+## Related templates
 - `.agents/template/software/technical-design.md`
 - `.agents/template/software/adr.md`
 - `.agents/template/software/implementation-plan.md`

@@ -1,51 +1,51 @@
-# Đặc tả tính năng: <tên>
+# Feature spec: <name>
 
-- **Trạng thái:** Bản nháp | Sẵn sàng | Đã duyệt
-- **Người phụ trách:** <tên/nhóm>
-- **Ngày:** YYYY-MM-DD
-- **Issue/thiết kế liên quan:** <link>
+- **Status:** Draft | Ready | Approved
+- **Owner:** <name/team>
+- **Date:** YYYY-MM-DD
+- **Related issue/design:** <link>
 
-## Vấn đề và kết quả
+## Problem and outcome
 
-- **Vấn đề:** Người dùng/doanh nghiệp đang gặp vấn đề gì?
-- **Kết quả:** Thay đổi quan sát được nào cần xảy ra?
-- **Ngoài phạm vi:** Nội dung nào được xác định rõ là không làm?
+- **Problem:** What problem are users/the business facing?
+- **Outcome:** What observable change needs to happen?
+- **Out of scope:** What is explicitly not being done?
 
-## Người dùng và kịch bản
+## Users and scenarios
 
 - **Actor:**
-- **Kịch bản chính:**
-- **Kịch bản thay thế/lỗi quan trọng:**
+- **Primary scenario:**
+- **Key alternative/error scenario:**
 
-## Yêu cầu
+## Requirements
 
-### Chức năng
-- [ ] FR-1 — <yêu cầu có thể kiểm thử>
-- [ ] FR-2 — <yêu cầu có thể kiểm thử>
+### Functional
+- [ ] FR-1 — <testable requirement>
+- [ ] FR-2 — <testable requirement>
 
-### Phi chức năng / ràng buộc
-- Bảo mật/phân quyền:
-- Hiệu năng/độ tin cậy:
+### Non-functional / constraints
+- Security/authorization:
+- Performance/reliability:
 - Accessibility/UX:
-- Tương thích/migration:
+- Compatibility/migration:
 - Observability/audit:
 
-## Tiêu chí chấp nhận
+## Acceptance criteria
 
-- [ ] Given <bối cảnh>, when <hành động>, then <kết quả quan sát được>.
-- [ ] Hành vi lỗi/rỗng/loading/phân quyền đã được xác định.
+- [ ] Given <context>, when <action>, then <observable result>.
+- [ ] Error/empty/loading/authorization behaviors are defined.
 
-## Dữ liệu và contract
+## Data and contracts
 
-- Thay đổi input/output, API/event/schema:
-- Validation và phân quyền:
-- Nguồn dữ liệu chuẩn và các chuyển trạng thái:
+- Input/output, API/event/schema changes:
+- Validation and authorization:
+- Source of truth and state transitions:
 
-## Câu hỏi mở và rủi ro
+## Open questions and risks
 
-- [ ] <câu hỏi> — người phụ trách / cách giải quyết
+- [ ] <question> — owner / how to resolve
 
-## Bằng chứng hoàn thành
+## Evidence of completion
 
-- Test hoặc demo:
-- Ghi chú tài liệu/analytics/rollout:
+- Tests or demo:
+- Docs/analytics/rollout notes:

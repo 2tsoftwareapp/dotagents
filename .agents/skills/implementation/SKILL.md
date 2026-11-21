@@ -1,33 +1,33 @@
 ---
 name: implementation
-description: "Triển khai feature hoặc thay đổi phần mềm theo yêu cầu, thiết kế và convention hiện tại; giữ diff nhỏ, an toàn và có thể kiểm chứng. Dùng khi đã đủ ngữ cảnh để sửa code."
+description: "Implement a feature or software change according to the requirements, design and existing conventions; keep the diff small, safe and verifiable. Use when there is enough context to change code."
 ---
-# Triển khai thay đổi phần mềm
+# Implement software changes
 
-## Khi nào dùng
-- Thêm/sửa hành vi, API, UI, data access, integration hoặc tooling.
-- Tiếp tục công việc sau khi yêu cầu và quyết định chính đã rõ.
+## When to use
+- Adding/changing behavior, API, UI, data access, integration or tooling.
+- Continuing work once the requirements and key decisions are clear.
 
-## Không dùng khi
-- Chưa hiểu lỗi hoặc chưa tái hiện được vấn đề → `bug-investigation`.
-- Chỉ cần đánh giá diff hiện có, không sửa code → `code-review`.
+## When not to use
+- The defect is not understood or the problem is not reproduced → `bug-investigation`.
+- The task is only to assess an existing diff, without changing code → `code-review`.
 
-## Quy trình
-1. Tìm memory liên quan và đọc file/luồng hiện có trước khi chỉnh sửa.
-2. Xác định acceptance criteria, contract và phạm vi file chịu ảnh hưởng.
-3. Lập kế hoạch ngắn cho thay đổi nhiều bước; dùng `implementation-plan.md` khi hữu ích.
-4. Thực hiện thay đổi nhỏ nhất nhưng hoàn chỉnh; giữ phong cách, naming, kiến trúc và dependency hiện hữu.
-5. Xử lý loading/error/empty state, validation, phân quyền, retry và idempotency khi phù hợp với loại task.
-6. Không để mock, TODO hoặc fallback giả làm hành vi production nếu chưa được yêu cầu rõ.
-7. Chạy kiểm tra cục bộ sau mỗi thay đổi rủi ro; cập nhật test cùng với hành vi.
-8. Dùng `testing-validation` để hoàn tất kiểm chứng, sau đó xem diff.
+## Process
+1. Search related memory and read the existing files/flow before editing.
+2. Determine the acceptance criteria, contract and the scope of affected files.
+3. Draft a short plan for multi-step changes; use `implementation-plan.md` when useful.
+4. Make the smallest complete change; keep existing style, naming, architecture and dependencies.
+5. Handle loading/error/empty state, validation, authorization, retry and idempotency as appropriate to the task type.
+6. Do not leave mocks, TODOs or fake fallbacks as production behavior unless explicitly requested.
+7. Run local checks after each risky change; update tests together with the behavior.
+8. Use `testing-validation` to finish verification, then review the diff.
 
-## Quy tắc
-- Không tự tiện xóa thay đổi chưa commit của người dùng hoặc ghi đè file ngoài phạm vi.
-- Không thêm secret vào source, log, test fixture hoặc memory.
-- Không tuyên bố đã chạy lệnh/test nếu chưa thực thi.
-- Nếu môi trường thiếu dependency/quyền truy cập, làm tối đa phần có thể và nêu rõ phần không xác minh được.
-- Nếu yêu cầu đổi đáng kể sau khi bắt đầu, cập nhật phạm vi và kế hoạch trước khi tiếp tục.
+## Rules
+- Do not delete the user's uncommitted changes or overwrite out-of-scope files on your own initiative.
+- Do not add secrets to source, logs, test fixtures or memory.
+- Do not claim a command/test was run if it was not executed.
+- If the environment lacks dependencies/access rights, do as much as possible and state clearly what could not be verified.
+- If the requirements change significantly after work starts, update the scope and plan before continuing.
 
-## Điều kiện hoàn tất
-- Thay đổi đáp ứng acceptance criteria, có test/kiểm chứng thích hợp, diff không chứa nội dung ngoài phạm vi và các giới hạn được công bố rõ.
+## Completion criteria
+- The change meets the acceptance criteria, has appropriate tests/verification, the diff contains nothing out of scope, and limitations are stated clearly.

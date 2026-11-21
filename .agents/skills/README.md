@@ -1,44 +1,44 @@
-# Skills — năng lực theo tác vụ
+# Skills — task-scoped capabilities
 
-Skill mô tả **cách thực hiện một loại công việc**; template mô tả **đầu ra cần tạo**; rule nêu **điều bắt buộc**. Không trộn ba vai trò này và không nạp tất cả skill cho mỗi task.
+A skill describes **how to carry out one kind of work**; a template describes **the output to produce**; a rule states **what is mandatory**. Do not mix these three roles, and do not load every skill for each task.
 
-## Skill điều phối
+## Orchestration skill
 
-- `software-lifecycle/SKILL.md` — phân loại task, chọn skill/template, kiểm tra cổng chất lượng.
+- `software-lifecycle/SKILL.md` — classify the task, choose skills/templates, check quality gates.
 
-## Bản đồ vòng đời phần mềm
+## Software lifecycle map
 
-| Giai đoạn/tình huống | Skill chính | Template có thể dùng |
+| Phase/situation | Primary skill | Templates you may use |
 |---|---|---|
-| Làm rõ feature | `requirements-discovery` | `feature-spec.md` |
-| Thiết kế/API/data/kiến trúc | `solution-design` | `technical-design.md`, `adr.md`, `implementation-plan.md` |
-| Viết hoặc sửa code | `implementation` | `implementation-plan.md` khi cần |
-| Điều tra bug | `bug-investigation` | `bug-investigation.md` |
-| Refactor giữ nguyên hành vi | `refactoring` | `test-plan.md` khi cần |
-| Test và kiểm chứng | `testing-validation` | `test-plan.md` |
-| Review diff | `code-review` | `code-review.md` |
-| Auth, dữ liệu nhạy cảm, trust boundary | `security-review` | `security-review.md` |
+| Clarify a feature | `requirements-discovery` | `feature-spec.md` |
+| Design/API/data/architecture | `solution-design` | `technical-design.md`, `adr.md`, `implementation-plan.md` |
+| Write or change code | `implementation` | `implementation-plan.md` when needed |
+| Bug investigation | `bug-investigation` | `bug-investigation.md` |
+| Refactor while preserving behavior | `refactoring` | `test-plan.md` when needed |
+| Test and verify | `testing-validation` | `test-plan.md` |
+| Review a diff | `code-review` | `code-review.md` |
+| Auth, sensitive data, trust boundary | `security-review` | `security-review.md` |
 | Release/deploy/migration | `release-deployment` | `release-checklist.md` |
-| Sự cố đang ảnh hưởng dịch vụ | `incident-response` | `incident-postmortem.md` sau khi ổn định |
-| Tìm/cập nhật/đúc kết memory | `memory-curation` | `memory-entry.md`, `memory-evaluation.md` |
-| Tự học, đúc kết skill sau turn/task | `self-learning-loop` | `.agents/template/skill/SKILL.md` |
-| Bàn giao hoặc tổng kết | `handoff-retrospective` | `handoff.md`, `retrospective.md` |
+| Incident affecting a live service | `incident-response` | `incident-postmortem.md` once stable |
+| Find/update/distill memory | `memory-curation` | `memory-entry.md`, `memory-evaluation.md` |
+| Self-learning, distill skills after a turn/task | `self-learning-loop` | `.agents/template/skill/SKILL.md` |
+| Handoff or retrospective | `handoff-retrospective` | `handoff.md`, `retrospective.md` |
 
-## Chuỗi quy trình mẫu
+## Sample process chains
 
-- **Bug:** `memory-curation` (tìm trước) → `bug-investigation` → `testing-validation` → `code-review` → `memory-curation` (đúc kết nếu hữu ích).
-- **Feature:** `memory-curation` (tìm trước) → `requirements-discovery` → `solution-design` nếu cần → `implementation` → `testing-validation` → `security-review` nếu có rủi ro → `code-review` → `memory-curation`.
-- **Refactor:** `memory-curation` (tìm trước) → `refactoring` → `testing-validation` → `code-review`.
-- **Release:** `release-deployment` → sau sự cố thì `incident-response` → `handoff-retrospective`/`memory-curation` khi có bài học.
+- **Bug:** `memory-curation` (search first) → `bug-investigation` → `testing-validation` → `code-review` → `memory-curation` (distill if useful).
+- **Feature:** `memory-curation` (search first) → `requirements-discovery` → `solution-design` if needed → `implementation` → `testing-validation` → `security-review` if there is risk → `code-review` → `memory-curation`.
+- **Refactor:** `memory-curation` (search first) → `refactoring` → `testing-validation` → `code-review`.
+- **Release:** `release-deployment` → after an incident, `incident-response` → `handoff-retrospective`/`memory-curation` when there are lessons.
 
-## Quy ước viết skill
+## Skill authoring conventions
 
-- Mỗi skill là một thư mục chứa `SKILL.md` có YAML frontmatter gồm `name` và `description`; `name` phải trùng tên thư mục và dùng kebab-case.
-- Nội dung diễn giải viết bằng tiếng Việt theo `rules/language.md`; giữ nguyên tên kỹ thuật và field có cấu trúc.
-- Mỗi skill nêu: khi nào dùng, khi nào không dùng, quy trình, quy tắc, điều kiện hoàn tất và template/tham chiếu liên quan.
-- Nêu trigger đủ cụ thể để agent có thể chọn skill từ phần mô tả mà không phải nạp nội dung toàn bộ.
-- Giữ skill tập trung; nội dung dài hoặc chuyên sâu nên tách thành `references/` thay vì phình `SKILL.md`.
+- Each skill is a directory holding a `SKILL.md` with YAML frontmatter containing `name` and `description`; `name` must match the directory name and use kebab-case.
+- Write the prose in English per `rules/language.md`; keep technical names and structured fields unchanged.
+- Each skill states: when to use it, when not to use it, the process, the rules, the completion criteria and the related templates/references.
+- Make triggers specific enough that an agent can select a skill from its description without loading the full content.
+- Keep skills focused; long or deep content belongs in `references/` instead of bloating `SKILL.md`.
 
-## Lưu ý về tương thích
+## Compatibility note
 
-Có thư mục `skills/` không đồng nghĩa mọi coding agent sẽ tự động phát hiện skill. Agent cần hỗ trợ định dạng Agent Skills và được cấu hình đúng thư mục. Một số công cụ đòi thư mục skills riêng; khi đó dùng adapter hoặc symlink được kiểm tra, nhưng vẫn giữ `.agents/skills/` làm nguồn chuẩn trong repository này.
+Having a `skills/` directory does not mean every coding agent will discover skills automatically. The agent must support the Agent Skills format and be configured with the right directory. Some tools require their own skills directory; in that case use a verified adapter or symlink, but keep `.agents/skills/` as the canonical source in this repository.

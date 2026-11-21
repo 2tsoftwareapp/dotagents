@@ -1,15 +1,15 @@
-# `.agents/` — nguồn chuẩn
+# `.agents/` — source of truth
 
-Thư mục này chứa workflow, quy tắc, điểm mở rộng, script, template và memory lâu dài của repository.
+This directory holds the repository's workflow, rules, extension points, scripts, templates and long-term memory.
 
-- `AGENTS.md`: hợp đồng làm việc cơ bản cho agent.
-- `rules/`: triết lý kỹ thuật (The Zen of GitHub tại `engineering-philosophy.md`), quy chuẩn phát triển phần mềm, chính sách memory, an toàn bảo mật, ngôn ngữ và chuẩn xuất bản báo cáo (`deliverables-and-reporting.md`); tùy chỉnh `project.md` cho từng repository.
-- `skills/`: năng lực theo từng loại tác vụ, được đăng ký với agent đang sử dụng.
-- `mcp/`: hướng dẫn cấu hình MCP và quyền truy cập.
-- `tools/`: công cụ hỗ trợ có hành vi xác định.
-- `scripts/`: script tự động hóa khởi tạo toàn cục (`init-global.sh`), dự án (`init-project.sh`), kiểm tra (`doctor.sh`), tìm kiếm memory (`search-memory.sh`), và bộ công cụ tự học đúc kết kỹ năng (`skill-distiller.py`, `promote-skill.py`).
-- `template/`: template Markdown có thể tái sử dụng cho các giai đoạn kỹ thuật.
-- `memory/`: knowledge base có thể tìm kiếm và quản lý bằng version control.
-- `outputs/`: lưu trữ báo cáo, artifacts và test results ngoài worktree theo chuẩn `~/.agents/outputs/<project>/`.
+- `AGENTS.md`: the baseline working contract for the agent.
+- `rules/`: engineering philosophy (The Zen of GitHub in `engineering-philosophy.md`), software development standard, memory policy, security safety, language and the reporting standard (`deliverables-and-reporting.md`); customize `project.md` per repository.
+- `skills/`: capabilities per task type, registered with the agent in use.
+- `mcp/`: MCP configuration and permission guidance.
+- `tools/`: helper tools with deterministic behavior.
+- `scripts/`: automation for global initialization (`init-global.sh`), project initialization (`init-project.sh`), health checks (`doctor.sh`), memory search (`search-memory.sh`), and the self-learning skill distillation toolset (`skill-distiller.py`, `promote-skill.py`).
+- `template/`: reusable Markdown templates for each engineering phase.
+- `memory/`: a knowledge base that can be searched and version-controlled.
+- `outputs/`: storage for reports, artifacts and test results outside the worktree, per `~/.agents/outputs/<project>/`.
 
-Không mặc định rằng công cụ sẽ tự phát hiện mọi thư mục. Hãy đăng ký skill/MCP hoặc cấu hình adapter cho file chỉ dẫn theo cơ chế riêng của agent đó.
+Do not assume a tool auto-discovers every directory. Register skills/MCP or configure an adapter for the instruction file using that agent's own mechanism.

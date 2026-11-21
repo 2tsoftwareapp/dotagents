@@ -72,7 +72,7 @@ WAL mode resolves busy locking.
         cmd_neg = ["python3", str(SCRIPT_PATH), "locking", "--status", "needs-review"]
         res_neg = subprocess.run(cmd_neg, env=env, capture_output=True, text=True)
         assert res_neg.returncode == 0
-        assert "Không có kết quả phù hợp" in res_neg.stdout
+        assert "No matching results." in res_neg.stdout
 
         # 3. Add superseded entry outside archive/
         sup_file = mem_dir / "2026-10-24-bugfix-old-lock.md"
@@ -95,7 +95,7 @@ locking obsolete workaround
         # Without --archive and without explicit --status, superseded must be excluded by default
         cmd_default = ["python3", str(SCRIPT_PATH), "workaround"]
         res_default = subprocess.run(cmd_default, env=env, capture_output=True, text=True)
-        assert "Không có kết quả phù hợp" in res_default.stdout
+        assert "No matching results." in res_default.stdout
 
         # With --archive, superseded entry is included
         cmd_arch = ["python3", str(SCRIPT_PATH), "workaround", "--archive"]

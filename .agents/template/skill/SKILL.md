@@ -1,27 +1,27 @@
 ---
-name: ten-skill-kebab-case
-description: Mô tả ngắn gọn skill làm gì và trong trường hợp nào agent phải kích hoạt.
+name: skill-name-kebab-case
+description: Briefly describe what the skill does and when the agent must trigger it.
 ---
-# Tên skill
+# Skill name
 
-## Khi nào dùng
-- Nêu các trigger cụ thể.
+## When to use
+- List the specific triggers.
 
-## Không dùng khi
-- Nêu trường hợp gần giống nhưng cần skill khác.
+## When not to use
+- List similar-looking cases that need a different skill.
 
-## Quy trình
-1. Đọc context/rule cần thiết.
-2. Thực hiện từng bước có thể kiểm chứng.
-3. Chọn template liên quan nếu thực sự cần.
-4. Kiểm tra kết quả và giới hạn.
+## Process
+1. Read the required context/rules.
+2. Carry out each step in a way that can be verified.
+3. Pick the relevant template only if truly needed.
+4. Check the result and its limitations.
 
-## Quy tắc
-- Các điều bắt buộc.
-- Các điều không được làm và lý do khi không hiển nhiên.
+## Rules
+- The mandatory requirements.
+- Prohibited actions and the reason when it is not obvious.
 
-## Điều kiện hoàn tất
-- Tiêu chí có thể quan sát hoặc kiểm chứng.
+## Completion criteria
+- Observable or verifiable criteria.
 
-## Template/tham chiếu liên quan
+## Related templates/references
 - `.agents/template/...`

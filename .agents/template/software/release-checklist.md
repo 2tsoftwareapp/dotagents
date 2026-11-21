@@ -1,36 +1,36 @@
-# Danh sách kiểm tra phát hành: <bản phát hành/thay đổi>
+# Release checklist: <release/change>
 
 - **Version/build:**
-- **Môi trường đích:**
-- **Người phụ trách phát hành:**
-- **Thời gian dự kiến:** YYYY-MM-DD HH:mm TZ
+- **Target environment:**
+- **Release owner:**
+- **Planned time:** YYYY-MM-DD HH:mm TZ
 
-## Trước phát hành
+## Before release
 
-- [ ] Tiêu chí chấp nhận và test quan trọng đã đạt.
-- [ ] Build/artifact/cấu hình đã được review.
-- [ ] Đã kiểm tra migration và tương thích dữ liệu.
-- [ ] Đã kiểm tra feature flag, quyền, secret và chính sách truy cập.
-- [ ] Đã cập nhật changelog/runbook/ghi chú hỗ trợ.
-- [ ] Đã xác nhận phương án backup hoặc khôi phục khi cần.
+- [ ] Acceptance criteria and critical tests pass.
+- [ ] Build/artifact/config reviewed.
+- [ ] Migrations and data compatibility checked.
+- [ ] Feature flags, permissions, secrets, and access policies checked.
+- [ ] Changelog/runbook/support notes updated.
+- [ ] Backup or recovery plan confirmed where needed.
 
-## Triển khai
+## Deployment
 
-- [ ] Các bước deploy:
-- [ ] Ràng buộc thứ tự/migration:
+- [ ] Deploy steps:
+- [ ] Ordering/migration constraints:
 - [ ] Smoke test:
-- [ ] Health indicator/log/metric cần theo dõi:
+- [ ] Health indicators/logs/metrics to watch:
 
 ## Rollback
 
-- **Điều kiện kích hoạt:**
-- **Các bước rollback:**
-- **Lưu ý về dữ liệu/schema:**
-- **Người quyết định:**
+- **Trigger conditions:**
+- **Rollback steps:**
+- **Data/schema notes:**
+- **Decision owner:**
 
-## Sau phát hành
+## After release
 
-- [ ] Đã kiểm tra luồng người dùng cốt lõi.
-- [ ] Đã kiểm tra error rate/latency/tín hiệu nghiệp vụ.
-- [ ] Đã ghi lại lỗi đã biết và người phụ trách theo dõi.
-- [ ] Cập nhật memory nếu release phát hiện kiến thức vận hành có thể tái sử dụng.
+- [ ] Core user flows checked.
+- [ ] Error rate/latency/business signals checked.
+- [ ] Known issues and their owners recorded.
+- [ ] Memory updated if the release surfaced reusable operational knowledge.

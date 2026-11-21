@@ -1,29 +1,29 @@
-# Tổng kết cải tiến kỹ thuật (retrospective): <project/mốc công việc>
+# Engineering retrospective: <project/milestone>
 
-- **Giai đoạn:**
-- **Người tham gia:**
+- **Period:**
+- **Participants:**
 
-## Kết quả
+## Results
 
-- Kết quả dự kiến so với thực tế:
-- Bằng chứng/chỉ số:
+- Expected vs. actual results:
+- Evidence/metrics:
 
-## Tiếp tục duy trì
+## Keep doing
 
-Các thực hành đã giúp ích và lý do.
+Practices that helped and why.
 
-## Cải thiện
+## Improve
 
-Điểm gây trở ngại, nguyên nhân và ảnh hưởng cụ thể.
+Friction points, their causes, and concrete impact.
 
-## Hành động
+## Actions
 
-| Hành động | Tác động kỳ vọng | Người phụ trách | Hạn | Cách đo thành công |
+| Action | Expected impact | Owner | Due | How success is measured |
 |---|---|---|---|---|
 | | | | | |
 
-## Đúc kết kiến thức
+## Distilling knowledge
 
-- Memory hiện có cần cập nhật:
-- Bài học mới đáng lưu:
-- Bài học không cần lưu (chỉ dùng một lần/tạm thời):
+- Existing memory to update:
+- New lessons worth saving:
+- Lessons not worth saving (one-off/temporary):

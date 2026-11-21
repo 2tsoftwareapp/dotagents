@@ -1,45 +1,45 @@
-# Tổng kết sau sự cố (postmortem): <tiêu đề sự cố>
+# Incident postmortem: <incident title>
 
-- **Khoảng thời gian:**
-- **Mức độ / ảnh hưởng:**
-- **Service/feature bị ảnh hưởng:**
-- **Người điều phối incident:**
-- **Trạng thái:** Bản nháp | Đã review | Đã theo dõi việc tiếp theo
+- **Time window:**
+- **Severity / impact:**
+- **Affected service/feature:**
+- **Incident commander:**
+- **Status:** Draft | Reviewed | Follow-up tracked
 
-## Ảnh hưởng
+## Impact
 
-Người dùng/hệ thống đã gặp vấn đề gì; phạm vi, thời lượng và tác động có thể đo lường.
+What users/systems experienced; scope, duration, and measurable impact.
 
-## Dòng thời gian (UTC hoặc ghi rõ múi giờ)
+## Timeline (UTC, or state the timezone)
 
-| Thời gian | Sự kiện / quan sát | Hành động / quyết định |
+| Time | Event / observation | Action / decision |
 |---|---|---|
 | | | |
 
-## Phát hiện và ứng phó
+## Detection and response
 
-- Phát hiện bằng cách nào:
-- Điều gì giúp/cản trở chẩn đoán:
-- Giảm thiểu và khôi phục:
+- How it was detected:
+- What helped/hindered diagnosis:
+- Mitigation and recovery:
 
-## Nguyên nhân gốc và yếu tố góp phần
+## Root cause and contributing factors
 
-Phân biệt chuỗi nguyên nhân đã xác nhận với các điều kiện góp phần và điều chưa biết. Tập trung vào hệ thống, không quy trách nhiệm cá nhân.
+Separate the confirmed causal chain from contributing conditions and unknowns. Focus on systems, not individual blame.
 
-## Điều làm tốt / cần cải thiện
+## What went well / what to improve
 
-- Làm tốt:
-- Có thể cải thiện:
+- Went well:
+- Could improve:
 
-## Hành động tiếp theo
+## Follow-up actions
 
-| Hành động | Loại (phòng ngừa/phát hiện/giảm thiểu) | Người phụ trách | Hạn | Ưu tiên |
+| Action | Type (prevention/detection/mitigation) | Owner | Due | Priority |
 |---|---|---|---|---|
 | | | | | |
 
-## Kiểm chứng và phòng ngừa
+## Verification and prevention
 
-- Cách xác minh bản sửa:
-- Thay đổi monitoring/alert:
-- Thay đổi runbook/thiết kế/test:
-- [ ] Lưu bài học đã che dữ liệu nhạy cảm vào memory khi phù hợp.
+- How to verify the fix:
+- Monitoring/alert changes:
+- Runbook/design/test changes:
+- [ ] Save the lesson, with sensitive data redacted, to memory when appropriate.

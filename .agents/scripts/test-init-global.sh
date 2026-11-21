@@ -4,9 +4,9 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-echo "Chạy integration test cho init-global.sh..."
+echo "Running integration test for init-global.sh..."
 
-# Đảm bảo thư mục tạm hoạt động ổn định trên mọi môi trường
+# Ensure the temp directory works reliably in every environment
 if [[ -z "${TMPDIR:-}" ]]; then
   if mkdir -p "$HOME/.cache/tmp" 2>/dev/null; then
     export TMPDIR="$HOME/.cache/tmp"
@@ -17,67 +17,67 @@ TEMP_TARGET="$(mktemp -d)"
 SANDBOX="$(mktemp -d)"
 trap 'rm -rf "$TEMP_TARGET" "$SANDBOX"' EXIT
 
-# Scenario 1: Đã có sẵn file custom AGENTS.md và rules/language.md
+# Scenario 1: custom AGENTS.md and rules/language.md already exist
 mkdir -p "$TEMP_TARGET/rules"
 echo "# CUSTOM GLOBAL AGENTS" > "$TEMP_TARGET/AGENTS.md"
 echo "# CUSTOM LANGUAGE RULES" > "$TEMP_TARGET/rules/language.md"
 
-# Chạy init-global.sh vào thư mục đích
+# Run init-global.sh into the target directory
 "$SCRIPT_DIR/init-global.sh" "$TEMP_TARGET"
 
-# Kiểm tra an toàn: không ghi đè file có sẵn khi không có --force
+# Safety check: existing files are not overwritten without --force
 if ! grep -q "CUSTOM GLOBAL AGENTS" "$TEMP_TARGET/AGENTS.md"; then
-  echo "FAIL: AGENTS.md bị ghi đè khi không dùng --force!" >&2
+  echo "FAIL: AGENTS.md was overwritten without --force!" >&2
   exit 1
 fi
 if ! grep -q "CUSTOM LANGUAGE RULES" "$TEMP_TARGET/rules/language.md"; then
-  echo "FAIL: rules/language.md bị ghi đè khi không dùng --force!" >&2
+  echo "FAIL: rules/language.md was overwritten without --force!" >&2
   exit 1
 fi
 
-# Scenario 2: Kiểm tra cấu trúc phẳng (không bị lồng .agents/.agents)
+# Scenario 2: check the flat structure (no nested .agents/.agents)
 if [[ -d "$TEMP_TARGET/.agents" ]]; then
-  echo "FAIL: init-global tạo thư mục con .agents/ bên trong global target!" >&2
+  echo "FAIL: init-global created a .agents/ subdirectory inside the global target!" >&2
   exit 1
 fi
 
-# Kiểm tra các thư mục cốt lõi nằm trực tiếp dưới TARGET
+# Check that the core directories sit directly under TARGET
 for dir in rules skills scripts template memory; do
   if [[ ! -d "$TEMP_TARGET/$dir" ]]; then
-    echo "FAIL: thiếu thư mục $dir trong global target!" >&2
+    echo "FAIL: missing directory $dir in the global target!" >&2
     exit 1
   fi
 done
 
-# Scenario 3: rules/project.md không được copy vào global
+# Scenario 3: rules/project.md must not be copied into global
 if [[ -f "$TEMP_TARGET/rules/project.md" ]]; then
-  echo "FAIL: rules/project.md (chỉ dành cho per-project) bị copy vào global target!" >&2
+  echo "FAIL: rules/project.md (per-project only) was copied into the global target!" >&2
   exit 1
 fi
 
-# Scenario 4: Không copy artifact rác/pycache
+# Scenario 4: no junk artifacts/pycache copied
 if find "$TEMP_TARGET" -name '*.pyc' -o -name '__pycache__' | grep -q .; then
-  echo "FAIL: init-global sao chép cả artifact rác/pycache vào target!" >&2
+  echo "FAIL: init-global copied junk artifacts/pycache into the target!" >&2
   exit 1
 fi
 
-# Scenario 5: Chạy doctor.sh trên thư mục global vừa khởi tạo
+# Scenario 5: run doctor.sh on the freshly initialized global directory
 "$TEMP_TARGET/scripts/doctor.sh"
 
-# Scenario 6: Test đường dẫn tương đối trong sandbox
+# Scenario 6: test a relative path inside the sandbox
 (
   cd "$SANDBOX"
   "$SCRIPT_DIR/init-global.sh" "my_relative_global"
   if [[ ! -f "my_relative_global/AGENTS.md" || ! -d "my_relative_global/rules" ]]; then
-    echo "FAIL: init-global thất bại với relative destination path!" >&2
+    echo "FAIL: init-global failed with a relative destination path!" >&2
     exit 1
   fi
 )
 
-# Scenario 7: Test --force ghi đè file có sẵn
+# Scenario 7: --force overwrites existing files
 "$SCRIPT_DIR/init-global.sh" --force "$TEMP_TARGET"
 if grep -q "CUSTOM GLOBAL AGENTS" "$TEMP_TARGET/AGENTS.md"; then
-  echo "FAIL: --force không ghi đè AGENTS.md!" >&2
+  echo "FAIL: --force did not overwrite AGENTS.md!" >&2
   exit 1
 fi
 

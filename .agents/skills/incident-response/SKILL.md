@@ -1,33 +1,33 @@
 ---
 name: incident-response
-description: "Điều phối xử lý sự cố đang ảnh hưởng dịch vụ hoặc người dùng: xác định phạm vi, giảm tác động, cập nhật trạng thái, khôi phục và thực hiện postmortem."
+description: "Coordinate handling of an incident affecting a service or its users: establish scope, reduce impact, post status updates, recover and run a postmortem."
 ---
-# Ứng phó sự cố
+# Incident response
 
-## Khi nào dùng
-- Production/service đang lỗi, suy giảm, mất dữ liệu, lỗi giao dịch hoặc tác động người dùng đang tiếp diễn.
+## When to use
+- Production/service is failing, degraded, losing data, erroring on transactions, or user impact is ongoing.
 
-## Không dùng khi
-- Bug chưa phát hành và không ảnh hưởng hệ thống đang chạy → `bug-investigation`.
+## When not to use
+- The bug is unreleased and does not affect a running system → `bug-investigation`.
 
-## Quy trình
-1. Xác định tác động, thời điểm bắt đầu, hệ thống/phân khúc bị ảnh hưởng và mức độ tin cậy của dữ liệu hiện có.
-2. Ưu tiên biện pháp giảm tác động an toàn, có thể đảo ngược: rollback, disable feature, traffic shift hoặc mitigation phù hợp.
-3. Phân công vai trò/đầu mối nếu có; giữ timeline sự kiện, quyết định và cập nhật trạng thái rõ ràng.
-4. Thu thập log/metric/trace đã lọc dữ liệu nhạy cảm; phân biệt xác nhận và giả thuyết.
-5. Không thực hiện thay đổi phá hủy hoặc sửa dữ liệu hàng loạt nếu chưa có backup, kế hoạch và quyền phù hợp.
-6. Xác minh dịch vụ đã khôi phục bằng các chỉ số và luồng nghiệp vụ liên quan, không chỉ dựa vào việc trang chủ mở được.
-7. Sau khi ổn định, dùng `incident-postmortem.md` để ghi tác động, timeline, nguyên nhân, yếu tố góp phần và action item có owner/điều kiện hoàn tất.
-8. Chuyển bài học lâu dài sang `memory-curation` khi nó hữu ích cho sự cố tương tự.
+## Process
+1. Establish the impact, start time, affected systems/segments and how reliable the available data is.
+2. Prioritize safe, reversible impact-reduction measures: rollback, feature disable, traffic shift or an appropriate mitigation.
+3. Assign roles/points of contact if available; keep a timeline of events and decisions and post clear status updates.
+4. Collect redacted logs/metrics/traces; separate confirmation from hypothesis.
+5. Do not make destructive changes or bulk-edit data without a backup, a plan and the proper authority.
+6. Verify the service has recovered using the relevant indicators and business flows, not just the fact that the homepage loads.
+7. Once stable, use `incident-postmortem.md` to record impact, timeline, cause, contributing factors and action items with an owner/completion condition.
+8. Pass durable lessons to `memory-curation` when they help with similar incidents.
 
-## Quy tắc
-- Khôi phục dịch vụ và bảo vệ dữ liệu quan trọng hơn việc tìm thủ phạm.
-- Không ghi secret, token hoặc dữ liệu người dùng không cần thiết vào báo cáo.
-- Không khẳng định nguyên nhân cuối cùng trước khi có bằng chứng đủ mạnh.
-- Action item phải kiểm tra được, tránh mục tiêu chung chung như “cẩn thận hơn”.
+## Rules
+- Restoring service and protecting important data outranks finding someone to blame.
+- Do not write secrets, tokens or unnecessary user data into reports.
+- Do not assert a final cause before the evidence is strong enough.
+- Action items must be checkable; avoid vague goals such as "be more careful".
 
-## Điều kiện hoàn tất
-- Tác động đã được chặn/khôi phục hoặc trạng thái còn ảnh hưởng được công bố; postmortem và hành động tiếp theo có người phụ trách khi phù hợp.
+## Completion criteria
+- The impact is stopped/recovered or the remaining impact is disclosed; the postmortem and follow-up actions have an owner where appropriate.
 
-## Template liên quan
+## Related templates
 `.agents/template/software/incident-postmortem.md`

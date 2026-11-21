@@ -1,38 +1,38 @@
-# ADR-<number>: <tiêu đề quyết định>
+# ADR-<number>: <decision title>
 
-- **Trạng thái:** Đề xuất | Đã chấp nhận | Đã được thay thế | Bị từ chối
-- **Ngày:** YYYY-MM-DD
-- **Người chịu trách nhiệm quyết định:**
-- **Thay thế / bị thay thế bởi:**
+- **Status:** Proposed | Accepted | Superseded | Rejected
+- **Date:** YYYY-MM-DD
+- **Decision owner:**
+- **Supersedes / superseded by:**
 
-## Bối cảnh
+## Context
 
-Vấn đề, các yếu tố tác động, ràng buộc và lý do cần đưa ra quyết định vào thời điểm này.
+The problem, the forces at play, the constraints, and why a decision is needed now.
 
-## Quyết định
+## Decision
 
-Nêu phương án được chọn trong một đoạn rõ ràng.
+State the chosen option in one clear paragraph.
 
-## Các phương án đã cân nhắc
+## Options considered
 
-| Phương án | Ưu điểm | Nhược điểm / rủi ro | Lý do |
+| Option | Pros | Cons / risks | Rationale |
 |---|---|---|---|
-| Được chọn | | | |
-| Thay thế | | | |
+| Chosen | | | |
+| Alternative | | | |
 
-## Hệ quả
+## Consequences
 
-- Tích cực:
-- Tiêu cực / trade-off:
-- Ảnh hưởng vận hành / bảo mật:
-- Ảnh hưởng migration / tương thích:
+- Positive:
+- Negative / trade-offs:
+- Operational / security impact:
+- Migration / compatibility impact:
 
-## Kiểm chứng và điều kiện xem xét lại
+## Verification and revisit conditions
 
-- Bằng chứng/test/prototype:
-- Xem xét lại khi:
+- Evidence/tests/prototype:
+- Revisit when:
 
-## Tài liệu tham khảo
+## References
 
-- Code/tài liệu/issues/ADR khác:
-- [ ] Tạo/cập nhật memory ngắn gọn nếu quyết định này có khả năng cần tra cứu trong công việc tương lai.
+- Code/docs/issues/other ADRs:
+- [ ] Create/update a short memory entry if this decision is likely to be looked up in future work.

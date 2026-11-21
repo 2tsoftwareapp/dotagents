@@ -1,40 +1,40 @@
 ---
 name: software-lifecycle
-description: "Điều phối vòng đời phát triển phần mềm từ phân loại yêu cầu đến triển khai, kiểm chứng, review, release và đúc kết memory. Dùng khi người dùng yêu cầu xây feature, sửa lỗi, refactor, thay đổi kiến trúc hoặc hoàn thành một task phần mềm nhiều bước."
+description: "Orchestrate the software development lifecycle from request classification through implementation, verification, review, release and memory distillation. Use when the user asks to build a feature, fix a bug, refactor, change architecture or complete a multi-step software task."
 ---
-# Điều phối vòng đời phát triển phần mềm
+# Software development lifecycle orchestration
 
-## Khi nào dùng
-- Task có nhiều bước hoặc có thể ảnh hưởng đến nhiều thành phần.
-- Cần chọn đúng skill và template mà không nạp toàn bộ quy trình không cần thiết.
+## When to use
+- The task has many steps or may affect multiple components.
+- You need to pick the right skill and template without loading the entire process unnecessarily.
 
-## Không dùng khi
-- Câu hỏi thuần giải thích, không yêu cầu thay đổi repository.
-- Một chỉnh sửa cực nhỏ đã có quy trình rõ; vẫn tuân thủ memory search, kiểm chứng và review diff phù hợp.
+## When not to use
+- A purely explanatory question that requires no repository change.
+- A tiny edit with an obvious process; still follow memory search, verification and appropriate diff review.
 
-## Quy trình
-1. Đọc `.agents/AGENTS.md`, rule áp dụng và `.agents/skills/README.md`.
-2. Phân loại mức độ: **nhỏ** (đổi cục bộ, rủi ro thấp), **vừa** (nhiều file hoặc thêm hành vi), **lớn/rủi ro cao** (kiến trúc, auth, dữ liệu, migration, bảo mật, production).
-3. Với task kỹ thuật đáng kể, tìm memory trước theo `.agents/rules/memory-policy.md`; tìm project trước, global sau. Xác minh entry với code và phiên bản hiện tại.
-4. Chọn skill theo bảng trong `.agents/skills/README.md`. Chỉ nạp các skill liên quan; có thể xếp chuỗi nhiều skill theo thứ tự công việc.
-5. Chọn template tương xứng. Template là nguồn để khởi tạo tài liệu, không phải file cần chỉnh trực tiếp. Nếu tạo tài liệu, sao chép template vào vị trí tài liệu theo quy ước repo.
-6. Thực hiện thay đổi theo phạm vi; không tự mở rộng yêu cầu khi chưa có lý do.
-7. Chạy kiểm chứng phù hợp, xem diff, xử lý phát hiện quan trọng rồi quyết định có cần memory/handoff/release không.
-8. Báo rõ kết quả, lệnh đã chạy, kiểm tra chưa chạy, giả định và rủi ro còn lại.
+## Process
+1. Read `.agents/AGENTS.md`, the applicable rules and `.agents/skills/README.md`.
+2. Classify the size: **small** (local change, low risk), **medium** (multiple files or new behavior), **large/high risk** (architecture, auth, data, migration, security, production).
+3. For significant technical tasks, search memory first per `.agents/rules/memory-policy.md`; search project first, global second. Verify entries against the current code and version.
+4. Choose skills from the table in `.agents/skills/README.md`. Load only the relevant skills; you can chain several skills in work order.
+5. Choose a matching template. Templates are sources for creating documents, not files to edit directly. If you produce a document, copy the template to the document location per repository conventions.
+6. Make the change within scope; do not expand the requirements without a reason.
+7. Run appropriate verification, review the diff, address important findings, then decide whether memory/handoff/release is needed.
+8. Report the outcome clearly, the commands run, the checks not run, assumptions and remaining risks.
 
-## Quy tắc chọn quy trình
-- Bug → `bug-investigation` → `testing-validation` → `code-review` → `memory-curation` nếu có bài học tái sử dụng.
-- Feature → `requirements-discovery` → `solution-design` khi cần → `implementation` → `testing-validation` → `security-review` nếu có bề mặt rủi ro → `code-review`.
+## Process selection rules
+- Bug → `bug-investigation` → `testing-validation` → `code-review` → `memory-curation` if there are reusable lessons.
+- Feature → `requirements-discovery` → `solution-design` when needed → `implementation` → `testing-validation` → `security-review` if there is risk surface → `code-review`.
 - Refactor → `refactoring` → `testing-validation` → `code-review`.
-- Release → `release-deployment`; khi có sự cố đang diễn ra, ưu tiên `incident-response`.
-- Task chưa xong hoặc chuyển phiên → `handoff-retrospective`.
+- Release → `release-deployment`; when an incident is ongoing, prioritize `incident-response`.
+- Unfinished task or session change → `handoff-retrospective`.
 
-## Cổng chất lượng
-- Không chuyển từ yêu cầu sang triển khai nếu mục tiêu/tiêu chí chấp nhận còn mơ hồ theo cách có thể làm thay đổi giải pháp đáng kể.
-- Không coi task đã xong chỉ vì code đã sửa; cần có bằng chứng kiểm chứng phù hợp hoặc nêu giới hạn.
-- Không chạy lệnh phá hủy, migration production hay thao tác triển khai có ảnh hưởng thật khi chưa có quyền/ủy quyền rõ ràng.
-- Không bắt buộc tạo tài liệu đặc tả cho sửa đổi nhỏ; tránh quy trình hình thức không tạo giá trị.
+## Quality gates
+- Do not move from requirements to implementation while the goal/acceptance criteria remain ambiguous in a way that could significantly change the solution.
+- Do not consider a task done just because the code was edited; you need appropriate verification evidence or a stated limitation.
+- Do not run destructive commands, production migrations or deployment actions with real impact without clear permission/authorization.
+- Do not require a spec document for small edits; avoid formal processes that create no value.
 
-## Đầu ra
-- **File deliverable (khi dùng template):** Toàn bộ nội dung chi tiết theo template (kế hoạch, đặc tả, review, audit, v.v.) phải được ghi thành file Markdown (`.md`) trong repo.
-- **Báo cáo trong Chat:** Chỉ tóm tắt ngắn gọn: kết quả thực hiện, bằng chứng kiểm chứng, blocker/finding chính và đường dẫn file deliverable; không dán toàn bộ nội dung template vào chat.
+## Output
+- **Deliverable file (when using a template):** All detailed template content (plan, spec, review, audit, etc.) must be written to a Markdown file (`.md`) in the repo.
+- **Chat report:** Only a short summary: what was done, verification evidence, main blockers/findings and the deliverable file path; do not paste the whole template content into chat.

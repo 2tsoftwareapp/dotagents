@@ -1,15 +1,15 @@
-# Chỉ mục memory
+# Memory index
 
-> Giữ file này ngắn. Đây là trang điều hướng cho kiến thức quan trọng, không phải danh sách bắt buộc của mọi entry. Toàn bộ corpus có thể được tìm bằng `search-memory.sh`.
+> Keep this file short. It is a navigation page for important knowledge, not a mandatory list of every entry. The whole corpus stays searchable with `search-memory.sh`.
 
-## Entry có giá trị cao
+## High-value entries
 
-| Chủ đề | Loại | Đường dẫn | Xác minh lần cuối | Ghi chú |
+| Topic | Type | Path | Last verified | Notes |
 |---|---|---|---|---|
-| TODO | TODO | TODO | YYYY-MM-DD | Thêm entry có giá trị cao hoặc thường xuyên cần tra cứu |
+| TODO | TODO | TODO | YYYY-MM-DD | Add high-value entries or ones you look up often |
 
-## Quy tắc phạm vi
+## Scope rules
 
-- Memory riêng của project nằm trong `.agents/memory/` của repository.
-- Memory global nằm trong `~/.agents/memory/`.
-- Nếu kiến thức global cần ví dụ cụ thể từ project, giữ ví dụ đó ở memory của project; chỉ nâng cấp phần tổng quát sau khi xác minh khả năng tái sử dụng.
+- Project-specific memory lives in the repository's `.agents/memory/`.
+- Global memory lives in `~/.agents/memory/`.
+- If global knowledge needs a concrete project example, keep that example in project memory; promote only the general part after confirming it is reusable.

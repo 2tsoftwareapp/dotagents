@@ -1,38 +1,38 @@
-# Đánh giá bảo mật
+# Security review
 
-## Thông tin
-- **Thay đổi/phạm vi:**
-- **Ngày:**
-- **Người/agent review:**
-- **Mức rủi ro ban đầu:** Thấp / Trung bình / Cao
+## Information
+- **Change/scope:**
+- **Date:**
+- **Reviewer/agent:**
+- **Initial risk level:** Low / Medium / High
 
-## Tài sản và trust boundary
-- Dữ liệu/tài sản cần bảo vệ:
-- Actor và quyền liên quan:
-- Trust boundary:
+## Assets and trust boundaries
+- Data/assets to protect:
+- Actors and relevant permissions:
+- Trust boundaries:
 
-## Kiểm tra
-- [ ] Xác thực và phân quyền phía server
-- [ ] Kiểm tra quyền trên từng tài nguyên/tenant
-- [ ] Validation/normalization dữ liệu đầu vào
-- [ ] Secret, log, lỗi trả về và dữ liệu nhạy cảm
-- [ ] File, URL, webhook hoặc tích hợp bên ngoài (nếu liên quan)
-- [ ] Dependency và cấu hình runtime (nếu liên quan)
-- [ ] Migration, default permission và rollback (nếu liên quan)
-- [ ] Negative test cho truy cập bị từ chối và input không hợp lệ
+## Checks
+- [ ] Server-side authentication and authorization
+- [ ] Per-resource/tenant permission checks
+- [ ] Input validation/normalization
+- [ ] Secrets, logs, error responses, and sensitive data
+- [ ] Files, URLs, webhooks, or external integrations (if relevant)
+- [ ] Dependencies and runtime configuration (if relevant)
+- [ ] Migrations, default permissions, and rollback (if relevant)
+- [ ] Negative tests for denied access and invalid input
 
 ## Findings
-| Mức độ | Vị trí | Điều kiện xảy ra | Tác động | Khuyến nghị | Trạng thái |
+| Severity | Location | Trigger conditions | Impact | Recommendation | Status |
 |---|---|---|---|---|---|
 
-## Bằng chứng
-- Lệnh/test đã chạy:
-- Kết quả:
-- Phần chưa kiểm tra và lý do:
+## Evidence
+- Commands/tests run:
+- Results:
+- Not yet checked and why:
 
-## Kết luận
-- [ ] Không phát hiện vấn đề trong phạm vi đã kiểm tra
-- [ ] Có finding cần xử lý
-- [ ] Có rủi ro được chấp nhận bởi người có thẩm quyền
+## Conclusion
+- [ ] No issues found within the checked scope
+- [ ] Findings require action
+- [ ] Risk accepted by an authorized person
 
-**Giới hạn của đánh giá:**
+**Review limitations:**

@@ -1,62 +1,62 @@
 ---
 schema_version: 1
 id: "MEM-YYYYMMDD-short-topic"
-title: "Một câu ngắn gọn, rõ ràng và dễ tìm kiếm"
+title: "One short, clear, easy-to-search sentence"
 type: bugfix # bugfix | decision | pattern | workflow | environment
 scope: project # project | global
 status: needs-review # active | needs-review | superseded | archived
 created: "YYYY-MM-DD"
 updated: "YYYY-MM-DD"
-verified_on: "YYYY-MM-DD" # dùng "unknown" nếu chưa xác minh
+verified_on: "YYYY-MM-DD" # use "unknown" if not verified
 confidence: medium # high | medium | low
 tags: [subsystem, symptom, technology]
 applies_to:
-  repo: "tên repository hoặc any"
+  repo: "repository name or any"
   stack: "framework/runtime"
-  versions: "phạm vi phiên bản đã biết hoặc unknown"
+  versions: "known version range or unknown"
 sources:
   - "path/to/file.ts"
-  - "URL hoặc ID của PR/issue/commit/tài liệu"
+  - "URL or ID of the PR/issue/commit/doc"
 related: []
 supersedes: null
 ---
 
-# Tóm tắt
+# Summary
 
-Nêu bài học có thể tái sử dụng trong 1–3 câu. Kỹ sư/agent tương lai cần biết gì trước khi thực hiện công việc này?
+State the reusable lesson in 1–3 sentences. What does a future engineer/agent need to know before doing this work?
 
-## Khi nào áp dụng
+## When to apply
 
-- Triệu chứng, điều kiện kích hoạt, subsystem bị ảnh hưởng và môi trường/phiên bản liên quan.
-- Điều kiện mà hướng dẫn này **không** áp dụng.
+- Symptoms, trigger conditions, affected subsystem, and related environment/version.
+- Conditions where this guidance does **not** apply.
 
-## Bối cảnh và bằng chứng
+## Context and evidence
 
-- **Quan sát được:** điều đã thấy, kèm đường dẫn file/error/metric khi phù hợp.
-- **Đã xác nhận:** sự thật được hỗ trợ bởi việc tái hiện, test, source hoặc bằng chứng runtime.
-- **Giả thuyết:** ghi rõ điều chưa xác nhận hoặc bỏ qua nếu không hữu ích.
+- **Observed:** what was seen, with file paths/errors/metrics where relevant.
+- **Confirmed:** facts supported by reproduction, tests, source, or runtime evidence.
+- **Hypothesis:** state what is unconfirmed, or omit if not useful.
 
-## Nguyên nhân gốc / quyết định
+## Root cause / decision
 
-Giải thích cơ chế gây ra vấn đề hoặc quyết định quan trọng. Không chỉ lặp lại mô tả tác vụ.
+Explain the mechanism behind the problem or the important decision. Do not just restate the task description.
 
-## Cách xử lý / quy trình đề xuất
+## Resolution / recommended procedure
 
-1. Bước hoặc thay đổi cần thực hiện.
-2. Bước hoặc thay đổi cần thực hiện.
-3. Lưu ý quan trọng về tương thích, giới hạn hoặc rollback.
+1. Step or change to make.
+2. Step or change to make.
+3. Important note on compatibility, limitations, or rollback.
 
-## Kiểm chứng
+## Verification
 
-- **Lệnh/kịch bản:** `lệnh chính xác hoặc cách kiểm tra có thể lặp lại`
-- **Kỳ vọng:** kết quả thành công cần có.
-- **Kết quả:** pass/fail/chưa chạy, kèm ngày và phiên bản liên quan.
+- **Command/script:** `exact command or repeatable check`
+- **Expected:** the successful result.
+- **Result:** pass/fail/not run, with date and relevant version.
 
-## Phương án thay thế và cạm bẫy
+## Alternatives and pitfalls
 
-- Phương án đã thử/cân nhắc và lý do loại bỏ, nếu thông tin này giúp tránh lặp lại công sức vô ích.
-- Giới hạn đã biết hoặc trường hợp giải pháp không an toàn/không phù hợp.
+- Options tried/considered and why they were rejected, if this helps avoid repeating wasted effort.
+- Known limitations or cases where the solution is unsafe/unsuitable.
 
-## Lịch sử thay đổi
+## Change history
 
-- YYYY-MM-DD — Tạo mới hoặc cập nhật đáng kể; nêu nội dung đã kiểm chứng lại.
+- YYYY-MM-DD — Created or significantly updated; state what was re-verified.

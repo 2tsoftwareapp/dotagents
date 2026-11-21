@@ -1,3 +1,3 @@
-# Quy trình (workflows)
+# Workflows
 
-Mỗi entry mô tả quy trình có thể lặp lại cùng đầu ra mong đợi và cách kiểm chứng kết quả.
+Each entry describes a repeatable procedure along with the expected output and how to verify the result.

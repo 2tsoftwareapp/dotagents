@@ -1,18 +1,18 @@
-# `dotagents` — Bộ khung workflow và memory cho AI coding agent
+# `dotagents` — Workflow and memory framework for AI coding agents
 
-Mục tiêu là biến memory thành **knowledge base có thể tìm kiếm, kiểm chứng, cập nhật và quản lý bằng version control**, thay vì ghi lại mọi thứ một cách tự động.
+The goal is to turn memory into a **knowledge base that can be searched, verified, updated and version-controlled**, instead of dumping everything automatically.
 
-> ### ⚡ Cài đặt nhanh trong 1 lệnh Prompt (One-Prompt Setup)
+> ### ⚡ One-Prompt Setup
 >
-> Chọn prompt phù hợp với nhu cầu và gửi cho AI coding agent của bạn (Claude Code, Cursor, Windsurf, Roo-Code, Omp, Codex...):
+> Pick the prompt that fits your need and send it to your AI coding agent (Claude Code, Cursor, Windsurf, Roo-Code, Omp, Codex...):
 >
-> #### 🌐 Prompt 1: Cài đặt Toàn cục (Global Setup — chạy 1 lần duy nhất cho máy)
-> Thiết lập bộ khung `~/.agents/` làm nền tảng quy chuẩn, skills và global memory dùng chung cho mọi dự án:
+> #### 🌐 Prompt 1: Global setup (run once per machine)
+> Set up the `~/.agents/` framework as the shared baseline, skill set and global memory for every project:
 >
 > ````markdown
-> Hãy cài đặt bộ khung toàn cục `dotagents` vào máy:
+> Install the global `dotagents` framework on this machine:
 >
-> 1. Chạy đoạn bash sau để tải và cài đặt an toàn vào ~/.agents:
+> 1. Run the following bash snippet to download and install safely into ~/.agents:
 > ```bash
 > bash -euo pipefail -c '
 >   TMP_DIR="$(mktemp -d)"
@@ -23,17 +23,17 @@ Mục tiêu là biến memory thành **knowledge base có thể tìm kiếm, ki�
 >   ~/.agents/scripts/doctor.sh
 > '
 > ```
-> 2. Đảm bảo cấu hình agent của bạn đọc file `~/.agents/AGENTS.md` làm Global Instructions.
-> 3. Tóm tắt kết quả kiểm tra từ doctor.sh.
+> 2. Make sure your agent configuration reads `~/.agents/AGENTS.md` as Global Instructions.
+> 3. Summarize the check results from doctor.sh.
 > ````
 >
-> #### 📁 Prompt 2: Tích hợp vào Dự án (Project Setup — chạy trong từng repository)
-> Khởi tạo cấu trúc `.agents/` và `AGENTS.md` cục bộ, đồng thời tự động nhận diện stack kỹ thuật của dự án:
+> #### 📁 Prompt 2: Project setup (run inside each repository)
+> Initialize a local `.agents/` structure and `AGENTS.md`, and detect the technical stack of the project:
 >
 > ````markdown
-> Hãy tích hợp bộ khung `dotagents` vào repository hiện tại:
+> Integrate the `dotagents` framework into the current repository:
 >
-> 1. Chạy đoạn bash sau để tải và cài đặt an toàn:
+> 1. Run the following bash snippet to download and install safely:
 > ```bash
 > bash -euo pipefail -c '
 >   TMP_DIR="$(mktemp -d)"
@@ -44,24 +44,24 @@ Mục tiêu là biến memory thành **knowledge base có thể tìm kiếm, ki�
 >   ./.agents/scripts/doctor.sh
 > '
 > ```
-> 2. Mở file `.agents/rules/project.md` và dựa vào codebase hiện tại (package.json, Cargo.toml, go.mod, README, v.v.) tự động điền các mục: stack kỹ thuật, lệnh test/build/lint và các quy ước nghiệp vụ chính.
-> 3. Chạy lại `./.agents/scripts/doctor.sh` và tóm tắt những file đã được tích hợp.
+> 2. Open `.agents/rules/project.md` and, based on the current codebase (package.json, Cargo.toml, go.mod, README, etc.), fill in: technical stack, test/build/lint commands and the main business conventions.
+> 3. Re-run `./.agents/scripts/doctor.sh` and summarize which files were integrated.
 > ````
-## 1. Nguyên tắc thiết kế
-1. **Một nguồn chuẩn:** quản lý rule, skill, MCP, tool, script, template và memory trong `.agents/`.
-2. **Tìm trước khi làm:** với task kỹ thuật đáng kể, tìm memory project trước rồi global; đọc entry phù hợp và xác minh còn đúng với code/dependency hiện tại.
-3. **Chỉ lưu kiến thức có giá trị lâu dài:** ưu tiên root cause khó nhận biết, lỗi đã giải quyết, quyết định kiến trúc, workaround có điều kiện, lỗi có thể tái diễn hoặc quy trình đã kiểm chứng.
-4. **Bằng chứng quan trọng hơn lời kể:** memory nêu rõ cách xác minh, phạm vi/phiên bản áp dụng và nguồn liên quan.
-5. **Bắt đầu bằng Markdown + Git:** dùng `rg`/`grep` trước. Chỉ thêm vector search, database hoặc memory service khi benchmark chứng minh cách tìm hiện tại không đủ.
-6. **Không lưu bí mật:** không đưa token, mật khẩu, private key, dữ liệu cá nhân hoặc log chứa thông tin nhạy cảm vào memory.
-7. **Ngôn ngữ nhất quán:** nội dung diễn giải mặc định bằng tiếng Việt; định danh kỹ thuật và metadata có cấu trúc giữ nguyên tiếng Anh. Quy tắc chi tiết nằm trong `.agents/rules/language.md`.
-8. **Phân định đầu ra rõ ràng:** Chat chỉ báo cáo tóm tắt ngắn gọn (Executive Summary); toàn bộ báo cáo chi tiết theo template phải xuất thành file Markdown (`.md`) lưu tại `~/.agents/outputs/<project>/reports/` theo quy chuẩn `rules/deliverables-and-reporting.md`, không xả file rác vào repository.
-9. **Triết lý kỹ thuật chuẩn (The Zen of GitHub):** định hình hành vi và chất lượng code dựa trên 14 nguyên tắc cốt lõi: thực tiễn đánh bại thuần khiết (*Practicality beats purity*), kiểm soát phình tính năng (*Anything added dilutes everything else*), không giải pháp nửa vời (*Half measures are as bad as nothing at all*), và thiết kế chịu lỗi (*Design for failure*). Chi tiết tại `.agents/rules/engineering-philosophy.md`.
+## 1. Design principles
+1. **Single source of truth:** keep rules, skills, MCP config, tools, scripts, templates and memory in `.agents/`.
+2. **Search before you work:** for any significant technical task, search project memory first and global memory second; read the matching entry and verify it still holds for the current code and dependencies.
+3. **Store only knowledge with long-term value:** favor hard-to-spot root causes, resolved failures, architecture decisions, conditional workarounds, recurring errors and proven procedures.
+4. **Evidence beats narrative:** memory states how to verify the claim, the applicable scope/version and the related sources.
+5. **Start with Markdown + Git:** use `rg`/`grep` first. Add vector search, a database or a memory service only when a benchmark shows the current search is not enough.
+6. **Never store secrets:** no tokens, passwords, private keys, personal data or logs containing sensitive information in memory.
+7. **Consistent language:** prose defaults to English; technical identifiers and structured metadata stay in English. Detailed rules live in `.agents/rules/language.md`.
+8. **Clear output boundary:** chat carries only a short summary (Executive Summary); every detailed report that follows a template must be written to a Markdown file (`.md`) under `~/.agents/outputs/<project>/reports/` per `rules/deliverables-and-reporting.md`, never dumped into the repository.
+9. **Canonical engineering philosophy (The Zen of GitHub):** shape behavior and code quality on 14 core principles: practicality beats purity, anything added dilutes everything else, half measures are as bad as nothing at all, and design for failure. Details in `.agents/rules/engineering-philosophy.md`.
 
-## 2. Cấu trúc
+## 2. Structure
 
 ```text
-~/.agents/                         # Global: cách làm việc và kiến thức dùng lại được
+~/.agents/                         # Global: how to work, reusable knowledge
 ├── AGENTS.md
 ├── skills/
 ├── rules/
@@ -69,86 +69,86 @@ Mục tiêu là biến memory thành **knowledge base có thể tìm kiếm, ki�
 ├── tools/
 ├── scripts/
 ├── template/
-├── outputs/                       # Lưu trữ báo cáo chuẩn ngoài worktree
+├── outputs/                       # Standard report storage outside the worktree
 │   └── <project>/
-│       ├── reports/               # Báo cáo review, audit, điều tra lỗi, postmortem
-│       ├── artifacts/             # Ảnh screenshot, PDF, Excel test matrix
-│       ├── testresults/           # Log kiểm thử, benchmark, trace
-│       └── notes/                 # Ghi chép kỹ thuật tạm thời trong phiên
+│       ├── reports/               # Review, audit, bug investigation, postmortem reports
+│       ├── artifacts/             # Screenshots, PDF, Excel test matrix
+│       ├── testresults/           # Test logs, benchmarks, traces
+│       └── notes/                 # Temporary technical notes for a session
 └── memory/
     ├── INDEX.md
     ├── entries/{bugfixes,decisions,patterns,workflows,environment}/
     └── archive/YYYY/
 
 <repo>/
-├── AGENTS.md                      # Entry point để agent đọc quy chuẩn
-└── .agents/                       # Quy tắc, template, memory, tool riêng của project
+├── AGENTS.md                      # Entry point where the agent reads the standards
+└── .agents/                       # Project-specific rules, templates, memory, tools
     ├── AGENTS.md
     ├── rules/project.md
     └── memory/...
 ```
 
-Trong bộ mẫu này, các file cấu hình tùy chỉnh nằm dưới `.agents/`; `AGENTS.md` ở root project là **entry point/adapter** để agent phát hiện và đọc các chỉ dẫn đó.
+In this template set, custom configuration lives under `.agents/`; the root `AGENTS.md` is the **entry point/adapter** that lets the agent discover and read those instructions.
 
-### Phân chia global và project
+### Global vs project split
 
-- **Global:** cách làm việc chung, pattern tái sử dụng qua nhiều repository, lỗi/cạm bẫy phổ quát.
-- **Project:** kiến trúc repo, quy ước nghiệp vụ, quyết định riêng, bugfix phụ thuộc code/dependency, lệnh test/build/deploy riêng.
-- Không tự động đưa memory của project lên global. Chỉ nâng cấp khi đã loại bỏ chi tiết nội bộ và xác nhận kiến thức có thể tái sử dụng.
-- Rule cụ thể của project được ưu tiên trong phạm vi project, nhưng không được ghi đè yêu cầu bảo mật hoặc chỉ dẫn có mức ưu tiên cao hơn.
+- **Global:** shared ways of working, patterns reused across repositories, universal pitfalls.
+- **Project:** repository architecture, business conventions, local decisions, bugfixes tied to specific code or dependencies, project-specific test/build/deploy commands.
+- Never promote project memory to global automatically. Promote only after removing internal details and confirming the knowledge is reusable.
+- Project-specific rules take precedence inside the project, but never override security requirements or higher-priority instructions.
 
-## 3. Cài đặt
+## 3. Installation
 
 ### Global
 
-1. Chạy script cài đặt toàn cục: `./.agents/scripts/init-global.sh` (mặc định cài đặt vào `~/.agents/`, an toàn không ghi đè file có sẵn trừ khi truyền `--force`).
-2. Cấu hình agent để đọc `~/.agents/AGENTS.md` theo cơ chế global instruction riêng của công cụ. **Không phải agent nào cũng tự động đọc `~/.agents/`**; `.agents/` là quy ước lưu trữ, không phải cơ chế tự nạp dùng chung cho mọi công cụ.
-3. Chạy `~/.agents/scripts/doctor.sh` để kiểm tra sức khỏe hệ thống.
+1. Run the global installer: `./.agents/scripts/init-global.sh` (installs into `~/.agents/` by default and does not overwrite existing files unless you pass `--force`).
+2. Configure your agent to read `~/.agents/AGENTS.md` using that tool's own global instruction mechanism. **Not every agent reads `~/.agents/` automatically**; `.agents/` is a storage convention, not an auto-loading mechanism shared by all tools.
+3. Run `~/.agents/scripts/doctor.sh` to check system health.
 
-### Mỗi project
+### Per project
 
-1. Chạy script khởi tạo: `./.agents/scripts/init-project.sh <thư-mục-repository>`.
-2. Điền `.agents/rules/project.md`: stack, lệnh kiểm tra, kiến trúc và ràng buộc riêng.
-3. Chạy `./.agents/scripts/doctor.sh` để kiểm tra.
-4. Chạy `git status` để xác nhận chỉ commit file phù hợp. Không đưa credential hoặc dữ liệu nhạy cảm vào repo.
+1. Run the initializer: `./.agents/scripts/init-project.sh <repository-directory>`.
+2. Fill in `.agents/rules/project.md`: stack, verification commands, architecture and local constraints.
+3. Run `./.agents/scripts/doctor.sh` to check.
+4. Run `git status` to confirm you only commit the right files. Never put credentials or sensitive data in the repository.
 
-### Tích hợp công cụ khác
+### Integrating other tools
 
-Nếu công cụ đang dùng không đọc `AGENTS.md`, hãy dùng file instruction/config riêng của công cụ làm adapter ngắn trỏ về cùng một nguồn `.agents/`. Tránh duy trì nhiều bộ quy tắc độc lập. Chỉ dùng symlink khi công cụ và hệ điều hành hỗ trợ ổn định.
+If your tool does not read `AGENTS.md`, use that tool's own instruction/config file as a short adapter pointing at the same `.agents/` source. Avoid maintaining several independent rule sets. Use symlinks only when the tool and operating system support them reliably.
 
-## 4. Skills và template phối hợp với nhau
+## 4. How skills and templates work together
 
-Bộ khung có các skill theo vòng đời: khám phá yêu cầu, thiết kế giải pháp, implement, điều tra bug, kiểm thử, code review, security review, release/deployment, incident response, refactor, memory curation, tự học/đúc kết kỹ năng (`self-learning-loop`) và handoff/retrospective. Xem `.agents/skills/README.md` để chọn skill theo task.
+The framework ships lifecycle skills: requirements discovery, solution design, implementation, bug investigation, testing, code review, security review, release/deployment, incident response, refactoring, memory curation, self-learning skill distillation (`self-learning-loop`) and handoff/retrospective. See `.agents/skills/README.md` to pick a skill per task.
 
-- **Skill** hướng dẫn quy trình hành động, trigger và tiêu chí hoàn tất.
-- **Template** định dạng tài liệu/đầu ra khi thực sự cần.
-- **Rule** nêu ràng buộc cần áp dụng xuyên suốt.
-- **Tự học (Self-learning loop):** sau mỗi lượt gặp lỗi sửa sai hoặc giải quyết bài toán mới, agent tự động trích xuất bài học, kiểm tra trùng lặp và tạo draft skill qua bộ script `skill-distiller.py` và `promote-skill.py`.
+- **Skill** describes the process, triggers and completion criteria.
+- **Template** defines the document/output format for when you actually need one.
+- **Rule** states constraints that apply across the board.
+- **Self-learning loop:** after each round that fixes a mistake or solves a new problem, the agent extracts the lesson, checks for duplicates and creates a skill draft via `skill-distiller.py` and `promote-skill.py`.
 
-Không nạp toàn bộ skill cùng lúc. Chọn skill phù hợp; task nhỏ dùng luồng rút gọn, task lớn/rủi ro cao đi qua các cổng kiểm chứng đầy đủ. Skills phải được agent hỗ trợ và cấu hình đúng thư mục mới tự động phát hiện; chỉ lưu file vào `.agents/skills/` chưa đảm bảo mọi công cụ đã nạp chúng.
+Never load every skill at once. Pick the relevant one; small tasks use the short path, large or high-risk tasks go through the full verification gates. Skills are auto-discovered only when the agent supports them and the directory is configured correctly; dropping files into `.agents/skills/` does not guarantee that every tool has loaded them.
 
-## 5. Quy trình chuẩn
+## 5. Standard workflow
 
 ```text
-Phân loại task
-  → Tìm memory (project → global)
-  → Đọc entry phù hợp và xác minh tính hiện hành
-  → Điều tra / thiết kế / triển khai
-  → Chạy kiểm chứng phù hợp
-  → Cập nhật memory hoặc tự học đúc kết skill mới (self-learning-loop)
-  → Review diff, kiểm tra trạng thái memory và bàn giao
+Classify the task
+  → Search memory (project → global)
+  → Read the matching entry and verify it is still current
+  → Investigate / design / implement
+  → Run the relevant verification
+  → Update memory or distill a new skill via self-learning-loop
+  → Review the diff, check memory state and hand off
 ```
 
-Chi tiết nằm trong `.agents/AGENTS.md`, `.agents/rules/memory-policy.md` và `.agents/rules/software-development.md`.
+Details live in `.agents/AGENTS.md`, `.agents/rules/memory-policy.md` and `.agents/rules/software-development.md`.
 
-## 6. Đo hiệu quả, không đánh giá bằng cảm giác
+## 6. Measure effectiveness, do not judge by feel
 
-Tạo benchmark nhỏ gồm 10–20 câu hỏi/task đã từng gặp và xác định trước entry nào đáng lẽ cần tìm thấy. Đo:
+Build a small benchmark of 10–20 questions/tasks you have actually faced, and decide up front which entry should have been found. Measure:
 
-- **Recall@5:** tỷ lệ case có memory đúng trong 5 kết quả đầu.
-- **Precision@5:** tỷ lệ kết quả trong top 5 thực sự hữu ích.
-- **Adoption rate:** tỷ lệ task liên quan mà agent áp dụng memory đúng.
-- **Stale-memory rate:** tỷ lệ memory lỗi thời/mâu thuẫn với bằng chứng hiện tại khi được truy xuất.
-- **Kết quả:** thời gian điều tra, tỷ lệ giải quyết thành công và mức độ tái diễn lỗi.
+- **Recall@5:** share of cases where the right memory appears in the first 5 results.
+- **Precision@5:** share of results in the top 5 that were genuinely useful.
+- **Adoption rate:** share of relevant tasks where the agent applied the right memory.
+- **Stale-memory rate:** share of retrieved memories that are outdated or contradicted by current evidence.
+- **Outcomes:** investigation time, success rate and recurrence of the same failure.
 
-Dùng `.agents/template/software/memory-evaluation.md` để ghi kết quả. Chỉ nâng cấp search engine khi dữ liệu cho thấy `rg` + taxonomy + metadata không đủ đáp ứng.
+Record results with `.agents/template/software/memory-evaluation.md`. Upgrade the search engine only when the data shows `rg` + taxonomy + metadata is not enough.

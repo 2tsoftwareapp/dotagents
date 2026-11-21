@@ -1,41 +1,41 @@
-# Đánh giá mã (code review): <PR/thay đổi>
+# Code review: <PR/change>
 
-## Mục đích và phạm vi
+## Purpose and scope
 
-- Hành vi mong đợi:
-- Spec/issue liên quan:
-- Nội dung chủ động không đưa vào phạm vi:
+- Expected behavior:
+- Related spec/issue:
+- Explicitly out of scope:
 
-## Tính đúng đắn
+## Correctness
 
-- [ ] Tiêu chí chấp nhận và chuyển trạng thái được đáp ứng.
-- [ ] Đã xem xét edge case, trạng thái rỗng/lỗi/loading, retry và concurrency.
-- [ ] Contract API/schema/event và các caller vẫn tương thích.
+- [ ] Acceptance criteria and state transitions are met.
+- [ ] Edge cases, empty/error/loading states, retries, and concurrency were considered.
+- [ ] API/schema/event contracts and their callers remain compatible.
 
-## Chất lượng và bảo mật
+## Quality and security
 
-- [ ] Tuân theo kiến trúc/pattern hiện có hoặc giải thích rõ ngoại lệ.
-- [ ] Phân quyền, validation, secret và log nhạy cảm được xử lý an toàn.
-- [ ] Xử lý lỗi, khả năng quan sát và hiệu năng phù hợp.
-- [ ] Không có refactor ngoài phạm vi, code chết, sai sót với file sinh tự động hoặc secret vô tình bị thêm.
+- [ ] Follows existing architecture/patterns, or exceptions are clearly explained.
+- [ ] Authorization, validation, secrets, and sensitive logging are handled safely.
+- [ ] Error handling, observability, and performance are appropriate.
+- [ ] No out-of-scope refactors, dead code, mistakes with generated files, or accidentally added secrets.
 
-## Kiểm chứng
+## Verification
 
-- Test/type check/lint/build đã chạy:
-- Kiểm tra chưa chạy và lý do:
-- Bằng chứng thủ công:
+- Tests/type check/lint/build run:
+- Checks not run and why:
+- Manual evidence:
 
-## Phát hiện
+## Findings
 
-| Mức độ | File/dòng | Phát hiện và ảnh hưởng | Thay đổi cần thiết / đề xuất |
+| Severity | File/line | Finding and impact | Required change / suggestion |
 |---|---|---|---|
 
-## Kết luận
+## Conclusion
 
-- [ ] Chấp thuận
-- [ ] Yêu cầu chỉnh sửa
-- [ ] Chờ bổ sung bằng chứng
+- [ ] Approved
+- [ ] Changes requested
+- [ ] Awaiting additional evidence
 
-## Việc tiếp theo
+## Next steps
 
-- [ ] Cập nhật tài liệu/memory/monitoring khi có lý do phù hợp.
+- [ ] Update docs/memory/monitoring when justified.

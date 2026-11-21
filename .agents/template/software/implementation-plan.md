@@ -1,42 +1,42 @@
-# Kế hoạch triển khai: <task>
+# Implementation plan: <task>
 
-- **Spec/issue liên quan:** <link>
-- **Rủi ro:** Thấp | Trung bình | Cao
-- **Người phụ trách:** <tên>
+- **Related spec/issue:** <link>
+- **Risk:** Low | Medium | High
+- **Owner:** <name>
 
-## Hiện trạng
+## Current state
 
-- Module/contract liên quan:
-- Pattern hiện có và memory liên quan đã kiểm tra:
-- Ràng buộc/giả định cần xác minh:
+- Relevant modules/contracts:
+- Existing patterns and related memory checked:
+- Constraints/assumptions to verify:
 
-## Phương án
+## Approach
 
-Mô tả giải pháp nhất quán nhỏ nhất và lý do đáp ứng tiêu chí chấp nhận.
+Describe the smallest coherent solution and why it meets the acceptance criteria.
 
-## Các bước thực hiện
+## Steps
 
-- [ ] Bước 1 — <thay đổi + file/module mục tiêu>
-- [ ] Bước 2 — <thay đổi + file/module mục tiêu>
-- [ ] Bước 3 — test/tài liệu/config/migration nếu phù hợp
+- [ ] Step 1 — <change + target files/modules>
+- [ ] Step 2 — <change + target files/modules>
+- [ ] Step 3 — tests/docs/config/migration as appropriate
 
-## Ảnh hưởng và rủi ro
+## Impact and risks
 
-- Tương thích API/dữ liệu:
-- Phân quyền/bảo mật:
-- Luồng lỗi và edge case:
-- Hiệu năng/observability:
-- Migration, rollout và rollback:
+- API/data compatibility:
+- Authorization/security:
+- Error paths and edge cases:
+- Performance/observability:
+- Migration, rollout, and rollback:
 
-## Kế hoạch kiểm chứng
+## Verification plan
 
 - [ ] Unit:
 - [ ] Integration/e2e:
 - [ ] Lint/type check/build:
-- [ ] Kịch bản nghiệm thu thủ công:
+- [ ] Manual acceptance scenario:
 
-## Điều kiện hoàn thành
+## Completion criteria
 
-- [ ] Tiêu chí chấp nhận đạt.
-- [ ] Kiểm tra liên quan đạt hoặc đã ghi rõ phần bỏ qua.
-- [ ] Đã review diff; cập nhật tài liệu và memory nếu có căn cứ.
+- [ ] Acceptance criteria met.
+- [ ] Relevant checks pass, or skipped parts are explicitly recorded.
+- [ ] Diff reviewed; docs and memory updated where justified.

@@ -1,39 +1,39 @@
 ---
 name: handoff-retrospective
-description: "Bàn giao task chưa hoàn tất giữa phiên/agent/người làm và tổng kết cải tiến sau feature, release hoặc incident. Dùng khi cần tiếp tục công việc an toàn hoặc rút bài học hành động được."
+description: "Hand off unfinished tasks between sessions/agents/people and summarize improvements after a feature, release or incident. Use when work must continue safely or actionable lessons need to be captured."
 ---
-# Bàn giao và retrospective
+# Handoff and retrospective
 
-## Khi nào dùng
-- Task chưa hoàn tất, đổi phiên/agent, cần tiếp tục điều tra hoặc bàn giao cho người khác.
-- Sau feature lớn, thay đổi phức tạp, release hoặc incident khi tổng kết đem lại cải tiến cụ thể.
+## When to use
+- A task is unfinished, the session/agent changes, or the investigation must continue or be handed to someone else.
+- After a large feature, complex change, release or incident when a summary yields concrete improvements.
 
-## Không dùng khi
-- Task nhỏ đã hoàn tất, không có phần dang dở hoặc bài học đáng lưu; chỉ cần summary ngắn.
+## When not to use
+- The task is small and finished, with no loose ends or lessons worth keeping; a short summary is enough.
 
-## Quy trình bàn giao
-1. Ghi mục tiêu, phạm vi, trạng thái hiện tại và thay đổi đã thực hiện.
-2. Nêu file/đường dẫn quan trọng, lệnh đã chạy và kết quả thực tế.
-3. Nêu điều chưa xong, blocker, giả định, rủi ro và bước tiếp theo có thể hành động ngay.
-4. Liệt kê các thay đổi chưa commit hoặc file người dùng đã sửa mà người tiếp theo phải giữ nguyên.
-5. Ghi memory/ADR liên quan nếu có, không sao chép nguyên memory vào handoff.
-6. Dùng `.agents/template/software/handoff.md` khi người tiếp theo cần tiếp tục không đồng bộ.
+## Handoff process
+1. Record the goal, scope, current status and changes already made.
+2. List important files/paths, commands already run and their actual results.
+3. State what is unfinished, blockers, assumptions, risks and next steps that can be acted on immediately.
+4. List uncommitted changes or user-edited files that the next person must preserve.
+5. Note related memory/ADR if any; do not copy memory wholesale into the handoff.
+6. Use `.agents/template/software/handoff.md` when the next person must continue asynchronously.
 
-## Quy trình retrospective
-1. Dựa trên dữ kiện: mục tiêu, kết quả, sai lệch, thời gian chờ, bug, test và rollout.
-2. Ghi điều hiệu quả, điều chưa hiệu quả và nguyên nhân hệ thống; tránh quy trách nhiệm cá nhân.
-3. Chuyển bài học thành action item cụ thể có owner, mức ưu tiên và điều kiện hoàn tất.
-4. Tạo retrospective khi có giá trị; đưa kiến thức bền vững sang memory thay vì lưu nhật ký dài hạn.
+## Retrospective process
+1. Base it on facts: goals, results, deviations, waiting time, bugs, tests and rollout.
+2. Record what worked, what did not, and the systemic causes; avoid assigning personal blame.
+3. Turn lessons into concrete action items with an owner, priority and completion condition.
+4. Create a retrospective when it adds value; move durable knowledge into memory instead of keeping a long-term diary.
 
-## Quy tắc
-- Không ghi “đã xong” nếu còn bước chưa xác minh.
-- Không giả định agent/phiên kế tiếp có thể truy cập hội thoại hiện tại; bàn giao đủ context cần thiết.
-- Không đưa secret vào handoff.
-- Khi dùng template handoff hoặc retrospective, xuất tài liệu thành file `.md`; chat chỉ tóm tắt ngắn gọn việc đã làm, việc tiếp theo và đường dẫn file bàn giao.
+## Rules
+- Do not write "done" if any step remains unverified.
+- Do not assume the next agent/session can access the current conversation; hand off enough context.
+- Do not put secrets in the handoff.
+- When using the handoff or retrospective template, write the document to a `.md` file; chat only summarizes what was done, what comes next and the handoff file path.
 
-## Điều kiện hoàn tất
-- Người nhận biết chính xác trạng thái, việc tiếp theo và các rủi ro; retrospective có hành động theo dõi rõ ràng.
+## Completion criteria
+- The recipient knows exactly the status, next steps and risks; the retrospective has clear follow-up actions.
 
-## Template liên quan
+## Related templates
 - `.agents/template/software/handoff.md`
 - `.agents/template/software/retrospective.md`

@@ -1,102 +1,102 @@
-# Quy chuẩn xuất bản báo cáo và quản lý deliverable
+# Report publishing and deliverable management standard
 
-Mọi tác vụ phân tích, review, audit, điều tra lỗi, lập kế hoạch hoặc bàn giao đều phải tuân thủ cấu trúc lưu trữ và quy ước xuất bản dưới đây. Tuyệt đối không tạo file báo cáo rải rác, không rõ nguồn gốc trong repository.
+Every analysis, review, audit, bug investigation, planning or handoff task must follow the storage structure and publishing conventions below. Never create loose report files of unclear origin inside the repository.
 
 ---
 
-## 1. Phân loại tài liệu: Trong Repo (In-Tree) vs Ngoài Repo (Out-of-Tree)
+## 1. Document classification: in-tree vs out-of-tree
 
-Không phải mọi tài liệu do Agent tạo ra đều được lưu trong git repository. Phải phân định rõ:
+Not every document the agent produces belongs in the Git repository. Draw the line clearly:
 
-| Nhóm | Loại tài liệu | Vị trí lưu trữ | Quản lý Git |
+| Group | Document types | Storage location | Git management |
 |---|---|---|---|
-| **In-Tree (Tài liệu dự án)** | ADR, đặc tả nghiệp vụ (`feature-spec`), tài liệu kiến trúc dài hạn, memory dự án | `docs/adr/`, `docs/specs/`, `.agents/memory/entries/` | Commit cùng mã nguồn trong PR/MR |
-| **Out-of-Tree (Báo cáo & Artifacts)** | Báo cáo review diff/PR, audit bảo mật, điều tra lỗi, bằng chứng test, log chạy máy, handoff phiên | `~/.agents/outputs/<project-name>/` | **Không commit vào git** (trừ khi dự án có quy định thư mục báo cáo riêng) |
+| **In-tree (project documents)** | ADRs, business specs (`feature-spec`), long-lived architecture documents, project memory | `docs/adr/`, `docs/specs/`, `.agents/memory/entries/` | Committed with the code in the PR/MR |
+| **Out-of-tree (reports & artifacts)** | Diff/PR review reports, security audits, bug investigations, test evidence, machine run logs, session handoffs | `~/.agents/outputs/<project-name>/` | **Never committed to git** (unless the project defines its own report directory) |
 
 ---
 
-## 2. Cấu trúc lưu trữ chuẩn cho Báo cáo (Out-of-Tree)
+## 2. Standard storage structure for reports (out-of-tree)
 
-Khi tạo báo cáo, đánh giá hoặc artifact không thuộc tài liệu mã nguồn dài hạn, vị trí lưu trữ mặc định là:
-`~/.agents/outputs/<project-name>/` (hoặc thư mục riêng được định nghĩa trong `project.md`).
+When you produce a report, assessment or artifact that is not a long-lived source document, the default location is:
+`~/.agents/outputs/<project-name>/` (or a dedicated directory defined in `project.md`).
 
 ```text
 ~/.agents/outputs/<project-name>/
-├── reports/         # Toàn bộ báo cáo Markdown (code review, security audit, bug investigation, postmortem)
-├── artifacts/       # Bằng chứng nhị phân (ảnh chụp UI/screenshot, PDF, Excel matrix, file xuất)
-├── testresults/     # Log kiểm thử, benchmark, kết quả test chạy tự động, execution trace
-└── notes/           # Ghi chép kỹ thuật nháp, phân tích dữ liệu tạm thời trong phiên
+├── reports/         # Every Markdown report (code review, security audit, bug investigation, postmortem)
+├── artifacts/       # Binary evidence (UI screenshots, PDF, Excel matrix, exported files)
+├── testresults/     # Test logs, benchmarks, automated test output, execution traces
+└── notes/           # Scratch technical notes, temporary data analysis for the session
 ```
 
-> **Nguyên tắc an toàn:** Tuyệt đối không xả file báo cáo tạm, ảnh chụp màn hình, file excel test ra thư mục gốc repository (`./report.md`, `./review.md`, `./evidence.png`). Việc này làm bẩn `git status`, dễ gây commit nhầm file rác vào lịch sử git và gây xung đột khi merge nhánh.
+> **Safety rule:** never dump temporary report files, screenshots or Excel test files into the repository root (`./report.md`, `./review.md`, `./evidence.png`). It dirties `git status`, risks committing junk into git history and causes merge conflicts between branches.
 
 ---
 
-## 3. Quy ước đặt tên file báo cáo (Naming Convention)
+## 3. Report file naming convention
 
-Tên file báo cáo bắt buộc phải theo cấu trúc định danh sau:
+Report file names must follow this identifying structure:
 
 ```text
-YYYY-MM-DD-<loại-báo-cáo>-<chủ-đề>-<phiên-bản/mã-task>.md
+YYYY-MM-DD-<report-type>-<topic>-<revision/task-id>.md
 ```
 
-Trong đó:
-- `YYYY-MM-DD`: Ngày lập báo cáo theo chuẩn ISO (ví dụ: `2026-10-26`).
-- `<loại-báo-cáo>`: Loại công việc theo template:
-  - `code-review` (Review mã nguồn, PR, MR)
-  - `security-review` (Đánh giá an toàn, bảo mật)
-  - `bug-investigation` (Điều tra nguyên nhân gốc của bug)
-  - `feature-spec` (Đặc tả tính năng)
-  - `test-plan` (Kế hoạch kiểm thử)
-  - `release-checklist` (Checklist phát hành)
-  - `incident-postmortem` (Tổng kết sự cố)
-  - `handoff` (Bàn giao công việc giữa các phiên/agent)
-- `<chủ-đề>`: Tên ngắn gọn mô tả tính năng hoặc phạm vi (dùng kebab-case, ví dụ: `auth-jwt-refresh`, `export-excel-boundary`).
-- `<phiên-bản/mã-task>`: Số hiệu PR/MR, revision hoặc ticket ID (ví dụ: `mr381`, `pr12-rev1`, `issue240`).
+Where:
+- `YYYY-MM-DD`: report date in ISO form (for example `2026-10-26`).
+- `<report-type>`: the work type, matching the template:
+  - `code-review` (source, PR or MR review)
+  - `security-review` (safety and security assessment)
+  - `bug-investigation` (root cause analysis of a defect)
+  - `feature-spec` (feature specification)
+  - `test-plan` (test plan)
+  - `release-checklist` (release checklist)
+  - `incident-postmortem` (incident summary)
+  - `handoff` (work handoff between sessions or agents)
+- `<topic>`: a short name describing the feature or scope (kebab-case, for example `auth-jwt-refresh`, `export-excel-boundary`).
+- `<revision/task-id>`: the PR/MR number, revision or ticket ID (for example `mr381`, `pr12-rev1`, `issue240`).
 
-### Ví dụ hợp lệ:
+### Valid examples:
 - `~/.agents/outputs/my-app/reports/2026-10-26-code-review-mr381-rev01.md`
 - `~/.agents/outputs/my-app/reports/2026-10-26-bug-investigation-token-refresh-loop.md`
 - `~/.agents/outputs/my-app/artifacts/2026-10-26-ui-test-evidence-login.png`
 
-### CẤM đặt tên:
-- `report.md`, `review.md`, `output.md`, `test.md`, `result.md`, `final.md` (dễ bị ghi đè, vô nghĩa khi tra cứu lịch sử).
+### Forbidden names:
+- `report.md`, `review.md`, `output.md`, `test.md`, `result.md`, `final.md` (easily overwritten, meaningless when looking back through history).
 
 ---
 
-## 4. Tiêu chuẩn nội dung của File Báo cáo (Deliverable)
+## 4. Content standards for a report (deliverable)
 
-Mọi file báo cáo Markdown khi xuất ra phải đáp ứng các tiêu chuẩn sau:
+Every Markdown report you publish must meet these standards:
 
-1. **Metadata Header:** Đặt ở đầu file:
-   - Ngày tạo, tên dự án, đối tượng báo cáo (MR/PR/branch/commit).
-   - Tác giả (Agent / Reviewer).
-2. **Executive Summary (Kết luận ở đầu):**
-   - Đưa ngay kết luận chính lên đầu file: `PASS`, `FAIL`, `BLOCKED` hoặc `APPROVED / REQUEST_CHANGES`.
-   - Tóm tắt tác động và rủi ro trong một bảng hoặc đoạn ngắn (để người đọc nắm được ngay mà không cần đọc hết file).
-3. **Tính truy vết của Findings (Traceability):**
-   - Mọi lỗi/phát hiện phải gắn mã định danh: `F-01`, `F-02`...
-   - Mức độ nghiêm trọng: `Critical`, `High`, `Medium`, `Low`, `Suggestion`.
-   - **Đường dẫn file chính xác kèm số dòng**: `src/auth/token.ts:45-52` (không viết tắt `.../token.ts`).
-   - Bằng chứng thực tế: Đoạn mã lỗi, log thực thi, kết quả test thực tế (không suy diễn).
-4. **Bằng chứng kiểm chứng (Verification):**
-   - Ghi rõ lệnh thực tế đã chạy, môi trường test, và kết quả kiểm chứng.
-   - Phân biệt rõ giữa: Lệnh ĐÃ CHẠY (verified) với Kiểm tra ĐỀ XUẤT (chưa chạy).
+1. **Metadata header:** at the top of the file:
+   - Creation date, project name, report target (MR/PR/branch/commit).
+   - Author (agent / reviewer).
+2. **Executive Summary (conclusion first):**
+   - Put the main conclusion at the top of the file: `PASS`, `FAIL`, `BLOCKED` or `APPROVED / REQUEST_CHANGES`.
+   - Summarize impact and risk in one table or a short paragraph, so the reader gets the point without reading the whole file.
+3. **Findings traceability:**
+   - Every defect or finding carries an ID: `F-01`, `F-02`...
+   - Severity: `Critical`, `High`, `Medium`, `Low`, `Suggestion`.
+   - **Exact file path with line numbers:** `src/auth/token.ts:45-52` (never abbreviated as `.../token.ts`).
+   - Actual evidence: the failing snippet, the runtime log, the real test output (no speculation).
+4. **Verification evidence:**
+   - State the commands actually run, the test environment and the verification result.
+   - Clearly separate checks that RAN (verified) from checks that are PROPOSED (not run).
 
 ---
 
-## 5. Quy ước giao tiếp trong Chat
+## 5. Chat communication convention
 
-Sau khi ghi file deliverable thành công, tin nhắn chat của Agent phải tuân thủ:
+After the deliverable file is written successfully, the agent's chat message must follow these rules:
 
-- **Ngắn gọn, súc tích (Executive Summary):**
-  - Tóm tắt kết luận và hành vi chính trong 3–5 bullet points.
-  - Nêu ngay các blocker hoặc rủi ro nghiêm trọng (nếu có).
-  - **Dẫn đường dẫn đầy đủ** đến file báo cáo để người dùng bấm vào xem:
+- **Short and tight (Executive Summary):**
+  - Summarize the conclusion and the main behavior in 3–5 bullet points.
+  - Lead with blockers or serious risks, if any.
+  - **Give the full path** to the report file so the user can open it:
     ```markdown
-    📄 **Báo cáo chi tiết:** `~/.agents/outputs/<project-name>/reports/YYYY-MM-DD-<topic>-<rev>.md`
+    📄 **Detailed report:** `~/.agents/outputs/<project-name>/reports/YYYY-MM-DD-<topic>-<rev>.md`
     ```
-- **TUYỆT ĐỐI KHÔNG:**
-  - Không dán toàn bộ nội dung file báo cáo vào chat.
-  - Không paste log kiểm thử dài hàng trăm dòng vào chat (hãy ghi vào `testresults/` hoặc file artifact tương ứng).
-  - Không in lại toàn bộ khung bảng biểu template vào chat.
+- **Never:**
+  - Paste the whole report file into chat.
+  - Paste test logs hundreds of lines long into chat (write them to `testresults/` or the matching artifact file instead).
+  - Reprint the entire template table skeleton into chat.

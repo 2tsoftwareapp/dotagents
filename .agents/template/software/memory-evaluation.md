@@ -1,30 +1,30 @@
-# Đánh giá khả năng truy xuất memory
+# Memory retrieval evaluation
 
 - **Corpus / commit:**
-- **Phương pháp tìm kiếm:** `rg` | script | hybrid | other
-- **Ngày đánh giá:** YYYY-MM-DD
-- **Người đánh giá:**
+- **Search method:** `rg` | script | hybrid | other
+- **Evaluation date:** YYYY-MM-DD
+- **Evaluator:**
 
-## Các case benchmark
+## Benchmark cases
 
-Chuẩn bị 10–20 task/câu hỏi thực tế đã gặp. Ghi entry kỳ vọng trước khi chạy tìm kiếm để tránh đánh giá theo kết quả đã thấy.
+Prepare 10–20 real tasks/questions you have encountered. Record the expected entry before running the search to avoid grading against results you have already seen.
 
-| Case | Truy vấn/task | Memory ID/path kỳ vọng | Trong top 5? | Đã mở kết quả hữu ích? | Áp dụng đúng? | Kết quả |
+| Case | Query/task | Expected memory ID/path | In top 5? | Opened a useful result? | Applied correctly? | Result |
 |---|---|---|---|---|---|---|
-| E-01 | | | Có/Không | Có/Không | Có/Không/Không áp dụng | |
+| E-01 | | | Yes/No | Yes/No | Yes/No/N/A | |
 
-## Chỉ số
+## Metrics
 
-- **Recall@5:** số entry kỳ vọng liên quan xuất hiện trong top 5 / số case có memory liên quan = ___ / ___ = ___%
-- **Precision@5:** số kết quả hữu ích trong các kết quả top 5 đã xem / tổng kết quả đã xem = ___ / ___ = ___%
-- **Adoption rate:** số task liên quan mà memory được áp dụng đúng / tổng task liên quan = ___ / ___ = ___%
-- **Stale-memory rate:** số entry được truy xuất nhưng mâu thuẫn với bằng chứng hiện tại / tổng entry đã kiểm tra = ___ / ___ = ___%
-- **Trùng lặp/xung đột phát hiện được:**
-- **Thời gian tìm / thời gian sửa:**
+- **Recall@5:** expected relevant entries appearing in the top 5 / cases with relevant memory = ___ / ___ = ___%
+- **Precision@5:** useful results among the top-5 results opened / total results opened = ___ / ___ = ___%
+- **Adoption rate:** related tasks where memory was applied correctly / total related tasks = ___ / ___ = ___%
+- **Stale-memory rate:** retrieved entries that conflict with current evidence / total entries checked = ___ / ___ = ___%
+- **Duplicates/conflicts found:**
+- **Time to find / time to fix:**
 
-## Phát hiện và hành động tiếp theo
+## Findings and next actions
 
-- Lỗi truy xuất chính:
-- Vấn đề chất lượng nội dung chính:
-- Thay đổi taxonomy/tag/index nên thử trước:
-- Bằng chứng cần có trước khi dùng embedding/vector search/database:
+- Main retrieval failures:
+- Main content-quality issues:
+- Taxonomy/tag/index changes to try first:
+- Evidence needed before using embeddings/vector search/a database:

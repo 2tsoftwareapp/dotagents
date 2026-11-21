@@ -89,19 +89,19 @@ def validate_file(path: Path) -> list[str]:
     # Check filename conventions
     m = FILENAME_PATTERN.match(fname)
     if not m:
-        errors.append(f"Tên file '{fname}' không đúng định dạng YYYY-MM-DD-<type>-<short-topic>.md")
+        errors.append(f"Filename '{fname}' does not match YYYY-MM-DD-<type>-<short-topic>.md")
     else:
         file_date = m.group("date")
         file_type = m.group("type")
         if not is_valid_iso_date(file_date):
-            errors.append(f"Ngày trong tên file '{file_date}' không phải ngày ISO hợp lệ")
+            errors.append(f"Date in filename '{file_date}' is not a valid ISO date")
         if file_type not in ALLOWED_TYPES:
-            errors.append(f"Type trong tên file '{file_type}' không thuộc danh mục: {sorted(ALLOWED_TYPES)}")
+            errors.append(f"Type in filename '{file_type}' is not an allowed type: {sorted(ALLOWED_TYPES)}")
 
     content = path.read_text(encoding="utf-8")
     fm_res = parse_frontmatter(content)
     if not fm_res:
-        errors.append("Thiếu hoặc sai cấu trúc YAML frontmatter (phải bao bởi ---)")
+        errors.append("Missing or malformed YAML frontmatter (must be delimited by ---)")
         return errors
 
     fields, _ = fm_res
@@ -109,42 +109,42 @@ def validate_file(path: Path) -> list[str]:
     # Check all 15 required fields
     for req in REQUIRED_FIELDS:
         if req not in fields:
-            errors.append(f"Thiếu trường bắt buộc trong frontmatter: '{req}'")
+            errors.append(f"Missing required frontmatter field: '{req}'")
 
     # Check enum values if present
     if "type" in fields:
         raw_type = fields["type"].split("#")[0].strip().strip("\"'")
         if raw_type not in ALLOWED_TYPES:
-            errors.append(f"Giá trị 'type' không hợp lệ: '{raw_type}' (cho phép: {sorted(ALLOWED_TYPES)})")
+            errors.append(f"Invalid 'type' value: '{raw_type}' (allowed: {sorted(ALLOWED_TYPES)})")
         if m and raw_type != m.group("type"):
-            errors.append(f"Type trong frontmatter ('{raw_type}') không khớp type ở tên file ('{m.group('type')}')")
+            errors.append(f"Frontmatter type ('{raw_type}') does not match the filename type ('{m.group('type')}')")
 
     if "scope" in fields:
         raw_scope = fields["scope"].split("#")[0].strip().strip("\"'")
         if raw_scope not in ALLOWED_SCOPES:
-            errors.append(f"Giá trị 'scope' không hợp lệ: '{raw_scope}' (cho phép: {sorted(ALLOWED_SCOPES)})")
+            errors.append(f"Invalid 'scope' value: '{raw_scope}' (allowed: {sorted(ALLOWED_SCOPES)})")
 
     if "status" in fields:
         raw_status = fields["status"].split("#")[0].strip().strip("\"'")
         if raw_status not in ALLOWED_STATUSES:
-            errors.append(f"Giá trị 'status' không hợp lệ: '{raw_status}' (cho phép: {sorted(ALLOWED_STATUSES)})")
+            errors.append(f"Invalid 'status' value: '{raw_status}' (allowed: {sorted(ALLOWED_STATUSES)})")
 
     if "confidence" in fields:
         raw_conf = fields["confidence"].split("#")[0].strip().strip("\"'")
         if raw_conf not in ALLOWED_CONFIDENCES:
-            errors.append(f"Giá trị 'confidence' không hợp lệ: '{raw_conf}' (cho phép: {sorted(ALLOWED_CONFIDENCES)})")
+            errors.append(f"Invalid 'confidence' value: '{raw_conf}' (allowed: {sorted(ALLOWED_CONFIDENCES)})")
 
     # Check date fields
     for date_field in ("created", "updated"):
         if date_field in fields:
             raw_d = fields[date_field].split("#")[0].strip().strip("\"'")
             if not is_valid_iso_date(raw_d):
-                errors.append(f"Trường '{date_field}' không đúng định dạng YYYY-MM-DD: '{raw_d}'")
+                errors.append(f"Field '{date_field}' does not match YYYY-MM-DD: '{raw_d}'")
 
     if "verified_on" in fields:
         raw_v = fields["verified_on"].split("#")[0].strip().strip("\"'")
         if raw_v != "unknown" and not is_valid_iso_date(raw_v):
-            errors.append(f"Trường 'verified_on' phải là YYYY-MM-DD hoặc 'unknown': '{raw_v}'")
+            errors.append(f"Field 'verified_on' must be YYYY-MM-DD or 'unknown': '{raw_v}'")
 
     return errors
 
@@ -167,7 +167,7 @@ def main() -> int:
                     files_to_check.append(f)
 
     if not files_to_check:
-        print("Không tìm thấy memory entry nào để kiểm tra (ngoại trừ README/INDEX).")
+        print("No memory entries found to validate (excluding README/INDEX).")
         return 0
 
     total_errors = 0
@@ -180,10 +180,10 @@ def main() -> int:
                 print(f"  - {e}")
 
     if total_errors > 0:
-        print(f"\nKiểm tra thất bại: {total_errors} lỗi trên {len(files_to_check)} file.")
+        print(f"\nValidation failed: {total_errors} error(s) across {len(files_to_check)} file(s).")
         return 1
 
-    print(f"OK: đã kiểm tra {len(files_to_check)} memory entry, tất cả đều hợp lệ theo memory-policy.md.")
+    print(f"OK: validated {len(files_to_check)} memory entries, all valid per memory-policy.md.")
     return 0
 
 

@@ -1,57 +1,57 @@
-# Quy chuẩn memory
+# Memory policy
 
-## Nội dung nào đáng lưu?
+## What is worth storing?
 
-Tạo hoặc cập nhật entry khi có ít nhất một điều sau:
+Create or update an entry when at least one of these is true:
 
-- Đã xác nhận một nguyên nhân gốc khó nhận biết và cách sửa có khả năng tái sử dụng.
-- Có một dạng lỗi hoặc workaround nhiều khả năng tái diễn.
-- Có quyết định kiến trúc/sản phẩm tạo ảnh hưởng lâu dài.
-- Một đặc điểm của framework, hạ tầng hoặc repository đã khiến việc điều tra tốn công đáng kể.
-- Một quy trình đã được kiểm chứng và đáng lặp lại.
+- You confirmed a hard-to-spot root cause and a fix worth reusing.
+- You found an error pattern or workaround likely to recur.
+- You made an architecture or product decision with long-term impact.
+- A framework, infrastructure or repository quirk made investigation significantly expensive.
+- You validated a procedure worth repeating.
 
-**Không** tạo entry cho chỉnh sửa thường ngày, thông tin hiển nhiên đã có ở nơi khác, phỏng đoán chưa xác minh, kết quả chỉ dùng một lần hoặc bản tóm tắt tác vụ chung chung không có bài học tái sử dụng.
+**Do not** create an entry for routine edits, obvious information available elsewhere, unverified guesses, one-off results, or generic task summaries with no reusable lesson.
 
-## Tiêu chuẩn chất lượng bắt buộc
+## Mandatory quality bar
 
-Mỗi memory ở trạng thái `active` phải trả lời được:
+Every memory in `active` state must answer:
 
-1. **Khi nào kiến thức này hữu ích?** Triệu chứng, điều kiện kích hoạt, phạm vi, môi trường và phiên bản.
-2. **Đã thực sự biết được điều gì?** Nguyên nhân/quyết định đã xác nhận; phân biệt sự thật với giả thuyết.
-3. **Nên làm gì?** Các bước ngắn gọn, cụ thể cùng phương án thay thế/rủi ro quan trọng.
-4. **Bằng chứng là gì?** Test/lệnh/bằng chứng quan sát được và kết quả.
-5. **Nguồn ở đâu?** Đường dẫn file, issue/PR/commit, tài liệu hoặc nguồn bền vững khác.
+1. **When is this knowledge useful?** Symptoms, trigger conditions, scope, environment and version.
+2. **What is actually known?** The confirmed cause or decision; separate fact from hypothesis.
+3. **What should be done?** Short, concrete steps with the important alternatives and risks.
+4. **What is the evidence?** Tests, commands or observable evidence and their results.
+5. **Where are the sources?** File paths, issue/PR/commit, documentation or other durable sources.
 
-Nếu chưa trả lời được, đặt `status: needs-review` hoặc chưa lưu entry.
+If it cannot answer these, set `status: needs-review` or do not store the entry.
 
-## Tên file và metadata
+## File names and metadata
 
-- Tên file: `YYYY-MM-DD-<type>-<short-topic>.md`.
-- Mỗi file chỉ tập trung vào một chủ đề; ưu tiên cập nhật entry có sẵn thay vì tạo bản trùng lặp.
-- Các trường frontmatter bắt buộc: `schema_version`, `id`, `title`, `type`, `scope`, `status`, `created`, `updated`, `verified_on`, `confidence`, `tags`, `applies_to`, `sources`, `related`, `supersedes`.
-- Các giá trị `type` được phép: `bugfix`, `decision`, `pattern`, `workflow`, `environment`.
-- Các giá trị `scope` được phép: `global`, `project`.
-- Các giá trị `status` được phép: `active`, `needs-review`, `superseded`, `archived`.
-- Các giá trị `confidence` được phép: `high`, `medium`, `low`.
-- Ngày dùng định dạng ISO `YYYY-MM-DD`. Dùng `schema_version` khi cấu trúc template thay đổi; dùng Git để lưu lịch sử nội dung, không tự quản lý `v1`, `v2` trong mọi tên file.
+- File name: `YYYY-MM-DD-<type>-<short-topic>.md`.
+- One topic per file; prefer updating an existing entry over creating a duplicate.
+- Required frontmatter fields: `schema_version`, `id`, `title`, `type`, `scope`, `status`, `created`, `updated`, `verified_on`, `confidence`, `tags`, `applies_to`, `sources`, `related`, `supersedes`.
+- Allowed `type` values: `bugfix`, `decision`, `pattern`, `workflow`, `environment`.
+- Allowed `scope` values: `global`, `project`.
+- Allowed `status` values: `active`, `needs-review`, `superseded`, `archived`.
+- Allowed `confidence` values: `high`, `medium`, `low`.
+- Dates use ISO `YYYY-MM-DD`. Use `schema_version` when the template structure changes; keep content history in Git instead of tracking `v1`, `v2` in every file name.
 
-## Vòng đời
+## Lifecycle
 
-- `active`: bằng chứng đã được kiểm tra và entry áp dụng trong phạm vi đã khai báo.
-- `needs-review`: có gợi ý hữu ích nhưng chưa xác minh đủ hoặc chưa chắc còn áp dụng.
-- `superseded`: entry mới thay thế entry cũ; cần liên kết đến entry thay thế.
-- `archived`: giữ để tra cứu lịch sử nhưng loại khỏi tìm kiếm mặc định.
-- Khi dependency, môi trường hoặc giả định kiến trúc thay đổi, rà soát các entry bị ảnh hưởng.
-- Chỉ chuyển entry vào `archive/YYYY/` khi đã lỗi thời, bị thay thế hoặc không còn hữu ích trong công việc thường ngày; không archive chỉ vì thư mục lớn.
+- `active`: evidence checked and the entry holds within its declared scope.
+- `needs-review`: useful hint but not verified enough, or no longer known to apply.
+- `superseded`: a newer entry replaces the old one; link to the replacement.
+- `archived`: kept for historical lookup but excluded from default search.
+- When dependencies, the environment or architectural assumptions change, review the affected entries.
+- Move an entry to `archive/YYYY/` only when it is outdated, superseded or no longer useful for daily work; never archive just because the directory is large.
 
-## Bảo mật và quyền riêng tư
+## Security and privacy
 
-Không lưu credential, secret, private key, access token, dữ liệu cá nhân khách hàng hoặc log nhạy cảm nguyên bản. Che thông tin trong ví dụ và dùng giá trị giả lập. File Markdown cục bộ vẫn là kho dữ liệu: áp dụng chính sách truy cập và repository như với code.
+Never store credentials, secrets, private keys, access tokens, customer personal data or raw sensitive logs. Mask information in examples and use fake values. A local Markdown file is still a data store: apply the same access and repository policy you would apply to code.
 
-## Tìm kiếm và loại trùng lặp
+## Search and deduplication
 
-- Tìm theo error/symbol chính xác, triệu chứng, subsystem/file và nguyên nhân có thể có.
-- Tìm memory của project trước memory global.
-- Đọc metadata và phần giải thích xung quanh trước khi áp dụng kết quả.
-- Nếu phát hiện mới trùng chủ đề với entry hiện có, cải thiện entry đó và cập nhật `updated`/`verified_on` thay vì tạo file khác.
-- Tránh tạo `INDEX.md` khổng lồ. Index chỉ là trang điều hướng cho entry giá trị cao; toàn bộ corpus phải có thể tìm tự động.
+- Search by exact error or symbol, symptom, subsystem/file and probable cause.
+- Search project memory before global memory.
+- Read the metadata and surrounding explanation before applying a result.
+- If a new finding overlaps an existing entry, improve that entry and update `updated`/`verified_on` instead of creating another file.
+- Avoid a giant `INDEX.md`. The index is only a navigation page for high-value entries; the whole corpus must stay machine-searchable.

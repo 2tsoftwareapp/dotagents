@@ -36,8 +36,8 @@ related: []
 supersedes: null
 ---
 
-# Tóm tắt
-Chi tiết...
+# Summary
+Details...
 """
     with tempfile.TemporaryDirectory() as td:
         f = Path(td) / "2026-10-24-bugfix-sqlite-wal-locking.md"
@@ -59,10 +59,10 @@ created: "not-a-date"
         f = Path(td) / "bad-name.md"
         f.write_text(invalid_content, encoding="utf-8")
         errs = mod.validate_file(f)
-        assert any("Tên file" in e for e in errs)
-        assert any("Thiếu trường bắt buộc" in e for e in errs)
-        assert any("Giá trị 'type' không hợp lệ" in e for e in errs)
-        assert any("Giá trị 'status' không hợp lệ" in e for e in errs)
+        assert any("Filename" in e for e in errs)
+        assert any("Missing required frontmatter field" in e for e in errs)
+        assert any("Invalid 'type' value" in e for e in errs)
+        assert any("Invalid 'status' value" in e for e in errs)
         assert any("created" in e for e in errs)
 
 

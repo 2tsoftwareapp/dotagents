@@ -1,32 +1,32 @@
-# Bàn giao công việc kỹ thuật: <task>
+# Engineering handoff: <task>
 
-- **Ngày:** YYYY-MM-DD
-- **Người phụ trách hiện tại / tiếp theo:**
+- **Date:** YYYY-MM-DD
+- **Current / next owner:**
 - **Branch / PR / issue:**
-- **Trạng thái:** Đang thực hiện | Sẵn sàng review | Bị chặn
+- **Status:** In progress | Ready for review | Blocked
 
-## Mục tiêu và hiện trạng
+## Goal and current state
 
-- Kết quả mong muốn:
-- Đã hoàn thành:
-- Chưa hoàn thành:
+- Desired outcome:
+- Done:
+- Not done:
 
-## Ngữ cảnh quan trọng
+## Important context
 
-- File/module và quyết định thiết kế liên quan:
-- Memory đã tham khảo:
-- Lệnh/kết quả có liên quan:
+- Related files/modules and design decisions:
+- Memory consulted:
+- Relevant commands/results:
 
-## Việc tiếp theo
+## Next steps
 
-1. [ ] <bước tiếp theo nhỏ, cụ thể>
-2. [ ] <bước tiếp theo nhỏ, cụ thể>
+1. [ ] <small, concrete next step>
+2. [ ] <small, concrete next step>
 
-## Trở ngại và rủi ro
+## Blockers and risks
 
-- Trở ngại/điều chưa rõ:
-- Bằng chứng cần có / người phụ trách:
+- Blockers/open questions:
+- Evidence needed / owner:
 
-## Cách tiếp tục
+## How to continue
 
-Ghi chính xác trạng thái branch/worktree, lệnh test, fixture/yêu cầu môi trường và hành động hữu ích tiếp theo. Không đưa secret vào tài liệu.
+State exactly the branch/worktree state, test commands, fixtures/environment requirements, and the next useful action. Do not put secrets in the document.

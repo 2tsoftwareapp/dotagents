@@ -11,7 +11,7 @@ if [[ -n "$target" ]]; then
   elif [[ -d "$target" ]]; then
     AGENTS_DIR="$(cd "$target" && pwd)"
   else
-    echo "Lỗi: Thư mục đích không tồn tại: $target" >&2
+    echo "Error: target directory does not exist: $target" >&2
     exit 1
   fi
 else
@@ -24,58 +24,58 @@ else
   fi
 fi
 
-echo "=== Kiểm tra sức khỏe dotagents framework ==="
-echo "Thư mục framework: $AGENTS_DIR"
+echo "=== dotagents framework health check ==="
+echo "Framework directory: $AGENTS_DIR"
 echo
 
 failures=0
 
-# 1. Kiểm tra cấu trúc thư mục cốt lõi
-echo "[1/4] Kiểm tra thư mục cốt lõi:"
+# 1. Check the core directory structure
+echo "[1/4] Checking core directories:"
 required_dirs=("rules" "skills" "scripts" "template" "memory")
 for d in "${required_dirs[@]}"; do
   if [[ -d "$AGENTS_DIR/$d" ]]; then
     echo "  ✓ $d"
   else
-    echo "  ✗ Thiếu thư mục $d"
+    echo "  ✗ Missing directory $d"
   fi
 done
 
-# 2. Kiểm tra quyền thực thi của scripts
+# 2. Check script executable permissions
 echo
-echo "[2/4] Kiểm tra quyền thực thi scripts:"
+echo "[2/4] Checking script executable permissions:"
 for s in "$AGENTS_DIR/scripts"/*.sh "$AGENTS_DIR/scripts"/*.py; do
   [[ ! -f "$s" ]] && continue
   fname="$(basename "$s")"
   if [[ -x "$s" ]]; then
     echo "  ✓ $fname (executable)"
   else
-    echo "  ✗ $fname (chưa có chmod +x)"
+    echo "  ✗ $fname (missing chmod +x)"
     failures=$((failures + 1))
   fi
 done
 
-# 3. Chạy validate-skills.sh
+# 3. Run validate-skills.sh
 echo
-echo "[3/4] Kiểm tra tính hợp lệ của Skills:"
+echo "[3/4] Checking skill validity:"
 if "$AGENTS_DIR/scripts/validate-skills.sh" "$AGENTS_DIR/skills"; then
-  echo "  ✓ Toàn bộ skills hợp chuẩn YAML frontmatter"
+  echo "  ✓ All skills pass YAML frontmatter validation"
 else
-  echo "  ✗ Lỗi định dạng skills"
+  echo "  ✗ Skill format error"
   failures=$((failures + 1))
 fi
 
-# 4. Chạy validate-memory.py
+# 4. Run validate-memory.py
 echo
-echo "[4/4] Kiểm tra tính hợp lệ của Memory Schema:"
+echo "[4/4] Checking memory schema validity:"
 if python3 "$AGENTS_DIR/scripts/validate-memory.py" "$AGENTS_DIR/memory/entries"; then
-  echo "  ✓ Toàn bộ memory entries đạt 15 trường frontmatter và enum chuẩn"
+  echo "  ✓ All memory entries have the 15 frontmatter fields and valid enums"
 else
-  echo "  ✗ Lỗi định dạng memory entries"
+  echo "  ✗ Memory entry format error"
   failures=$((failures + 1))
 fi
 
-# 5. Chạy unit tests
+# 5. Run unit tests
 echo
 if python3 "$AGENTS_DIR/scripts/test-validate-memory.py" && \
    python3 "$AGENTS_DIR/scripts/test-search-memory.py" && \
@@ -88,9 +88,9 @@ fi
 
 echo
 if (( failures == 0 )); then
-  echo "===> KẾT QUẢ: MỌI THỨ HOÀN TOÀN TỐT! (0 lỗi) <==="
+  echo "===> RESULT: ALL CHECKS PASSED! (0 errors) <==="
   exit 0
 else
-  echo "===> KẾT QUẢ: Phát hiện $failures lỗi cần xử lý! <==="
+  echo "===> RESULT: Found $failures error(s) to fix! <==="
   exit 1
 fi

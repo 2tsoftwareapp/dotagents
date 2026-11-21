@@ -128,27 +128,27 @@ def main() -> int:
         description="Search memory entries with project-first ordering and metadata filtering.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    parser.add_argument("query", nargs="?", default="", help="Từ khóa tìm kiếm (bỏ trống nếu chỉ lọc metadata)")
-    parser.add_argument("--archive", action="store_true", help="Bao gồm cả thư mục archive (mặc định bỏ qua)")
-    parser.add_argument("--type", choices=["bugfix", "decision", "pattern", "workflow", "environment"], help="Lọc theo type")
-    parser.add_argument("--status", choices=["active", "needs-review", "superseded", "archived"], help="Lọc theo status")
-    parser.add_argument("--confidence", choices=["high", "medium", "low"], help="Lọc theo confidence")
-    parser.add_argument("--tag", help="Lọc theo tag")
-    parser.add_argument("--summary", action="store_true", help="Hiển thị tóm tắt ngắn gọn các file khớp")
-    parser.add_argument("--project-root", help="Ghi đè đường dẫn project root")
-    parser.add_argument("--agents-home", help="Ghi đè đường dẫn AGENTS_HOME")
+    parser.add_argument("query", nargs="?", default="", help="Search keyword (leave empty to filter by metadata only)")
+    parser.add_argument("--archive", action="store_true", help="Include the archive directory (skipped by default)")
+    parser.add_argument("--type", choices=["bugfix", "decision", "pattern", "workflow", "environment"], help="Filter by type")
+    parser.add_argument("--status", choices=["active", "needs-review", "superseded", "archived"], help="Filter by status")
+    parser.add_argument("--confidence", choices=["high", "medium", "low"], help="Filter by confidence")
+    parser.add_argument("--tag", help="Filter by tag")
+    parser.add_argument("--summary", action="store_true", help="Print a concise summary of matching files")
+    parser.add_argument("--project-root", help="Override the project root path")
+    parser.add_argument("--agents-home", help="Override the AGENTS_HOME path")
 
     args = parser.parse_args()
 
     paths = get_memory_paths(args.project_root, args.agents_home)
     if not paths:
-        print("Không tìm thấy thư mục memory nào trong project hoặc AGENTS_HOME.", file=sys.stderr)
+        print("No memory directory found in the project or AGENTS_HOME.", file=sys.stderr)
         return 1
 
-    scope_str = " (bao gồm archive)" if args.archive else " (chỉ corpus hiện hành)"
-    query_display = args.query if args.query else "(lọc theo metadata)"
-    print(f"Truy vấn: {query_display}")
-    print(f"Thứ tự phạm vi: project → global{scope_str}\n")
+    scope_str = " (including archive)" if args.archive else " (current corpus only)"
+    query_display = args.query if args.query else "(metadata filter)"
+    print(f"Query: {query_display}")
+    print(f"Scope order: project → global{scope_str}\n")
 
     rg_path = None
     try:
@@ -196,9 +196,9 @@ def main() -> int:
         )
         ranked_files = [f for f, _ in candidate_files]
         if args.summary:
-            print(f"--- Phạm vi: {scope_name} ({dir_path}) ---")
+            print(f"--- Scope: {scope_name} ({dir_path}) ---")
             for f, fm in candidate_files:
-                title = fm.get("title", "(không có tiêu đề)")
+                title = fm.get("title", "(untitled)")
                 st = fm.get("status", "unknown")
                 typ = fm.get("type", "unknown")
                 mem_id = fm.get("id", f.stem)
@@ -209,7 +209,7 @@ def main() -> int:
 
         if not args.query:
             # Metadata filter only without search query: list files
-            print(f"--- Phạm vi: {scope_name} ({dir_path}) ---")
+            print(f"--- Scope: {scope_name} ({dir_path}) ---")
             for f in ranked_files:
                 print(f"  {f}")
                 total_matches += 1
@@ -228,7 +228,7 @@ def main() -> int:
             print()
 
     if total_matches == 0:
-        print("Không có kết quả phù hợp.")
+        print("No matching results.")
         return 0
 
     return 0

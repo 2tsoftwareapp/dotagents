@@ -1,3 +1,3 @@
-# Máy chủ MCP
+# MCP servers
 
-Với mỗi MCP server, ghi mục đích, quyền cần thiết, tên biến môi trường (chỉ tên, không ghi giá trị), cách thiết lập, ranh giới tin cậy và lệnh kiểm chứng. Không commit secret. Chỉ bật những công cụ/quyền tối thiểu cần thiết.
+For each MCP server, record its purpose, the permissions it needs, environment variable names (names only, never values), setup steps, trust boundaries and verification commands. Never commit secrets. Enable only the minimum tools and permissions required.

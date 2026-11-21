@@ -1,43 +1,43 @@
 ---
 name: memory-curation
-description: "Tìm, xác minh, tạo, cập nhật hoặc thay thế memory Markdown sau khi giải quyết vấn đề hoặc hoàn thành công việc có bài học tái sử dụng. Dùng trước task kỹ thuật đáng kể và khi chốt task."
+description: "Find, verify, create, update or replace Markdown memory after solving a problem or finishing work with reusable lessons. Use before significant technical tasks and when closing a task."
 ---
-# Quản trị memory kỹ thuật
+# Technical memory curation
 
-## Khi nào dùng
-- Trước bug/feature/refactor/migration để tìm giải pháp tương tự.
-- Sau khi xác minh root cause, quyết định, workaround hoặc quy trình có thể tái sử dụng.
-- Khi phát hiện memory trùng, lỗi thời hoặc mâu thuẫn.
+## When to use
+- Before a bug/feature/refactor/migration to look for similar solutions.
+- After verifying a root cause, decision, workaround or process that can be reused.
+- When you find duplicate, outdated or conflicting memory.
 
-## Không dùng khi
-- Công việc không tạo ra kiến thức bền vững và chưa có memory phù hợp cần cập nhật.
-- Chỉ có giả thuyết chưa kiểm chứng; có thể tạo entry `needs-review` nếu vẫn có giá trị, nhưng phải ghi rõ bằng chứng thiếu.
+## When not to use
+- The work produces no durable knowledge and there is no suitable memory that needs updating.
+- You only have unverified hypotheses; you may create a `needs-review` entry if it still has value, but you must state the missing evidence.
 
-## Quy trình tìm trước
-1. Tạo 2–4 cụm từ khóa từ triệu chứng, error message, subsystem, nguyên nhân và hành vi mong muốn.
-2. Tìm memory project trước, rồi global. Trước tiên bỏ qua archive; tìm archive khi không có kết quả đủ tốt.
-3. Đọc toàn bộ entry ứng viên; xác minh `status`, scope, stack/version, `verified_on`, source và điều kiện áp dụng.
-4. So sánh với code, test và tài liệu hiện tại. Không áp dụng memory chỉ vì từ khóa giống nhau.
+## Search-first process
+1. Build 2–4 keyword clusters from the symptoms, error message, subsystem, cause and desired behavior.
+2. Search project memory first, then global. Skip archive first; search archive only when no result is good enough.
+3. Read the full candidate entry; verify `status`, scope, stack/version, `verified_on`, source and applicability conditions.
+4. Compare with the current code, tests and documentation. Do not apply memory just because keywords match.
 
-## Quy trình đúc kết
-1. Chỉ lưu nội dung có giá trị dùng lại: root cause khó nhận biết, bug tái diễn, quyết định, cạm bẫy dependency/môi trường hoặc workaround có điều kiện.
-2. Tìm entry hiện có trước; cập nhật entry đó nếu cùng vấn đề. Tránh tạo memory gần trùng lặp.
-3. Dùng `.agents/template/memory/memory-entry.md`; ghi summary, điều kiện áp dụng, bằng chứng, root cause/decision, resolution, verification và liên kết nguồn.
-4. Đặt `status: active` chỉ khi đã kiểm chứng; nếu còn phần quan trọng chưa xác minh, dùng `needs-review` và ghi rõ.
-5. Cập nhật `updated`/`verified_on` theo sự kiện thực; không sửa ngày để làm entry trông mới.
-6. Nếu entry cũ không còn đúng, đánh dấu `superseded` và liên kết entry thay thế. Chỉ archive khi cần loại khỏi tìm kiếm thường nhật.
-7. Cập nhật `memory/INDEX.md` khi entry có giá trị cao hoặc hay cần tra cứu; không biến index thành bản sao toàn bộ corpus.
-8. Không ghi secret, dữ liệu cá nhân, token, raw log nhạy cảm hoặc thông tin không được phép lưu.
+## Distillation process
+1. Store only reusable content: a hard-to-spot root cause, a recurring bug, a decision, a dependency/environment pitfall or a conditional workaround.
+2. Look for an existing entry first; update it if it covers the same problem. Avoid near-duplicate memory.
+3. Use `.agents/template/memory/memory-entry.md`; record the summary, applicability conditions, evidence, root cause/decision, resolution, verification and source links.
+4. Set `status: active` only after verification; if an important part remains unverified, use `needs-review` and say so.
+5. Update `updated`/`verified_on` from actual events; do not change dates to make an entry look new.
+6. If an old entry is no longer correct, mark it `superseded` and link the replacement. Archive only when it must leave regular search.
+7. Update `memory/INDEX.md` when an entry is high value or frequently consulted; do not turn the index into a copy of the whole corpus.
+8. Do not write secrets, personal data, tokens, sensitive raw logs or information that must not be stored.
 
-## Đánh giá chất lượng entry
-- Có thể hiểu được mà không cần đọc toàn bộ hội thoại gốc.
-- Nêu rõ áp dụng khi nào và không áp dụng khi nào.
-- Có bằng chứng/nguồn và bước xác minh tái lặp được.
-- Có metadata hợp lệ và không trùng entry khác.
+## Entry quality checklist
+- Understandable without reading the whole original conversation.
+- States clearly when it applies and when it does not.
+- Has evidence/sources and repeatable verification steps.
+- Has valid metadata and does not duplicate another entry.
 
-## Điều kiện hoàn tất
-- Memory có giá trị đã được tạo/cập nhật ở đúng scope hoặc đã xác định có lý do để không lưu; không tuyên bố hoàn thành nếu file chưa được ghi.
+## Completion criteria
+- Valuable memory has been created/updated at the right scope, or a reason for not storing it has been established; do not claim completion if the file was not written.
 
-## Template liên quan
+## Related templates
 - `.agents/template/memory/memory-entry.md`
 - `.agents/template/software/memory-evaluation.md`

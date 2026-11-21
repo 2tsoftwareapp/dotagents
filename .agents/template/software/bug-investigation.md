@@ -1,47 +1,47 @@
-# Điều tra lỗi: <tiêu đề ngắn>
+# Bug investigation: <short title>
 
-- **Trạng thái:** Đang điều tra | Đã sửa | Bị chặn | Không sửa
-- **Mức độ / ảnh hưởng:** <ai/cái gì bị ảnh hưởng>
-- **Lần đầu ghi nhận:** YYYY-MM-DD
+- **Status:** Investigating | Fixed | Blocked | Won't fix
+- **Severity / impact:** <who/what is affected>
+- **First observed:** YYYY-MM-DD
 - **Issue/PR:** <link>
 
-## Triệu chứng
+## Symptoms
 
-- Mong đợi:
-- Thực tế:
-- Error/log/metric (đã che thông tin nhạy cảm):
-- Các bước tái hiện và tần suất:
+- Expected:
+- Actual:
+- Error/log/metric (sensitive data redacted):
+- Reproduction steps and frequency:
 
-## Phạm vi và bằng chứng
+## Scope and evidence
 
-- Môi trường, build, phiên bản dependency:
-- File/service/luồng dữ liệu bị ảnh hưởng:
-- Memory liên quan đã tìm:
-- Trường hợp tái hiện tối thiểu:
+- Environment, build, dependency versions:
+- Affected files/services/data flows:
+- Related memory searched:
+- Minimal reproduction case:
 
-## Giả thuyết và kiểm tra
+## Hypotheses and checks
 
-| Giả thuyết | Bằng chứng ủng hộ/phản bác | Test đã thực hiện | Kết quả |
+| Hypothesis | Supporting/refuting evidence | Test performed | Result |
 |---|---|---|---|
 | | | | |
 
-## Nguyên nhân gốc đã xác nhận
+## Confirmed root cause
 
-Giải thích cơ chế gây ra lỗi. Nếu chưa biết, ghi rõ nguyên nhân vẫn chưa được xác định.
+Explain the mechanism that caused the bug. If unknown, state explicitly that the root cause is still undetermined.
 
-## Cách sửa
+## Fix
 
-- Thay đổi và lý do:
-- Vì sao cách sửa ngăn được lỗi đã quan sát:
-- Các phương án bị loại bỏ:
+- Changes and rationale:
+- Why the fix prevents the observed bug:
+- Rejected options:
 
-## Kiểm chứng và ngăn tái diễn
+## Verification and recurrence prevention
 
-- Test/kiểm tra đã chạy và kết quả:
-- Đường lỗi/edge case đã kiểm tra:
-- Monitoring/rollback nếu liên quan:
-- [ ] Lưu bài học có thể tái sử dụng vào memory nếu đáp ứng tiêu chí.
+- Tests/checks run and results:
+- Error paths/edge cases checked:
+- Monitoring/rollback if relevant:
+- [ ] Save the reusable lesson to memory if it meets the criteria.
 
-## Rủi ro còn lại / việc tiếp theo
+## Remaining risks / next steps
 
-- [ ] <việc cần làm> — người phụ trách
+- [ ] <task to do> — owner

@@ -1,32 +1,32 @@
-# Kho memory
+# Memory store
 
-Memory lưu **kiến thức đã chọn lọc và rút ra**, không phải nhật ký đầy đủ của cả phiên làm việc.
+Memory holds **selected, distilled knowledge**, not a complete log of every working session.
 
-## Phân loại
+## Categories
 
-- `entries/bugfixes/`: triệu chứng → nguyên nhân gốc → cách sửa → kiểm chứng.
-- `entries/decisions/`: quyết định và trade-off có ảnh hưởng dài hạn.
-- `entries/patterns/`: pattern kiến trúc/code đã được chứng minh trong phạm vi xác định.
-- `entries/workflows/`: quy trình/lệnh có thể lặp lại.
-- `entries/environment/`: đặc điểm môi trường, toolchain, triển khai hoặc dependency dễ quên.
-- `archive/YYYY/`: kiến thức lịch sử, không nằm trong kết quả tìm kiếm mặc định.
+- `entries/bugfixes/`: symptom → root cause → fix → verification.
+- `entries/decisions/`: decisions and trade-offs with long-term impact.
+- `entries/patterns/`: architecture or code patterns proven within a defined scope.
+- `entries/workflows/`: repeatable procedures and commands.
+- `entries/environment/`: easy-to-forget environment, toolchain, deployment or dependency details.
+- `archive/YYYY/`: historical knowledge, excluded from default search results.
 
-## Quy trình ghi memory
+## Writing memory
 
-1. Tìm chủ đề tương tự trước khi tạo file.
-2. Dùng `../template/memory/memory-entry.md`.
-3. Mỗi entry tập trung vào một bài học có thể tái sử dụng; mục tiêu khoảng 200–700 từ, trừ khi trường hợp cần dài hơn.
-4. Nêu bằng chứng và phạm vi áp dụng; phân biệt sự thật đã xác nhận với giả thuyết.
-5. Chỉ cập nhật `INDEX.md` khi entry có giá trị cao hoặc thường xuyên cần tra cứu.
-6. Theo dõi thay đổi bằng Git và review như code.
+1. Search for a similar topic before creating a file.
+2. Use `../template/memory/memory-entry.md`.
+3. Keep one reusable lesson per entry; aim for roughly 200–700 words unless the case needs more.
+4. State the evidence and the applicable scope; separate confirmed facts from hypotheses.
+5. Update `INDEX.md` only for high-value entries or ones you look up often.
+6. Track changes with Git and review them like code.
 
-## Tìm kiếm
+## Searching
 
-Chạy từ thư mục gốc của project:
+Run from the project root:
 
 ```bash
 .agents/scripts/search-memory.sh "exact error or concept"
 .agents/scripts/search-memory.sh --archive "exact error or concept"
 ```
 
-Nếu repository không có script, chạy `"$HOME/.agents/scripts/search-memory.sh" "exact error or concept"`. Script tự nhận diện Git root hiện tại và tìm cả memory của project lẫn global.
+If the repository has no script, run `"$HOME/.agents/scripts/search-memory.sh" "exact error or concept"`. The script detects the current Git root and searches both project and global memory.

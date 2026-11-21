@@ -1,33 +1,33 @@
 ---
 name: code-review
-description: "Review thay đổi code dựa trên diff và ngữ cảnh xung quanh, ưu tiên bug, regression, bảo mật, dữ liệu và khả năng bảo trì. Dùng trước merge hoặc khi được yêu cầu đánh giá chất lượng code."
+description: "Review code changes based on the diff and surrounding context, prioritizing bugs, regressions, security, data and maintainability. Use before merge or when asked to assess code quality."
 ---
-# Review code
+# Code review
 
-## Khi nào dùng
-- Trước khi merge/release, sau thay đổi đáng kể hoặc khi được yêu cầu review độc lập.
+## When to use
+- Before merge/release, after a significant change, or when asked for an independent review.
 
-## Không dùng khi
-- Chỉ cần implement một yêu cầu chưa xong; dùng `implementation` rồi review diff sau.
+## When not to use
+- The requirement is still being implemented; use `implementation` and review the diff afterwards.
 
-## Quy trình
-1. Đọc yêu cầu/acceptance criteria và memory có liên quan; xác định phạm vi diff.
-2. Đọc diff cùng phần code xung quanh, caller/callee, test, schema và contract liên quan.
-3. Tìm lỗi logic, xử lý trạng thái, race condition, validation, quyền truy cập, rò rỉ dữ liệu, tương thích ngược và regression.
-4. Kiểm tra test mới có thật sự bắt được lỗi/đảm bảo hành vi cần thiết không.
-5. Xếp phát hiện theo mức độ ảnh hưởng; mỗi finding cần vị trí cụ thể, điều kiện xảy ra, tác động và hướng xử lý.
-6. Ghi phát hiện vào `code-review.md` nếu review lớn hoặc cần lưu lịch sử. Nếu không phát hiện vấn đề, nêu rõ phạm vi đã xem và giới hạn.
+## Process
+1. Read the requirements/acceptance criteria and related memory; define the diff scope.
+2. Read the diff together with surrounding code, callers/callees, tests, schema and related contracts.
+3. Look for logic errors, state handling, race conditions, validation, access control, data leaks, backward compatibility and regressions.
+4. Check whether new tests actually catch the defect or guarantee the required behavior.
+5. Rank findings by impact; each finding needs a specific location, trigger condition, impact and remediation direction.
+6. Record findings in `code-review.md` if the review is large or history must be kept. If you find no issues, state the scope you examined and its limits.
 
-## Quy tắc
-- Chỉ báo cáo điều có cơ sở từ diff/code/test; không tạo finding dựa trên phỏng đoán không kiểm chứng.
-- Ưu tiên finding có thể hành động, không tập trung vào sở thích formatting khi đã có formatter.
-- Phân biệt bug chắc chắn với câu hỏi cần xác minh.
-- Không khẳng định review đầy đủ nếu chỉ xem một phần file hoặc không thể chạy test.
-- Báo cáo review theo template phải được xuất thành file Markdown (`.md`); chat chỉ tóm tắt ngắn gọn kết luận, số lượng findings, blocker chính và đường dẫn file.
-- Giọng điệu review tuân thủ *Clear but not cold* và *Helpful but not overly-prescriptive*: nêu rõ nguyên nhân kèm bằng chứng, đề xuất hướng xử lý và phân tích trade-off thay vì áp đặt hay ra lệnh.
+## Rules
+- Only report what the diff/code/tests support; do not create findings from unverified speculation.
+- Prioritize actionable findings; do not focus on formatting preferences when a formatter already exists.
+- Distinguish definite bugs from questions that need verification.
+- Do not claim a complete review if you only looked at part of the file or could not run tests.
+- A review report based on the template must be written to a Markdown file (`.md`); chat only summarizes the conclusion, findings count, main blockers and the file path.
+- Review tone follows *Clear but not cold* and *Helpful but not overly-prescriptive*: state the cause with evidence, suggest remediation and analyze trade-offs instead of imposing or issuing orders.
 
-## Điều kiện hoàn tất
-- Findings được phân loại rõ; blocker/high severity được xử lý hoặc được chấp nhận có chủ đích trước merge.
+## Completion criteria
+- Findings are clearly classified; blockers/high severity issues are addressed or deliberately accepted before merge.
 
-## Template liên quan
+## Related templates
 `.agents/template/software/code-review.md`

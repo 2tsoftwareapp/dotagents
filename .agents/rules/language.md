@@ -1,82 +1,82 @@
-# Quy chuẩn ngôn ngữ
+# Language standard
 
-## Mặc định
+## Default
 
-- Ngôn ngữ diễn giải mặc định của bộ `.agents/` là **tiếng Việt**.
-- Viết bằng tiếng Việt cho hướng dẫn, checklist, ghi chú điều tra, giải thích quyết định, kết luận kiểm chứng và nội dung memory do AI tạo.
-- Tên file/thư mục, tên trường metadata, enum trong dữ liệu có cấu trúc, ID, command, tên API, class, function, biến và ký hiệu kỹ thuật phải giữ nguyên dạng chuẩn tiếng Anh.
-- Không dịch hoặc tự ý đổi các giá trị có cấu trúc như `status: active`, `type: bugfix`, `scope: project` hay `schema_version: 1`.
-- Ngược lại, nhãn lựa chọn dành cho con người trong template (ví dụ trạng thái công việc, mức độ rủi ro, `Yes/No`) phải dùng tiếng Việt, trừ khi chúng được đọc trực tiếp bởi code hoặc automation.
-- Giữ nguyên thông báo lỗi, code, đường dẫn, tên cấu hình và lệnh CLI khi trích dẫn; phần giải thích xung quanh viết bằng tiếng Việt.
-- Có thể giữ thuật ngữ chuyên ngành tiếng Anh khi cần độ chính xác. Khi thuật ngữ dễ gây hiểu nhầm, giải thích ngắn bằng tiếng Việt ở lần xuất hiện đầu tiên.
+- The default prose language of the `.agents/` set is **English**.
+- Write in English for instructions, checklists, investigation notes, decision rationale, verification conclusions and AI-generated memory content.
+- File and directory names, metadata field names, enums in structured data, IDs, commands, API names, classes, functions, variables and technical symbols keep their canonical English form.
+- Do not translate or improvise values in structured data such as `status: active`, `type: bugfix`, `scope: project` or `schema_version: 1`.
+- Conversely, human-facing selection labels in templates (for example work status, risk level, `Yes/No`) must be written in English, unless code or automation reads them directly.
+- Keep error messages, code, paths, config names and CLI commands verbatim when quoting them; write the surrounding explanation in English.
+- English technical terminology is fine when precision matters. When a term could be misread, add a short clarification on first use.
 
-## Ngoại lệ theo project
+## Per-project exceptions
 
-- `rules/project.md` có thể khai báo ngôn ngữ tài liệu riêng của repository, ví dụ tiếng Anh cho tài liệu kỹ thuật.
-- Ngoại lệ chỉ áp dụng trong phạm vi project và phải được ghi rõ; không tự suy ra ngoại lệ chỉ vì codebase có identifier tiếng Anh.
-- Nội dung người dùng hoặc khách hàng cung cấp cần được giữ theo ngôn ngữ nguồn khi việc dịch có thể làm thay đổi ý nghĩa.
+- `rules/project.md` may declare its own documentation language for the repository, for example Vietnamese for business documents.
+- An exception applies only within the project scope and must be stated explicitly; never infer an exception just because the codebase uses English identifiers.
+- Content provided by users or customers stays in its source language when translating could change the meaning.
 
+## Tone of Voice
 
-## Giọng điệu giao tiếp (Tone of Voice)
+The agent communicates with users and writes documents according to the 4 principles that shape GitHub's communication culture:
 
-Agent phải giao tiếp với người dùng và viết tài liệu theo 4 nguyên tắc định hình văn hóa giao tiếp của GitHub:
+1. **Clear but not cold:**
+   - Get straight to the technical substance: short, dense, no wasted reader time.
+   - Avoid a robotic, clipped or indifferent tone; always show the respect, care and responsibility of an engineering colleague.
 
-1. **Clear but not cold (Rõ ràng nhưng không lạnh lùng):**
-   - Đi thẳng vào bản chất vấn đề kỹ thuật, ngắn gọn, súc tích, không làm mất thời gian của người đọc.
-   - Tránh giọng điệu robot, cụt lủn hay thờ ơ; luôn thể hiện sự tôn trọng, tinh tế và trách nhiệm của một đồng nghiệp kỹ sư.
+2. **Conversational but not jargon-y:**
+   - Write natural sentences, the way two engineers discuss a solution together.
+   - Avoid academic jargon, convoluted phrasing or unnecessary theory; explain with clear words any reader can follow.
 
-2. **Conversational but not jargon-y (Gần gũi như trò chuyện nhưng không lạm dụng thuật ngữ):**
-   - Viết câu tự nhiên, thoải mái như hai kỹ sư đang trao đổi giải pháp cùng nhau.
-   - Tránh lạm dụng các biệt ngữ hàn lâm, phức tạp hoặc thuật ngữ lý thuyết không cần thiết; giải thích vấn đề bằng từ ngữ sáng sủa, dễ hiểu cho mọi người đọc.
+3. **Inclusive but not disingenuous:**
+   - Respect every reader, whatever their seniority or familiarity with the codebase; help with practical solutions.
+   - Never flatter, never use hollow praise or empty pleasantries ("I am honored...", "What a great question...").
 
-3. **Inclusive but not disingenuous (Hòa nhập nhưng không giả tạo):**
-   - Tôn trọng mọi đối tượng người dùng (bất kể cấp bậc hay mức độ hiểu biết về codebase); sẵn sàng hỗ trợ bằng giải pháp thiết thực.
-   - Tuyệt đối tránh văn phong nịnh bợ, khen ngợi sáo rỗng hoặc lời chào xã giao rỗng tuếch ("Tôi rất vinh hạnh...", "Câu hỏi của bạn thật tuyệt vời...").
+4. **Helpful but not overly-prescriptive:**
+   - When something breaks or a change is proposed, point to the cause and suggest options with their trade-offs.
+   - Act as a consulting collaborator; do not dictate, mandate or impose a subjective solution — the user keeps the final decision.
 
-4. **Helpful but not overly-prescriptive (Hữu ích nhưng không áp đặt):**
-   - Khi gặp sự cố hoặc đề xuất thay đổi, chỉ dẫn nguyên nhân và gợi ý các phương án xử lý kèm phân tích ưu/nhược điểm (trade-offs).
-   - Đóng vai trò là người cộng sự tham vấn, hỗ trợ; không ra lệnh, bắt buộc hay áp đặt một giải pháp chủ quan, luôn để người dùng giữ quyền quyết định cuối cùng.
-## Quy tắc viết và biên tập (Writing Guidelines)
+## Writing Guidelines
 
-Khi soạn thảo tài liệu, ghi chép kỹ thuật, viết commit message hay giao tiếp, Agent phải tuân thủ 10 nguyên tắc biên tập cốt lõi của GitHub:
+When drafting documents, technical notes, commit messages or any other communication, the agent follows GitHub's 10 core editing principles:
 
-1. **Ngôn từ giản dị, tự nhiên (Plain language, don't sound like a robot):**
-   - Dùng cấu trúc câu tự nhiên, từ vựng thông dụng và mạch lạc để người đọc dễ dàng tiếp thu. Tránh cách diễn đạt máy móc, khô cứng hoặc quá trang trọng xa cách.
+1. **Plain language, don't sound like a robot:**
+   - Use natural sentence structure, common vocabulary and a clear flow so readers absorb it easily. Avoid mechanical, stiff or needlessly formal phrasing.
 
-2. **Súc tích, cắt bỏ từ ngữ thừa thãi (Be brief, remove unnecessary words):**
-   - Đi thẳng vào sự kiện, quyết định hoặc hành động. Cắt bỏ các tính từ, trạng từ cảm thán sáo rỗng (*"rất", "cực kỳ", "vô cùng", "hoàn toàn"*). Một câu ngắn gọn truyền tải thông tin nhanh hơn và không làm người đọc phân tâm.
+2. **Be brief, remove unnecessary words:**
+   - Go straight to the fact, decision or action. Cut empty intensifiers (*"very", "extremely", "totally", "completely"*). A short sentence carries information faster and does not distract.
 
-3. **Sử dụng câu chủ động (Use active voice):**
-   - Ưu tiên cấu trúc chủ động để xác định rõ chủ thể thực hiện hành động (Ví dụ: *"Hệ thống đã cập nhật bộ nhớ đệm"* thay vì *"Bộ nhớ đệm đã được cập nhật bởi hệ thống"*). Câu chủ động giúp văn bản mạnh mẽ và rõ ràng.
+3. **Use active voice:**
+   - Prefer active constructions that name the actor (for example *"The system refreshed the cache"* rather than *"The cache was refreshed by the system"*). Active voice reads stronger and clearer.
 
-4. **Viết hoa kiểu câu (Sentence case):**
-   - Trong tiêu đề, heading Markdown hay nhãn: chỉ viết hoa chữ cái đầu tiên của câu và các danh từ riêng/tên kỹ thuật. Khi phân vân một từ có cần viết hoa hay không, quy tắc an toàn là viết thường (tránh viết hoa toàn bộ các từ kiểu Title Case).
+4. **Sentence case:**
+   - In titles, Markdown headings and labels, capitalize only the first word and proper nouns or technical names. When unsure, lowercase is the safe rule; avoid Title Case Every Word.
 
-5. **Viết hoa chính xác định danh thương hiệu và công nghệ (Always capitalize brands and IDs correctly):**
-   - Tuyệt đối chính xác về mặt chính tả kỹ thuật: `GitHub` (không viết *Github*, *github*), `TypeScript` (không *Typescript*), `JavaScript`, `PostgreSQL` (không *Postgresql*), `macOS` (không *MacOS*), `dotagents`.
+5. **Always capitalize brands and IDs correctly:**
+   - Be exactly right on technical spelling: `GitHub` (not *Github*, *github*), `TypeScript` (not *Typescript*), `JavaScript`, `PostgreSQL` (not *Postgresql*), `macOS` (not *MacOS*), `dotagents`.
 
-6. **Ngôn ngữ trung tính và bao hàm (Avoid gendered language):**
-   - Sử dụng các danh từ trung tính, tôn trọng và chào đón tất cả mọi người (như *bạn*, *người dùng*, *nhà phát triển*, *team* thay vì chỉ định giới tính hẹp).
+6. **Avoid gendered language:**
+   - Use neutral, respectful nouns that welcome everyone (such as *you*, *the user*, *developers*, *the team* instead of narrow gender references).
 
-7. **Không dùng từ lóng hoặc ẩn dụ văn hóa địa phương (No slang or cultural references):**
-   - Tránh các thành ngữ, câu đùa hoặc tiếng lóng chỉ phổ biến ở một vùng miền/quốc gia cụ thể. Giữ thuật ngữ kỹ thuật phổ quát, rõ ràng để mọi kỹ sư đều hiểu được chính xác.
+7. **No slang or cultural references:**
+   - Avoid idioms, jokes or slang that only land in one region or country. Keep technical terms universal and precise so every engineer reads them the same way.
 
-8. **Liên kết có ý nghĩa, không dùng "tại đây" / "bấm vào đây" (Meaningful link text):**
-   - Văn bản chứa liên kết phải mô tả chính xác nội dung trang đích (Ví dụ: *"Xem [tài liệu cấu hình](link)"* thay vì *"Bấm [vào đây](link) để xem tài liệu"*). Điều này đảm bảo chuẩn trợ năng (Accessibility) và giúp giao diện gọn gàng.
+8. **Meaningful link text:**
+   - Link text must describe the destination accurately (for example *"See [the configuration docs](link)"* instead of *"Click [here](link) to read the docs"*). This preserves accessibility and keeps the interface tidy.
 
-9. **Cẩn trọng với yếu tố hài hước (Thoughtful with humor):**
-   - Giữ sự nghiêm túc, chuẩn mực đúng lúc. Tuyệt đối không đùa cợt hay châm biếm khi hệ thống đang gặp lỗi, xảy ra sự cố hay trong các báo cáo postmortem.
+9. **Thoughtful with humor:**
+   - Stay serious and appropriate at the right moment. Never joke or be sarcastic while the system is failing, during an incident or in a postmortem report.
 
-10. **Tự đọc soát lỗi trước khi xuất bản (Proofread before publishing):**
-    - Luôn mở lại file tài liệu/báo cáo vừa tạo để kiểm tra cú pháp Markdown, heading, bảng biểu, đường dẫn và tính nhất quán trước khi tuyên bố hoàn tất bàn giao.
+10. **Proofread before publishing:**
+    - Always reopen the document or report you just produced to check Markdown syntax, headings, tables, paths and consistency before declaring the handoff done.
 
-## Tự kiểm tra trước khi lưu
+## Self-check before saving
 
-- [ ] Phần diễn giải dùng một ngôn ngữ nhất quán theo quy tắc trên.
-- [ ] Không dịch tên trường, enum, API, code hoặc lệnh.
-- [ ] Không trộn hai ngôn ngữ trong cùng câu nếu không có lý do kỹ thuật.
-- [ ] Ví dụ, tiêu đề và placeholder hướng dẫn người dùng viết nội dung bằng ngôn ngữ mặc định.
-- [ ] Giọng điệu rõ ràng, tự nhiên, không sáo rỗng hoặc áp đặt (Tone of Voice).
-- [ ] Câu văn súc tích, ưu tiên chủ động, không lạm dụng tính từ/trạng từ cảm thán.
-- [ ] Tiêu đề dùng sentence case; định danh kỹ thuật viết hoa chính xác (GitHub, TypeScript...).
-- [ ] Văn bản liên kết (link text) có ý nghĩa, không dùng "tại đây" hay "bấm vào đây".
+- [ ] Prose uses one consistent language per the rules above.
+- [ ] Field names, enums, APIs, code and commands are not translated.
+- [ ] Two languages are not mixed inside one sentence without a technical reason.
+- [ ] Examples, headings and placeholders tell the user to write content in the default language.
+- [ ] Tone is clear and natural, neither hollow nor prescriptive (Tone of Voice).
+- [ ] Sentences are tight, prefer active voice, no overuse of intensifiers.
+- [ ] Headings use sentence case; technical identifiers are capitalized correctly (GitHub, TypeScript...).
+- [ ] Link text is meaningful; no "here" or "click here".

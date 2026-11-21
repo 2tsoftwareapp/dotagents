@@ -1,3 +1,3 @@
-# Memory đã lưu trữ
+# Archived memory
 
-Chuyển entry vào `YYYY/` khi nó đã lỗi thời, bị thay thế hoặc không còn hữu ích trong công việc thường ngày. Giữ metadata và liên kết đến entry thay thế; không xóa lịch sử có giá trị chỉ vì corpus lớn.
+Move an entry into `YYYY/` when it is outdated, superseded or no longer useful for daily work. Keep the metadata and a link to the replacement entry; never delete valuable history just because the corpus is large.

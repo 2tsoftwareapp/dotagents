@@ -1,8 +1,8 @@
 # Template
 
-Tập trung vào nội dung cần quyết định, thực hiện hoặc kiểm chứng. Không tạo tài liệu riêng nếu công việc không cần; khi hoàn tất, thay placeholder và xóa mục trống không liên quan.
+Focus on the content that needs to be decided, executed, or verified. Do not create a separate document if the work does not need one; when done, replace the placeholders and delete unrelated empty sections.
 
 - Memory: `memory/memory-entry.md`
-- Quy trình phát triển phần mềm: `software/README.md`
+- Software development workflow: `software/README.md`
 
-> **Quy ước xuất bản:** Template dùng để khởi tạo **file Markdown (`.md`)** lưu trữ trong repository. Tuyệt đối không dùng khung template để in nội dung báo cáo chi tiết trực tiếp vào tin nhắn chat. Trong chat chỉ tóm tắt ngắn gọn kết luận và dẫn link file.
+> **Publishing convention:** Templates are used to initialize **Markdown files (`.md`)** stored in the repository. Never use a template frame to print detailed report content directly into a chat message. In chat, only summarize the conclusion briefly and link to the file.

@@ -1,19 +1,19 @@
 # Hermes Desktop important highlight
 
-Plugin mã nguồn cho Hermes Desktop, đăng ký directive `::important{...}` để hiển thị một ý chính nổi bật trong phản hồi assistant.
+Source plugin for Hermes Desktop that registers the `::important{...}` directive to render a highlighted key point inside an assistant response.
 
-## Cài đặt
+## Installation
 
-Sao chép `plugin.js` vào `$HERMES_HOME/desktop-plugins/important-highlight/plugin.js` (thường là `~/.hermes/desktop-plugins/important-highlight/plugin.js`). Giữ tên thư mục trùng `id` của plugin. Nếu thư mục đích đã tồn tại, không ghi đè; hãy xem xét và hợp nhất thủ công.
+Copy `plugin.js` into `$HERMES_HOME/desktop-plugins/important-highlight/plugin.js` (usually `~/.hermes/desktop-plugins/important-highlight/plugin.js`). Keep the directory name identical to the plugin `id`. If the target directory already exists, do not overwrite it; review and merge manually.
 
-Desktop sẽ tự nạp plugin sau vài giây. Nếu chưa thấy, dùng ⌘K → **Reload desktop plugins**. Plugin cần được bật trong Capabilities → Plugins.
+The desktop app loads the plugin automatically within a few seconds. If it does not appear, use ⌘K → **Reload desktop plugins**. The plugin must be enabled under Capabilities → Plugins.
 
-Để agent sử dụng cú pháp trong project hiện tại, sao chép `SKILL.md` đi kèm vào `<project>/.agents/skills/hermes-important-highlight/SKILL.md` và đánh dấu repository là tin cậy bằng cơ chế Skills của Hermes nếu cần. Hermes chỉ nạp project skills từ repository tin cậy.
+To let the agent use the syntax in the current project, copy the bundled `SKILL.md` into `<project>/.agents/skills/hermes-important-highlight/SKILL.md` and mark the repository as trusted through Hermes' Skills mechanism if needed. Hermes loads project skills only from trusted repositories.
 
-## Dùng thử
+## Try it
 
 ```markdown
-::important{text="Sao lưu cơ sở dữ liệu trước khi chạy migration."}
+::important{text="Back up the database before running migrations."}
 ```
 
-Directive có thể nằm trong đoạn văn; plugin sẽ render một khối riêng tại vị trí đó. Nếu directive chưa được đăng ký, Hermes giữ nguyên nội dung thành văn bản thông thường.
+The directive can sit inside a paragraph; the plugin renders a separate block at that position. If the directive is not registered, Hermes keeps the content as plain text.

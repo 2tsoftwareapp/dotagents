@@ -1,64 +1,64 @@
 ---
 name: self-learning-loop
-description: "Tự động phân tích, đúc kết bài học kỹ thuật sau mỗi turn/task gặp lỗi lặp lại, sửa sai hoặc giải pháp mới; sinh và tinh chỉnh skill để tích lũy tri thức cho các phiên tiếp theo."
+description: "Automatically analyze and distill technical lessons after any turn/task with repeated failures, corrections or a new solution; generate and refine skills to accumulate knowledge for later sessions."
 ---
-# Vòng lặp Tự học và Đúc kết Kỹ năng (Self-Learning Loop)
+# Self-learning and skill distillation loop
 
-## Khi nào dùng
-- Khi gặp lỗi hoặc thử nghiệm lệnh thất bại $\ge 2$ lần trước khi tìm được cách khắc phục thành công.
-- Khi người dùng phản hồi chỉnh sửa sai sót hoặc đưa ra hướng dẫn/quy ước nghiệp vụ mới.
-- Sau khi hoàn thành một bài toán kỹ thuật phức tạp, giải quyết được root cause khó hoặc quy trình chưa từng có trong kho skill.
-- Khi người dùng yêu cầu rõ ràng: "hãy đúc kết lại thành skill", "/learn", hoặc "lưu quy trình này để lần sau dùng".
+## When to use
+- When an error or command experiment fails $\ge 2$ times before you find a working fix.
+- When the user responds with a correction or provides new business guidance/conventions.
+- After completing a complex technical problem, resolving a hard root cause, or a process that does not exist in the skill library yet.
+- When the user explicitly asks: "distill this into a skill", "/learn", or "save this process for next time".
 
-## Không dùng khi
-- Các tương tác thông thường, tra cứu tài liệu đơn giản hoặc câu hỏi giải thích không tạo ra tri thức tái sử dụng.
-- Vấn đề chỉ mang tính nhất thời, cục bộ một lần (one-off scratch) không có khả năng lặp lại.
-- Chưa xác minh được giải pháp trong thực tế (không đúc kết các giả thuyết chưa được kiểm chứng).
+## When not to use
+- Routine interactions, simple documentation lookups or explanatory questions that produce no reusable knowledge.
+- Problems that are one-off and temporary with no chance of recurrence.
+- The solution has not been verified in practice (do not distill unverified hypotheses).
 
-## Quy trình
-1. **Thu thập tín hiệu (Signal Capture):**
-   - Xác định: (a) Triệu chứng/Lỗi ban đầu, (b) Nguyên nhân cốt lõi (Root Cause), (c) Hành động/cú pháp chính xác mang lại kết quả thành công, (d) Điều kiện áp dụng.
-2. **Kiểm tra trùng lặp & Khởi tạo draft:**
-   - Chạy script kiểm tra và tạo draft vào thư mục staging:
+## Process
+1. **Signal capture:**
+   - Identify: (a) the initial symptoms/error, (b) the root cause, (c) the exact action/syntax that produced the successful result, (d) applicability conditions.
+2. **Duplicate check & draft creation:**
+   - Run the script that checks for duplicates and creates a draft in the staging directory:
      ```bash
      python3 .agents/scripts/skill-distiller.py \
-       --name "<ten-skill-kebab-case>" \
-       --description "<Mô tả ngắn gọn mục đích và trigger>" \
-       --trigger "<Điều kiện kích hoạt 1>" \
-       --anti-trigger "<Trường hợp không dùng>" \
-       --step "<Bước 1>" \
-       --step "<Bước 2>" \
-       --rule "<Quy tắc an toàn>" \
-       --gotcha "<Bẫy thường gặp>" \
-       --code "<Lệnh hoặc đoạn code mẫu>"
+       --name "<skill-name-kebab-case>" \
+       --description "<Short description of purpose and trigger>" \
+       --trigger "<Activation condition 1>" \
+       --anti-trigger "<Case where it should not be used>" \
+       --step "<Step 1>" \
+       --step "<Step 2>" \
+       --rule "<Safety rule>" \
+       --gotcha "<Common pitfall>" \
+       --code "<Command or sample code>"
      ```
-   - Nếu script phát hiện trùng lặp cao với skill sẵn có: mở skill cũ và cập nhật thêm gotcha/edge case thay vì tạo skill trùng lặp.
-3. **Kiểm định chất lượng draft (Verification):**
-   - Chạy kiểm tra dry-run với script promote:
+   - If the script detects high overlap with an existing skill: open the old skill and add the gotcha/edge case instead of creating a duplicate.
+3. **Draft quality verification:**
+   - Run a dry-run check with the promote script:
      ```bash
-     python3 .agents/scripts/promote-skill.py <ten-skill-kebab-case> --dry-run
+     python3 .agents/scripts/promote-skill.py <skill-name-kebab-case> --dry-run
      ```
-4. **Phê duyệt & Chuyển vào kho chính thức (Promotion):**
-   - Trình tóm tắt skill mới cho người dùng (hoặc chuyển vào kho chính thức nếu đã được ủy quyền):
+4. **Approval & promotion to the official library:**
+   - Present a summary of the new skill to the user (or move it into the official library if already authorized):
      ```bash
-     python3 .agents/scripts/promote-skill.py <ten-skill-kebab-case>
+     python3 .agents/scripts/promote-skill.py <skill-name-kebab-case>
      ```
-   - Chạy kiểm tra tính toàn vẹn của danh mục:
+   - Run the catalog integrity check:
      ```bash
      .agents/scripts/validate-skills.sh .agents/skills
      ```
 
-## Quy tắc
-- **Chất lượng hơn số lượng:** Không tạo skill rác cho các tác vụ cơ bản đã có trong tài liệu tiêu chuẩn.
-- **Bắt buộc kiểm chứng:** Chỉ đúc kết giải pháp khi đã có bằng chứng chạy thật (test pass, exit code 0).
-- **Tuân thủ quy chuẩn naming:** Tên skill phải là kebab-case, trùng tên thư mục chứa file `SKILL.md`.
-- **Cơ chế Staging an toàn:** Mọi skill mới sinh ra phải đi qua `.agents/skills/.staging/` trước khi promote.
+## Rules
+- **Quality over quantity:** Do not create junk skills for basic tasks already covered in the standard documentation.
+- **Verification is mandatory:** Distill a solution only when you have real run evidence (tests pass, exit code 0).
+- **Follow the naming standard:** The skill name must be kebab-case and match the directory containing the `SKILL.md` file.
+- **Safe staging mechanism:** Every newly generated skill must go through `.agents/skills/.staging/` before promotion.
 
-## Điều kiện hoàn tất
-- Draft skill được tạo thành công, vượt qua kiểm định `validate-draft-skill` và `validate-skills.sh`.
-- Báo cáo rõ ràng đường dẫn file skill đã tạo hoặc cập nhật.
+## Completion criteria
+- The skill draft is created successfully and passes the `validate-draft-skill` and `validate-skills.sh` checks.
+- Report clearly the path of the skill file that was created or updated.
 
-## Template/tham chiếu liên quan
+## Related templates/references
 - `.agents/template/skill/SKILL.md`
 - `.agents/scripts/skill-distiller.py`
 - `.agents/scripts/promote-skill.py`

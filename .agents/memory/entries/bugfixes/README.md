@@ -1,3 +1,3 @@
-# Sửa lỗi (bugfixes)
+# Bugfixes
 
-Mỗi entry mô tả triệu chứng, nguyên nhân gốc đã xác nhận, cách xử lý, bằng chứng kiểm chứng và lưu ý về phạm vi áp dụng.
+Each entry describes the symptom, the confirmed root cause, the fix, the verification evidence and notes on the applicable scope.

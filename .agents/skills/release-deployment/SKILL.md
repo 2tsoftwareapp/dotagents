@@ -1,34 +1,34 @@
 ---
 name: release-deployment
-description: "Chuẩn bị phát hành và triển khai an toàn: kiểm tra thay đổi, migration, cấu hình, rollout, smoke test, giám sát và rollback. Dùng trước khi phát hành hoặc deploy môi trường dùng chung/production."
+description: "Prepare releases and deploy safely: check changes, migrations, configuration, rollout, smoke tests, monitoring and rollback. Use before releasing or deploying to shared/production environments."
 ---
-# Chuẩn bị release và triển khai
+# Release preparation and deployment
 
-## Khi nào dùng
-- Chuẩn bị tag/release/deploy, thay đổi schema hoặc cấu hình runtime, rollout feature flag hay cần kế hoạch rollback.
+## When to use
+- Preparing a tag/release/deploy, a schema or runtime configuration change, a feature-flag rollout, or when a rollback plan is needed.
 
-## Không dùng khi
-- Chỉ sửa code local chưa tới bước phát hành.
-- Đang xảy ra incident cần giảm tác động ngay → `incident-response`.
+## When not to use
+- Only local code changes that have not reached the release step.
+- An incident is in progress and impact must be reduced now → `incident-response`.
 
-## Quy trình
-1. Xác định môi trường, phạm vi release, commit/build artifact và người có thẩm quyền phê duyệt.
-2. Đọc diff, kết quả test, security findings, feature flag và compatibility requirement.
-3. Kiểm tra biến môi trường/config, secret reference, dependency, health check và observability.
-4. Với migration, xác nhận thứ tự rollout, tương thích code cũ/mới, backfill, lock/downtime và cách rollback/forward-fix.
-5. Xây dựng rollout steps, smoke test, tín hiệu theo dõi, ngưỡng dừng và rollback plan.
-6. Dùng `release-checklist.md` cho release có ảnh hưởng đáng kể.
-7. Chỉ thực hiện thao tác deploy thật khi môi trường, quyền và ủy quyền đã rõ; nếu không, dừng ở bước chuẩn bị và báo lại.
-8. Sau deploy, kiểm tra health, log/metrics, luồng nghiệp vụ quan trọng và lỗi tăng bất thường.
-9. Ghi lại kết quả phát hành, sai lệch và memory có thể tái sử dụng.
+## Process
+1. Determine the environment, release scope, commit/build artifact and who has approval authority.
+2. Read the diff, test results, security findings, feature flags and compatibility requirements.
+3. Check environment variables/config, secret references, dependencies, health checks and observability.
+4. For migrations, confirm rollout order, old/new code compatibility, backfill, locks/downtime and how to roll back or forward-fix.
+5. Build the rollout steps, smoke tests, monitoring signals, stop thresholds and rollback plan.
+6. Use `release-checklist.md` for releases with significant impact.
+7. Perform an actual deploy only when the environment, permissions and authorization are clear; otherwise stop at preparation and report back.
+8. After deploy, check health, logs/metrics, critical business flows and abnormal error increases.
+9. Record the release outcome, deviations and reusable memory.
 
-## Quy tắc
-- Không deploy production, xóa dữ liệu hoặc chạy migration phá hủy khi chưa có phê duyệt rõ ràng.
-- Không coi rollback code là đủ nếu schema/data đã thay đổi không tương thích.
-- Phải có cách nhận biết release xấu và điều kiện dừng; không chỉ ghi “monitor logs”.
+## Rules
+- Do not deploy to production, delete data or run destructive migrations without explicit approval.
+- Do not treat a code rollback as sufficient if schema/data changed incompatibly.
+- You must have a way to detect a bad release and stopping conditions; do not just write “monitor logs”.
 
-## Điều kiện hoàn tất
-- Release có kiểm tra trước/sau, phương án ứng phó và trạng thái triển khai được báo chính xác.
+## Completion criteria
+- The release has before/after checks, a response plan, and the deployment status is reported accurately.
 
-## Template liên quan
+## Related templates
 `.agents/template/software/release-checklist.md`

@@ -1,25 +1,25 @@
-# Template phát triển phần mềm
+# Software development templates
 
-Chọn template theo mức độ rủi ro và giai đoạn công việc; không coi đây là giấy tờ bắt buộc cho mọi thay đổi. Skill tương ứng nằm trong `.agents/skills/` và hướng dẫn cách tạo/kiểm tra đầu ra.
+Choose a template by risk level and work stage; do not treat these as mandatory paperwork for every change. The matching skills live in `.agents/skills/` and describe how to create/verify the output.
 
-| Template | Skill gợi ý | Dùng khi |
+| Template | Suggested skill | Use when |
 |---|---|---|
-| `feature-spec.md` | `requirements-discovery` | Làm rõ vấn đề, phạm vi và tiêu chí nghiệm thu |
-| `implementation-plan.md` | `solution-design`, `implementation` | Thay đổi cần chia bước và xác minh |
-| `technical-design.md` | `solution-design` | Thiết kế nhiều thành phần hoặc luồng dữ liệu |
-| `test-plan.md` | `testing-validation` | Rủi ro/case test cần được review trước |
-| `bug-investigation.md` | `bug-investigation` | Tái hiện, giả thuyết, root cause và fix |
-| `code-review.md` | `code-review` | Lưu review có nhiều findings |
-| `security-review.md` | `security-review` | Thay đổi auth, dữ liệu nhạy cảm hoặc trust boundary |
-| `release-checklist.md` | `release-deployment` | Chuẩn bị rollout, smoke test, rollback |
-| `adr.md` | `solution-design` | Quyết định kiến trúc có ảnh hưởng dài hạn |
-| `incident-postmortem.md` | `incident-response` | Tổng kết sau khi ổn định sự cố |
-| `handoff.md` | `handoff-retrospective` | Chuyển phiên/agent hoặc bàn giao task |
-| `retrospective.md` | `handoff-retrospective` | Rút bài học có action item cụ thể |
-| `memory-evaluation.md` | `memory-curation` | Đo hiệu quả truy xuất/sử dụng memory |
+| `feature-spec.md` | `requirements-discovery` | Clarify the problem, scope, and acceptance criteria |
+| `implementation-plan.md` | `solution-design`, `implementation` | The change needs to be split into steps and verified |
+| `technical-design.md` | `solution-design` | Designing multiple components or data flows |
+| `test-plan.md` | `testing-validation` | Risks/test cases need review first |
+| `bug-investigation.md` | `bug-investigation` | Reproduce, hypothesize, find root cause, and fix |
+| `code-review.md` | `code-review` | Record a review with many findings |
+| `security-review.md` | `security-review` | Changes to auth, sensitive data, or trust boundaries |
+| `release-checklist.md` | `release-deployment` | Prepare rollout, smoke test, rollback |
+| `adr.md` | `solution-design` | Architecture decisions with long-term impact |
+| `incident-postmortem.md` | `incident-response` | Summarize after an incident is stabilized |
+| `handoff.md` | `handoff-retrospective` | Switch session/agent or hand off a task |
+| `retrospective.md` | `handoff-retrospective` | Capture lessons with concrete action items |
+| `memory-evaluation.md` | `memory-curation` | Measure memory retrieval/usage effectiveness |
 
-Template trong `.agents/template/` là bản gốc. Khi khởi tạo tài liệu cho task, tuân theo quy chuẩn lưu trữ tại `../../rules/deliverables-and-reporting.md`:
-- Tài liệu dự án dài hạn (ADR, feature-spec): lưu trong repo (`docs/adr/`, `docs/specs/`).
-- Báo cáo review, audit, bug investigation, handoff: mặc định lưu tại `~/.agents/outputs/<project-name>/reports/YYYY-MM-DD-<loại>-<chủ-đề>-<rev>.md`. Không tạo file rác ở root project.
+Templates in `.agents/template/` are the source of truth. When initializing a document for a task, follow the storage standard in `../../rules/deliverables-and-reporting.md`:
+- Long-lived project documents (ADR, feature-spec): store in the repo (`docs/adr/`, `docs/specs/`).
+- Review, audit, bug investigation, and handoff reports: by default store at `~/.agents/outputs/<project-name>/reports/YYYY-MM-DD-<type>-<topic>-<rev>.md`. Do not create junk files at the project root.
 
-> **Phân định Chat và File:** Toàn bộ nội dung chi tiết theo template phải được xuất ra **file Markdown (`.md`)**. Không dán nguyên bản template vào chat; chat chỉ đưa kết luận ngắn gọn, blocker chính và đường dẫn file đã tạo.
+> **Chat vs. File separation:** All detailed content per template must be written to a **Markdown file (`.md`)**. Do not paste the template verbatim into chat; chat only carries a brief conclusion, key blockers, and the path of the file created.

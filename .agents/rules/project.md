@@ -1,45 +1,45 @@
-# Bối cảnh riêng của project
+# Project-specific context
 
-> Điền file này cho từng repository. Không dùng các mục chưa xác minh làm chỉ dẫn thực tế.
+> Fill this file in for each repository. Never treat an unverified section as a working instruction.
 
 ## Project
-- **Tên / mục tiêu:** TODO
-- **Loại ứng dụng:** TODO
-- **Thành phần chính:** TODO
-- **Nguồn tài liệu kiến trúc:** TODO
+- **Name / goal:** TODO
+- **Application type:** TODO
+- **Main components:** TODO
+- **Architecture documentation sources:** TODO
 
-## Stack và phiên bản
+## Stack and versions
 - Runtime/framework: TODO
-- Ngôn ngữ/toolchain: TODO
+- Language/toolchain: TODO
 - Database/cache/queue: TODO
-- Dependency quan trọng và phiên bản liên quan: TODO
+- Key dependencies and relevant versions: TODO
 
-## Kiến trúc và quy ước
-- Entry point/module chính: TODO
-- Luồng dữ liệu và ranh giới domain: TODO
-- Quy ước đặt tên, thư mục, API và xử lý lỗi: TODO
-- File được sinh tự động hoặc không được sửa trực tiếp: TODO
+## Architecture and conventions
+- Entry points/main modules: TODO
+- Data flow and domain boundaries: TODO
+- Naming, directory, API and error-handling conventions: TODO
+- Files that are generated or must not be edited directly: TODO
 
-## Lệnh (đối chiếu với file package và CI)
-- Cài đặt: `TODO`
-- Chạy môi trường dev: `TODO`
+## Commands (cross-check against the package files and CI)
+- Install: `TODO`
+- Run dev environment: `TODO`
 - Unit test: `TODO`
 - Integration/e2e test: `TODO`
 - Lint/format: `TODO`
 - Type check: `TODO`
 - Build: `TODO`
 
-## Ràng buộc
-- Tương thích ngược: TODO
-- Bảo mật / phân quyền / dữ liệu nhạy cảm: TODO
-- Hiệu năng / độ tin cậy: TODO
-- Ràng buộc migration / triển khai / rollback: TODO
+## Constraints
+- Backward compatibility: TODO
+- Security / authorization / sensitive data: TODO
+- Performance / reliability: TODO
+- Migration / deployment / rollback constraints: TODO
 
-## Ngôn ngữ tài liệu
-- Ngôn ngữ mặc định: Tiếng Việt
-- Ngoại lệ/phạm vi áp dụng (nếu có): TODO
+## Documentation language
+- Default language: English
+- Exceptions / scope (if any): TODO
 
-## Bảng thuật ngữ nghiệp vụ
-| Thuật ngữ | Ý nghĩa | Nguồn chuẩn |
+## Business glossary
+| Term | Meaning | Source of truth |
 |---|---|---|
 | TODO | TODO | TODO |

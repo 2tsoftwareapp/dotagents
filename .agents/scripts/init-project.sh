@@ -3,14 +3,14 @@ set -euo pipefail
 
 usage() {
   cat <<'USAGE'
-Cách dùng:
-  init-project.sh [--force] <thư-mục-project-đích>
+Usage:
+  init-project.sh [--force] <target-project-dir>
 
-Khởi tạo cấu trúc .agents/ và AGENTS.md cho một repository mới từ dotagents framework.
-Mặc định an toàn: KHÔNG ghi đè các file đã tồn tại (như .agents/rules/project.md, AGENTS.md, ...)
-trừ khi truyền cờ --force.
+Initialize the .agents/ structure and AGENTS.md for a new repository from the dotagents framework.
+Safe by default: does NOT overwrite existing files (such as .agents/rules/project.md, AGENTS.md, ...)
+unless the --force flag is passed.
 
-Ví dụ:
+Examples:
   ./init-project.sh ~/tx/GitHub/my-new-app
   ./init-project.sh --force ~/tx/GitHub/my-new-app
 USAGE
@@ -33,7 +33,7 @@ while [[ $# -gt 0 ]]; do
       if [[ -z "$target_arg" ]]; then
         target_arg="$1"
       else
-        echo "Lỗi: quá nhiều tham số vị trí: $1" >&2
+        echo "Error: too many positional arguments: $1" >&2
         usage >&2
         exit 1
       fi
@@ -62,10 +62,10 @@ copy_file_safe() {
 
   mkdir -p "$(dirname "$dest")"
   if [[ -f "$dest" && "$force" != true ]]; then
-    echo "  - Giữ nguyên (đã tồn tại): $rel"
+    echo "  - Kept (already exists): $rel"
   else
     cp "$src" "$dest"
-    echo "  + Sao chép: $rel"
+    echo "  + Copied: $rel"
   fi
 }
 
@@ -77,17 +77,17 @@ if [[ -f "$ROOT_DIR/.agents/AGENTS.md" ]]; then
   copy_file_safe "$ROOT_DIR/.agents/AGENTS.md" "$TARGET/.agents/AGENTS.md" ".agents/AGENTS.md"
 fi
 
-# 3. Toàn bộ file bên dưới .agents/ (bỏ qua __pycache__, *.pyc, .DS_Store, artifact tạm)
+# 3. All files under .agents/ (skip __pycache__, *.pyc, .DS_Store, temp artifacts)
 cd "$ROOT_DIR"
 find .agents -type f ! -path '*/__pycache__/*' ! -name '*.pyc' ! -name '.DS_Store' | while IFS= read -r rel_file; do
   [[ "$rel_file" == ".agents/AGENTS.md" ]] && continue
   copy_file_safe "$ROOT_DIR/$rel_file" "$TARGET/$rel_file" "$rel_file"
 done
 
-# Đảm bảo scripts có quyền thực thi
+# Ensure scripts are executable
 chmod +x "$TARGET/.agents/scripts/"*.sh "$TARGET/.agents/scripts/"*.py 2>/dev/null || true
 
-echo "==> Khởi tạo thành công!"
-echo "Bước tiếp theo:"
-echo "  1. Mở file: $TARGET/.agents/rules/project.md và điền stack, lệnh test/run của project."
-echo "  2. Chạy: $TARGET/.agents/scripts/doctor.sh để kiểm tra tính toàn vẹn."
+echo "==> Initialized successfully!"
+echo "Next steps:"
+echo "  1. Open: $TARGET/.agents/rules/project.md and fill in the stack and the test/run commands for the project."
+echo "  2. Run: $TARGET/.agents/scripts/doctor.sh to check integrity."

@@ -1,3 +1,3 @@
-# Công cụ (tools)
+# Tools
 
-Lưu hoặc mô tả công cụ hỗ trợ không thuộc skill, script hay MCP. Nêu mục đích, đầu vào/đầu ra, dependency, tác động phụ, cách sử dụng an toàn và cách kiểm chứng. Ưu tiên công cụ có hành vi xác định và dễ kiểm tra.
+Store or describe helper tools that are not skills, scripts or MCP servers. State the purpose, inputs/outputs, dependencies, side effects, safe usage and how to verify the tool. Prefer tools with deterministic behavior that are easy to check.

@@ -4,8 +4,8 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-echo "Chạy integration test cho init-project.sh..."
-# Đảm bảo thư mục tạm hoạt động ổn định trên mọi môi trường
+echo "Running integration test for init-project.sh..."
+# Ensure the temp directory works reliably in every environment
 if [[ -z "${TMPDIR:-}" ]]; then
   if mkdir -p "$HOME/.cache/tmp" 2>/dev/null; then
     export TMPDIR="$HOME/.cache/tmp"
@@ -26,23 +26,23 @@ echo "# CUSTOM ROOT AGENTS" > "$TEMP_TARGET/AGENTS.md"
 
 # Assert pre-existing files preserved
 if ! grep -q "CUSTOM PROJECT RULES DO NOT OVERWRITE" "$TEMP_TARGET/.agents/rules/project.md"; then
-  echo "FAIL: .agents/rules/project.md bị ghi đè!" >&2
+  echo "FAIL: .agents/rules/project.md was overwritten!" >&2
   exit 1
 fi
 if ! grep -q "CUSTOM ROOT AGENTS" "$TEMP_TARGET/AGENTS.md"; then
-  echo "FAIL: root AGENTS.md bị ghi đè!" >&2
+  echo "FAIL: root AGENTS.md was overwritten!" >&2
   exit 1
 fi
 
 # Assert .agents/AGENTS.md copied
 if [[ ! -f "$TEMP_TARGET/.agents/AGENTS.md" ]]; then
-  echo "FAIL: thiếu .agents/AGENTS.md!" >&2
+  echo "FAIL: missing .agents/AGENTS.md!" >&2
   exit 1
 fi
 
 # Assert NO generated cache artifacts copied into target
 if find "$TEMP_TARGET" -name '*.pyc' -o -name '__pycache__' | grep -q .; then
-  echo "FAIL: init-project sao chép cả artifact rác/pycache vào target!" >&2
+  echo "FAIL: init-project copied junk artifacts/pycache into the target!" >&2
   exit 1
 fi
 (
@@ -56,7 +56,7 @@ fi
   cd "$SANDBOX"
   "$SCRIPT_DIR/init-project.sh" "my_relative_app"
   if [[ ! -f "my_relative_app/AGENTS.md" || ! -f "my_relative_app/.agents/AGENTS.md" ]]; then
-    echo "FAIL: init-project thất bại với relative destination path!" >&2
+    echo "FAIL: init-project failed with a relative destination path!" >&2
     exit 1
   fi
 )
@@ -64,7 +64,7 @@ fi
 # Scenario 3: Test --force overwrite
 "$SCRIPT_DIR/init-project.sh" --force "$TEMP_TARGET"
 if grep -q "CUSTOM PROJECT RULES DO NOT OVERWRITE" "$TEMP_TARGET/.agents/rules/project.md"; then
-  echo "FAIL: --force không ghi đè .agents/rules/project.md!" >&2
+  echo "FAIL: --force did not overwrite .agents/rules/project.md!" >&2
   exit 1
 fi
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Unit tests cho skill-distiller.py và promote-skill.py."""
+"""Unit tests for skill-distiller.py and promote-skill.py."""
 
 from __future__ import annotations
 
@@ -24,26 +24,26 @@ def test_kebab_case() -> None:
 def test_render_skill_md() -> None:
     content = distiller_mod.render_skill_md(
         name="test-skill",
-        description="Mô tả kỹ năng kiểm thử",
-        triggers=["Khi chạy unit test"],
-        anti_triggers=["Khi deploy production"],
-        procedure=["Chạy pytest", "Kiểm tra exit code"],
-        rules=["Không bỏ qua assert"],
-        gotchas=["Chú ý timeout"],
+        description="Test skill description",
+        triggers=["When running unit tests"],
+        anti_triggers=["When deploying to production"],
+        procedure=["Run pytest", "Check the exit code"],
+        rules=["Never skip asserts"],
+        gotchas=["Watch out for timeouts"],
         code_snippets=["pytest -v"]
     )
     assert content.startswith("---\nname: test-skill\n")
-    assert 'description: "Mô tả kỹ năng kiểm thử"' in content
-    assert "## Khi nào dùng" in content
-    assert "- Khi chạy unit test" in content
-    assert "## Không dùng khi" in content
-    assert "## Quy trình" in content
-    assert "1. Chạy pytest" in content
-    assert "## Quy tắc" in content
-    assert "## Các bẫy thường gặp & Xử lý sự cố" in content
-    assert "## Đoạn mã / Lệnh mẫu" in content
+    assert 'description: "Test skill description"' in content
+    assert "## When to use" in content
+    assert "- When running unit tests" in content
+    assert "## When not to use" in content
+    assert "## Process" in content
+    assert "1. Run pytest" in content
+    assert "## Rules" in content
+    assert "## Common pitfalls & troubleshooting" in content
+    assert "## Code snippets / sample commands" in content
     assert "```bash\npytest -v\n```" in content
-    assert "## Điều kiện hoàn tất" in content
+    assert "## Completion criteria" in content
 
 
 def test_similarity_and_deduplication() -> None:
@@ -53,17 +53,17 @@ def test_similarity_and_deduplication() -> None:
         existing_skill_dir.mkdir(parents=True)
         (existing_skill_dir / "SKILL.md").write_text("""---
 name: sqlite-wal-optimization
-description: "Tối ưu hóa ghi đồng thời và chống khóa DB với SQLite WAL mode"
+description: "Optimize concurrent writes and prevent database locking with SQLite WAL mode"
 ---
 # SQLite WAL Optimization
-## Khi nào dùng
-- Khi gặp SQLite database locked
+## When to use
+- When SQLite database locked appears
 """, encoding="utf-8")
 
-        # Test trùng lặp cao
+        # High-similarity case
         similar = distiller_mod.find_similar_skills(
             name="sqlite-wal-lock-fix",
-            description="Tối ưu hóa và chống khóa SQLite WAL mode",
+            description="Optimize and prevent locking with SQLite WAL mode",
             skills_dir=skills_dir
         )
         assert len(similar) >= 1
@@ -82,17 +82,17 @@ def test_end_to_end_distill_and_promote() -> None:
         payload_path = base_dir / "lesson.json"
         payload_data = {
             "name": "auto-cache-busting",
-            "description": "Tự động xóa cache tài nguyên tĩnh khi build tài sản frontend",
-            "triggers": ["Khi deploy frontend assets mới"],
-            "anti_triggers": ["Khi chỉ sửa backend API"],
-            "procedure": ["Sinh content hash", "Cập nhật manifest.json"],
-            "rules": ["Bắt buộc dùng SHA-256"],
-            "gotchas": ["Tránh hardcode timestamp"],
+            "description": "Automatically bust the static asset cache when building frontend assets",
+            "triggers": ["When new frontend assets are deployed"],
+            "anti_triggers": ["When only the backend API changes"],
+            "procedure": ["Generate content hash", "Update manifest.json"],
+            "rules": ["SHA-256 is mandatory"],
+            "gotchas": ["Avoid hardcoding timestamps"],
             "code_snippets": ["npm run build -- --hash"]
         }
         payload_path.write_text(json.dumps(payload_data, ensure_ascii=False), encoding="utf-8")
 
-        # 1. Chạy distiller
+        # 1. Run the distiller
         cmd_distill = [
             sys.executable,
             str(SCRIPTS_DIR / "skill-distiller.py"),
@@ -106,7 +106,7 @@ def test_end_to_end_distill_and_promote() -> None:
         draft_file = staging_dir / "auto-cache-busting" / "SKILL.md"
         assert draft_file.exists()
 
-        # 2. Chạy promote dry-run
+        # 2. Run promote in dry-run mode
         cmd_dry_run = [
             sys.executable,
             str(SCRIPTS_DIR / "promote-skill.py"),
@@ -118,7 +118,7 @@ def test_end_to_end_distill_and_promote() -> None:
         res_dry_run = subprocess.run(cmd_dry_run, capture_output=True, text=True)
         assert res_dry_run.returncode == 0, f"Dry run failed: {res_dry_run.stderr}"
 
-        # 3. Chạy promote chính thức
+        # 3. Run the actual promotion
         cmd_promote = [
             sys.executable,
             str(SCRIPTS_DIR / "promote-skill.py"),

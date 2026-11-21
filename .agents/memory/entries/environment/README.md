@@ -1,3 +1,3 @@
-# Môi trường (environment)
+# Environment
 
-Mỗi entry lưu kiến thức dễ quên về toolchain, runtime, dependency, triển khai hoặc môi trường cụ thể.
+Each entry stores easy-to-forget knowledge about the toolchain, runtime, dependencies, deployment or a specific environment.

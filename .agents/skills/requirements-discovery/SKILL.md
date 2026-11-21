@@ -1,35 +1,35 @@
 ---
 name: requirements-discovery
-description: "Làm rõ vấn đề, người dùng bị ảnh hưởng, phạm vi, ràng buộc và acceptance criteria trước khi triển khai feature hoặc thay đổi hành vi. Dùng khi yêu cầu chưa rõ, feature mới hoặc thay đổi có ảnh hưởng đến nghiệp vụ."
+description: "Clarify the problem, affected users, scope, constraints and acceptance criteria before implementing a feature or behavior change. Use when the request is unclear, for a new feature, or for a change that affects business logic."
 ---
-# Khám phá yêu cầu
+# Requirements discovery
 
-## Khi nào dùng
-- Feature mới, thay đổi hành vi nghiệp vụ hoặc yêu cầu có nhiều cách hiểu.
-- Cần xác nhận phạm vi, ngoại lệ, dữ liệu đầu vào/đầu ra hoặc tiêu chí nghiệm thu.
+## When to use
+- A new feature, a business-behavior change, or a request with multiple possible interpretations.
+- You need to confirm scope, exceptions, input/output data or acceptance criteria.
 
-## Không dùng khi
-- Sửa lỗi đã tái hiện rõ và yêu cầu sửa đã cụ thể → `bug-investigation`.
-- Task kỹ thuật rất nhỏ, rủi ro thấp và không làm thay đổi hành vi người dùng.
+## When not to use
+- Fixing a clearly reproduced defect with a specific fix request → `bug-investigation`.
+- A very small, low-risk technical task that does not change user-facing behavior.
 
-## Quy trình
-1. Đọc yêu cầu gốc và tìm memory liên quan trước khi chốt hướng giải quyết.
-2. Kiểm tra hành vi hiện tại trong code, UI, API, tài liệu và test nếu có.
-3. Xác định: vấn đề cần giải quyết, nhóm người dùng/actor, luồng chính, trạng thái, dữ liệu, quy tắc nghiệp vụ, ngoại lệ, phạm vi không làm.
-4. Viết acceptance criteria theo hành vi có thể kiểm tra; ưu tiên Given/When/Then khi phù hợp.
-5. Ghi giả định và câu hỏi mở. Chỉ hỏi người dùng khi câu trả lời có thể đổi đáng kể thiết kế, phạm vi hoặc rủi ro; còn lại ghi giả định rõ ràng.
-6. Dùng `.agents/template/software/feature-spec.md` nếu feature đủ lớn để cần một đặc tả có thể review.
-7. Chuyển sang `solution-design` khi cần quyết định kiến trúc hoặc ảnh hưởng nhiều thành phần.
+## Process
+1. Read the original request and search related memory before settling on a direction.
+2. Check the current behavior in code, UI, API, documentation and tests where available.
+3. Establish: the problem to solve, user groups/actors, main flows, states, data, business rules, exceptions, and out-of-scope items.
+4. Write acceptance criteria as testable behavior; prefer Given/When/Then where suitable.
+5. Record assumptions and open questions. Ask the user only when the answer could significantly change the design, scope or risk; otherwise state assumptions explicitly.
+6. Use `.agents/template/software/feature-spec.md` if the feature is large enough to need a reviewable spec.
+7. Move to `solution-design` when architecture decisions are needed or many components are affected.
 
-## Quy tắc
-- Phân biệt yêu cầu đã xác nhận với giả định.
-- Không biến giải pháp do người dùng gợi ý thành yêu cầu bắt buộc nếu mục tiêu thực sự chưa rõ.
-- Xác định cả trạng thái lỗi, loading/empty state, phân quyền và khả năng retry/reload khi liên quan.
-- Không viết đặc tả dài hơn mức cần để implement và kiểm thử.
+## Rules
+- Distinguish confirmed requirements from assumptions.
+- Do not turn a solution suggested by the user into a mandatory requirement when the actual goal is still unclear.
+- Cover error states, loading/empty states, authorization and retry/reload capability where relevant.
+- Do not write a spec longer than needed to implement and test.
 
-## Điều kiện hoàn tất
-- Có mục tiêu rõ, phạm vi/ngoài phạm vi, acceptance criteria và ràng buộc quan trọng.
-- Điểm chưa rõ còn lại được ghi rõ hoặc đã hỏi đúng câu hỏi cần thiết.
+## Completion criteria
+- There is a clear goal, in-scope/out-of-scope, acceptance criteria and key constraints.
+- Remaining unknowns are stated explicitly, or the necessary questions have been asked.
 
-## Template liên quan
+## Related templates
 `.agents/template/software/feature-spec.md`

@@ -1,35 +1,35 @@
-# Kế hoạch kiểm thử: <tính năng/lỗi>
+# Test plan: <feature/bug>
 
-- **Spec/PR liên quan:** <link>
-- **Môi trường/build:** <version/config>
+- **Related spec/PR:** <link>
+- **Environment/build:** <version/config>
 
-## Phạm vi và rủi ro
+## Scope and risks
 
-- Hành vi/contract cần kiểm thử:
-- Regression có rủi ro cao nhất:
-- Ngoài phạm vi:
+- Behavior/contracts to test:
+- Highest-risk regressions:
+- Out of scope:
 
-## Các test case
+## Test cases
 
-| ID | Kịch bản | Chuẩn bị | Hành động | Kết quả mong đợi | Tầng test | Trạng thái |
+| ID | Scenario | Setup | Action | Expected result | Test layer | Status |
 |---|---|---|---|---|---|---|
-| T-01 | Luồng thành công | | | | Unit/Integration/E2E/Manual | Chưa chạy |
-| T-02 | Đầu vào không hợp lệ hoặc xảy ra lỗi | | | | | Chưa chạy |
-| T-03 | Phân quyền/trường hợp biên | | | | | Chưa chạy |
+| T-01 | Success path | | | | Unit/Integration/E2E/Manual | Not run |
+| T-02 | Invalid input or error case | | | | | Not run |
+| T-03 | Authorization/boundary case | | | | | Not run |
 
-## Regression và trạng thái
+## Regression and states
 
-- Hành vi loading/rỗng/lỗi/timeout:
-- Reload/retry/idempotency/khôi phục trạng thái:
-- Ranh giới quyền/vai trò:
-- Migration dữ liệu/tương thích ngược:
+- Loading/empty/error/timeout behavior:
+- Reload/retry/idempotency/state recovery:
+- Permission/role boundaries:
+- Data migration/backward compatibility:
 
-## Lệnh và kết quả
+## Commands and results
 
-- `<command>` — Đạt/Không đạt/Chưa chạy; ghi đầu ra liên quan.
+- `<command>` — Pass/Fail/Not run; include relevant output.
 
-## Điều kiện kết thúc
+## Exit criteria
 
-- [ ] Đã bao phủ tiêu chí chấp nhận.
-- [ ] Đã bao phủ các đường lỗi quan trọng.
-- [ ] Đã ghi rõ khoảng trống kiểm thử và rủi ro còn lại.
+- [ ] Acceptance criteria covered.
+- [ ] Critical error paths covered.
+- [ ] Test gaps and remaining risks explicitly recorded.

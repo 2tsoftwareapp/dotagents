@@ -1,11 +1,11 @@
-# Điểm vào hướng dẫn Agent của repository
+# Repository agent instruction entry point
 
-Trước khi thực hiện công việc kỹ thuật đáng kể:
+Before doing significant technical work:
 
-1. Đọc `~/.agents/AGENTS.md` nếu file tồn tại và có thể truy cập; đây là quy chuẩn làm việc global của người dùng.
-2. Đọc `.agents/AGENTS.md` và các file áp dụng trong `.agents/rules/`.
-3. Đọc `.agents/rules/project.md` để nắm kiến trúc, lệnh kiểm tra và ràng buộc riêng của repository.
-4. Đọc `.agents/skills/README.md` để chọn skill phù hợp; chỉ nạp `SKILL.md` liên quan thay vì toàn bộ thư viện skill.
-5. Khi làm việc trong thư mục lồng nhau, tuân theo `AGENTS.md` gần nhất đồng thời dung hòa với các chỉ dẫn ở trên.
+1. Read `~/.agents/AGENTS.md` if the file exists and is reachable; it is the user's global working standard.
+2. Read `.agents/AGENTS.md` and the applicable files in `.agents/rules/`.
+3. Read `.agents/rules/project.md` for this repository's architecture, verification commands and local constraints.
+4. Read `.agents/skills/README.md` to pick the right skill; load only the relevant `SKILL.md` instead of the whole skill library.
+5. When working in a nested directory, follow the nearest `AGENTS.md` while staying consistent with the instructions above.
 
-Thư mục `.agents/` là nguồn chuẩn cho workflow, template, script và memory tùy chỉnh của repository. Không tạo thêm một bộ quy tắc độc lập, tách rời nguồn này.
+The `.agents/` directory is the source of truth for this repository's workflow, templates, scripts and custom memory. Do not create a second, independent rule set detached from this source.

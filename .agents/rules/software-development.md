@@ -1,82 +1,82 @@
-# Quy trình phát triển phần mềm
+# Software development process
 
-Áp dụng quy trình tương xứng với rủi ro và tuân thủ các nguyên tắc cốt lõi trong `rules/engineering-philosophy.md`: thực tiễn đánh bại thuần khiết (*Practicality beats purity*), giải pháp triệt để không nửa vời (*Half measures are as bad as nothing at all*), thiết kế đối phó thất bại (*Design for failure*), và kiểm soát phình mã nguồn (*Anything added dilutes everything else*).
+Match the process to the risk and honor the core principles in `rules/engineering-philosophy.md`: practicality beats purity, half measures are as bad as nothing at all, design for failure, and anything added dilutes everything else.
 
-## Giai đoạn 1 — Hiểu vấn đề
+## Phase 1 — Understand the problem
 
-- Tóm tắt vấn đề và kết quả mong muốn.
-- Tìm memory, code và tài liệu hiện có trước khi đề xuất giải pháp.
-- Xác định người dùng/actor, hành vi hiện tại, hành vi mong muốn, ràng buộc và tiêu chí chấp nhận.
-- Đánh dấu điều chưa biết; không tự suy diễn quy tắc nghiệp vụ.
+- Summarize the problem and the expected outcome.
+- Search existing memory, code and documentation before proposing a solution.
+- Identify users/actors, current behavior, desired behavior, constraints and acceptance criteria.
+- Flag what is unknown; never invent business rules.
 
-## Giai đoạn 2 — Lập kế hoạch
+## Phase 2 — Plan
 
-- Kiểm tra module, contract, luồng dữ liệu, test, migration và thành phần tiêu thụ bị ảnh hưởng.
-- Chọn cách triển khai nhỏ nhất nhưng nhất quán; ưu tiên giải pháp thực tế, tái sử dụng pattern có sẵn của repo (*Practicality beats purity*).
-- Tránh over-engineering: không thêm abstraction/helper/wrapper khi chưa có nhu cầu thực tế (*Anything added dilutes everything else*).
-- Chia công việc rủi ro cao thành các bước dễ review; liệt kê file/module dự kiến thay đổi.
-- Thiết kế đối phó thất bại (*Design for failure*): xem xét tương thích, quyền truy cập, luồng lỗi, khả năng quan sát, rollback và tác động vận hành.
+- Check the affected modules, contracts, data flows, tests, migrations and consumers.
+- Choose the smallest consistent implementation; prefer the practical option and reuse existing repo patterns (*Practicality beats purity*).
+- Avoid over-engineering: no new abstraction, helper or wrapper without a real need (*Anything added dilutes everything else*).
+- Split high-risk work into reviewable steps; list the files and modules you expect to change.
+- Design for failure: consider compatibility, permissions, error paths, observability, rollback and operational impact.
 
-## Giai đoạn 3 — Thiết kế khi cần
+## Phase 3 — Design when needed
 
-- Ghi lại thay đổi API/schema/event và ranh giới trách nhiệm.
-- Nêu các phương án quan trọng và lý do chọn phương án cuối cùng.
-- Dùng ADR cho quyết định có ảnh hưởng kiến trúc lâu dài.
-- Liên kết thiết kế với file nguồn và tiêu chí chấp nhận.
+- Record API/schema/event changes and responsibility boundaries.
+- State the important alternatives and why the final one won.
+- Use an ADR for decisions with long-term architectural impact.
+- Link the design to source files and acceptance criteria.
 
-## Giai đoạn 4 — Triển khai
+## Phase 4 — Implement
 
-- Tuân theo pattern hiện có của project, trừ khi chính pattern đó là nguyên nhân đã xác nhận.
-- Giữ phạm vi thay đổi rõ ràng; tránh refactor không liên quan (Minimal Diff).
-- Clean cutover: di chuyển toàn bộ callers, dọn sạch code chết/shim tạm bợ, không để lại `TODO: implement` dở dang (*Half measures are as bad as nothing at all*).
-- Bổ sung/cập nhật test cùng với thay đổi hành vi.
-- Với thay đổi dữ liệu, xác định migration, tương thích, backfill và rollback khi phù hợp.
+- Follow the project's existing patterns, unless that pattern is the confirmed cause of the defect.
+- Keep the change scope clear; avoid unrelated refactoring (minimal diff).
+- Clean cutover: migrate every caller, remove dead code and temporary shims, leave no unfinished `TODO: implement` (*Half measures are as bad as nothing at all*).
+- Add or update tests together with the behavior change.
+- For data changes, define migration, compatibility, backfill and rollback where applicable.
 
-## Giai đoạn 5 — Kiểm chứng
+## Phase 5 — Verify
 
-- Chạy các kiểm tra tự động phù hợp nhất: unit, integration, e2e, lint, type check, build, kiểm tra migration hoặc kịch bản thủ công có thể tái hiện.
-- Kiểm tra tiêu chí chấp nhận và các đường lỗi/edge case quan trọng, không chỉ happy path (*Design for failure*).
-- Hiệu năng là tính năng bắt buộc: tính năng chỉ hoàn tất khi chạy nhanh, không rò rỉ bộ nhớ hoặc tạo N+1 query (*It’s not fully shipped until it’s fast*).
-- Báo rõ lệnh/kết quả, kiểm tra bị bỏ qua, giả định và rủi ro còn lại.
+- Run the most relevant automated checks: unit, integration, e2e, lint, type check, build, migration checks or a reproducible manual scenario.
+- Check acceptance criteria and the important error and edge paths, not just the happy path (*Design for failure*).
+- Performance is a required feature: a feature is done only when it runs fast, does not leak memory and does not create N+1 queries (*It’s not fully shipped until it’s fast*).
+- Report the commands and results, the checks you skipped, the assumptions and the remaining risks.
 
-## Giai đoạn 6 — Review và phát hành
+## Phase 6 — Review and release
 
-- Review diff về tính đúng đắn, nguy cơ regression, bảo mật, logging, tương thích và secret vô tình bị thêm.
-- Cập nhật tài liệu/config/migration/release notes khi cần.
-- Với thay đổi triển khai rủi ro cao, nêu rollout, tín hiệu sức khỏe hệ thống và điều kiện rollback.
+- Review the diff for correctness, regression risk, security, logging, compatibility and accidentally added secrets.
+- Update documentation, config, migrations and release notes when needed.
+- For high-risk deployment changes, state the rollout, the health signals and the rollback conditions.
 
-## Giai đoạn 7 — Đúc kết và bàn giao
+## Phase 7 — Capture and hand off
 
-- Tạo/cập nhật memory lâu dài trong `memory/entries/` khi đáp ứng memory policy.
-- Cập nhật hoặc thay thế entry cũ để tránh phân mảnh kiến thức.
-- Bàn giao ngắn gọn: hành vi đã đổi, khu vực/file liên quan, kết quả kiểm chứng, giới hạn và memory đã cập nhật.
+- Create or update durable memory in `memory/entries/` when it meets the memory policy.
+- Update or supersede old entries to avoid fragmenting knowledge.
+- Hand off briefly: what behavior changed, the affected areas and files, the verification results, the limits and the memory you updated.
 
-## Chọn template tối thiểu
+## Choosing the minimum template
 
-| Loại công việc | Template đề xuất |
+| Work type | Suggested template |
 |---|---|
-| Bug nhỏ | Điều tra bug + test liên quan; memory nếu có bài học tái sử dụng |
-| Feature | Đặc tả feature + kế hoạch triển khai + kế hoạch test |
-| Refactor/ảnh hưởng nhiều thành phần | Kế hoạch + thiết kế kỹ thuật + kế hoạch test |
-| Quyết định kiến trúc | ADR, thêm thiết kế kỹ thuật nếu cần |
-| Release/migration rủi ro cao | Kế hoạch + kế hoạch test + checklist release |
-| Incident production | Postmortem sau khi đã giảm thiểu/ổn định |
-| Kết thúc phiên khi task chưa xong | Bàn giao công việc |
+| Small bug | Bug investigation + related tests; memory if there is a reusable lesson |
+| Feature | Feature spec + implementation plan + test plan |
+| Refactor touching many components | Implementation plan + technical design + test plan |
+| Architecture decision | ADR, plus a technical design if needed |
+| High-risk release or migration | Implementation plan + test plan + release checklist |
+| Production incident | Postmortem after mitigation and stabilization |
+| End of session with work unfinished | Handoff |
 
-## Quy ước đầu ra: Chat ngắn gọn vs File Deliverable (Template)
+## Output convention: short chat vs deliverable file (template)
 
-Phân định nghiêm ngặt giữa hai kênh đầu ra để tránh làm loãng ngữ cảnh hội thoại:
+Keep the two output channels strictly separate so the conversation context stays clean:
 
-1. **Kênh File Deliverable (bắt buộc khi dùng template):**
-   - Mọi báo cáo hoặc tài liệu dựa trên template (`feature-spec.md`, `technical-design.md`, `implementation-plan.md`, `test-plan.md`, `bug-investigation.md`, `code-review.md`, `security-review.md`, `release-checklist.md`, `adr.md`, `incident-postmortem.md`, `handoff.md`, `retrospective.md`) **bắt buộc phải được ghi thành file Markdown (`.md`)**.
-   - **Vị trí lưu trữ chuẩn theo `rules/deliverables-and-reporting.md`:**
-     - Tài liệu dài hạn của dự án: Lưu trong repo (`docs/adr/`, `docs/specs/`, `.agents/memory/entries/`).
-     - Báo cáo review, audit, điều tra bug, postmortem, handoff: Mặc định lưu ngoài worktree tại `~/.agents/outputs/<project-name>/reports/YYYY-MM-DD-<loại>-<chủ-đề>-<rev>.md` để tránh làm bẩn `git status` (trừ khi dự án quy định thư mục riêng trong `project.md`). Tuyệt đối không xả file rác ra root repository (`./report.md`, `./review.md`).
-   - File deliverable chứa toàn bộ nội dung chi tiết, các mục theo template, bảng biểu, mã finding định danh `F-xx`, đường dẫn file code + số dòng, bằng chứng lệnh chạy và log liên quan.
-2. **Kênh Chat (chỉ báo cáo tóm tắt):**
-   - Tin nhắn chat đóng vai trò thông báo tóm tắt (Executive Summary) cho người dùng.
-   - Nội dung chat chỉ gồm:
-     - Tóm tắt kết quả chính trong 3–5 gạch đầu dòng.
-     - Các blocker, rủi ro hoặc findings quan trọng nhất (nếu có).
-     - **Đường dẫn đầy đủ** đến file deliverable đã ghi để người dùng kiểm tra chi tiết.
-   - **Tuyệt đối không** copy/paste toàn bộ nội dung báo cáo hoặc in nguyên khung template dài vào cửa sổ chat.
+1. **Deliverable file channel (mandatory when a template is used):**
+   - Every report or document based on a template (`feature-spec.md`, `technical-design.md`, `implementation-plan.md`, `test-plan.md`, `bug-investigation.md`, `code-review.md`, `security-review.md`, `release-checklist.md`, `adr.md`, `incident-postmortem.md`, `handoff.md`, `retrospective.md`) **must be written to a Markdown file (`.md`)**.
+   - **Standard storage location per `rules/deliverables-and-reporting.md`:**
+     - Long-lived project documents: inside the repo (`docs/adr/`, `docs/specs/`, `.agents/memory/entries/`).
+     - Review, audit, bug investigation, postmortem and handoff reports: by default outside the worktree at `~/.agents/outputs/<project-name>/reports/YYYY-MM-DD-<type>-<topic>-<rev>.md` so `git status` stays clean (unless the project defines its own directory in `project.md`). Never scatter junk files into the repository root (`./report.md`, `./review.md`).
+   - The deliverable file holds the full detail: template sections, tables, findings with `F-xx` IDs, code file paths plus line numbers, the commands that were run and the relevant logs.
+2. **Chat channel (summary only):**
+   - The chat message is the Executive Summary for the user.
+   - Chat content contains only:
+     - The main results in 3–5 bullets.
+     - The most important blockers, risks or findings, if any.
+     - The **full path** to the deliverable file so the user can check the detail.
+   - **Never** copy and paste the whole report or print an entire long template skeleton into the chat window.

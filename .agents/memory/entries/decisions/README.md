@@ -1,3 +1,3 @@
-# Quyết định (decisions)
+# Decisions
 
-Mỗi entry ghi lại lý do quyết định, các phương án thay thế, trade-off, phạm vi áp dụng và điều kiện cần xem xét lại.
+Each entry records why the decision was made, the alternatives considered, the trade-offs, the applicable scope and the conditions that should trigger a review.

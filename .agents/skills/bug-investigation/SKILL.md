@@ -1,37 +1,37 @@
 ---
 name: bug-investigation
-description: "Điều tra lỗi theo bằng chứng, tái hiện, lập giả thuyết, xác nhận nguyên nhân gốc và tạo regression test. Dùng khi có bug, lỗi runtime, dữ liệu sai, hành vi không ổn định hoặc test thất bại."
+description: "Investigate failures from evidence, reproduce them, form hypotheses, confirm the root cause and add a regression test. Use when there is a bug, runtime error, bad data, unstable behavior or failing test."
 ---
-# Điều tra và xử lý bug
+# Bug investigation and resolution
 
-## Khi nào dùng
-- Có triệu chứng lỗi, test fail, crash, trạng thái sai hoặc lỗi khó tái hiện.
+## When to use
+- There are error symptoms, a failing test, a crash, wrong state or a bug that is hard to reproduce.
 
-## Không dùng khi
-- Yêu cầu là thêm hành vi mới chưa tồn tại → `requirements-discovery`.
-- Sự cố đang ảnh hưởng production và cần điều phối giảm tác động ngay → `incident-response` trước.
+## When not to use
+- The request is to add new behavior that does not exist yet → `requirements-discovery`.
+- An incident is affecting production and impact reduction needs coordinating now → `incident-response` first.
 
-## Quy trình
-1. Tìm memory theo thông báo lỗi chính xác, triệu chứng, subsystem và các từ đồng nghĩa.
-2. Thu thập bằng chứng: bước tái hiện, input, môi trường/phiên bản, log đã che dữ liệu nhạy cảm và hành vi mong đợi/thực tế.
-3. Xác định mức độ tái hiện: luôn xảy ra, có điều kiện hay chưa tái hiện được.
-4. Đưa ra các giả thuyết có thể phân biệt bằng phép thử; ưu tiên thử nghiệm nhỏ giúp loại trừ giả thuyết.
-5. Truy nguyên qua luồng dữ liệu/trạng thái và tìm nguyên nhân gốc; không dừng ở triệu chứng nếu có thể xác định nguyên nhân.
-6. Dùng `bug-investigation.md` khi việc điều tra phức tạp hoặc cần lưu lại kết luận.
-7. Sửa nguyên nhân đã xác nhận và thêm regression test tái hiện lỗi trước đây.
-8. Chạy test mục tiêu, test liên quan và kiểm tra lỗi phụ có thể phát sinh.
-9. Gọi `memory-curation` nếu cách sửa có thể tái sử dụng hoặc lỗi dễ tái diễn.
+## Process
+1. Search memory for the exact error message, symptoms, subsystem and synonyms.
+2. Collect evidence: reproduction steps, input, environment/version, logs with sensitive data redacted, and expected/actual behavior.
+3. Determine the reproduction level: always happens, conditional, or not reproduced yet.
+4. Propose hypotheses a test can distinguish; prefer small experiments that eliminate hypotheses.
+5. Trace through the data/state flow to find the root cause; do not stop at symptoms when the cause can be identified.
+6. Use `bug-investigation.md` when the investigation is complex or the conclusions need to be recorded.
+7. Fix the confirmed cause and add a regression test that reproduces the earlier failure.
+8. Run the targeted test, related tests and check for side-effect failures.
+9. Call `memory-curation` if the fix is reusable or the bug is likely to recur.
 
-## Quy tắc
-- Không kết luận root cause chỉ vì một thay đổi khiến lỗi tạm biến mất.
-- Phân biệt sự kiện quan sát được, giả thuyết và kết luận.
-- Nếu không tái hiện được, ghi rõ điều kiện đã thử và bằng chứng còn thiếu.
-- Không vô tình che lỗi bằng catch rộng, timeout tăng tùy tiện hoặc fallback làm sai dữ liệu.
-- Khi dùng template `bug-investigation.md`, phải ghi kết quả điều tra thành file `.md`; tin nhắn chat chỉ tóm tắt ngắn gọn root cause, cách fix và đường dẫn file báo cáo.
+## Rules
+- Do not conclude a root cause just because one change made the symptom disappear.
+- Separate observed facts, hypotheses and conclusions.
+- If you cannot reproduce it, state the conditions you tried and the evidence you are missing.
+- Do not accidentally hide errors with broad catches, arbitrarily increased timeouts or fallbacks that corrupt data.
+- When using the `bug-investigation.md` template, you must write the investigation results to a `.md` file; the chat message only summarizes the root cause, the fix and the report file path.
 
-## Điều kiện hoàn tất
-- Có nguyên nhân gốc được hỗ trợ bằng bằng chứng hoặc ghi rõ chưa xác định được.
-- Fix có kiểm chứng và test bảo vệ phù hợp; các giới hạn còn lại được nêu rõ.
+## Completion criteria
+- A root cause supported by evidence, or an explicit note that it remains unidentified.
+- A verified fix with appropriate protective tests; remaining limitations are stated.
 
-## Template liên quan
+## Related templates
 `.agents/template/software/bug-investigation.md`
