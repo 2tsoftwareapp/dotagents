@@ -22,7 +22,7 @@ description: "Orchestrate the software development lifecycle from request classi
 7. Run appropriate verification, review the diff, address important findings, then decide whether memory/handoff/release is needed.
 8. Report the outcome clearly, the commands run, the checks not run, assumptions and remaining risks.
 
-## Process selection rules
+## Rules
 - Bug → `bug-investigation` → `testing-validation` → `code-review` → `memory-curation` if there are reusable lessons.
 - Feature → `requirements-discovery` → `solution-design` when needed → `implementation` → `testing-validation` → `security-review` if there is risk surface → `code-review`.
 - Refactor → `refactoring` → `testing-validation` → `code-review`.
@@ -38,3 +38,6 @@ description: "Orchestrate the software development lifecycle from request classi
 ## Output
 - **Deliverable file (when using a template):** All detailed template content (plan, spec, review, audit, etc.) must be written to a Markdown file (`.md`) in the repo.
 - **Chat report:** Only a short summary: what was done, verification evidence, main blockers/findings and the deliverable file path; do not paste the whole template content into chat.
+
+## Completion criteria
+- The chosen skills and templates were applied, verification ran with evidence (or its limit is stated), and the deliverable file exists whenever a template was used.

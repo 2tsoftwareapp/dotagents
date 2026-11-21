@@ -100,3 +100,13 @@ After the deliverable file is written successfully, the agent's chat message mus
   - Paste the whole report file into chat.
   - Paste test logs hundreds of lines long into chat (write them to `testresults/` or the matching artifact file instead).
   - Reprint the entire template table skeleton into chat.
+
+---
+
+## 6. Evidence, subagents and pre-handoff checks
+
+- **Layout and readability:** one clear title; short metadata (date, project, review target, branch/base/head when relevant); conclusion and decision first; then scope and sources, findings, verification, remaining limits and risks, suggested actions. Keep only applicable sections and never leave an empty heading. Use a consistent heading hierarchy, tables for data that must be compared and short bullets for narrative. Put code, commands and logs in fenced blocks with a language tag. No decorative emoji, no oversized paragraphs, no repeating the same content across tables and sections.
+- **Business evidence:** cite the source document by path + line, or by workbook/sheet/cell. Separate confirmed requirements from inference and from items a BA or the customer still has to confirm. Editing a document in the same PR does not by itself prove the business change was approved.
+- **Test scope:** distinguish unit tests and smoke tests against mocked dependencies from real API/DB and end-to-end UI checks. Never present a proposed check as a result already run. Keep long logs in `testresults/` or artifacts and link them instead of dumping them into the report body.
+- **When using subagents:** pass the output directory, a separate file per agent, and this format and evidence contract. Each agent returns the path it wrote; the parent cross-checks, deduplicates and produces one consolidated report instead of concatenating the child reports. Background agents never stop to ask the user about report form.
+- **Before handoff:** reopen the file you produced and check the title, tables, fenced blocks, paths and links, the conclusion and the numbers against the evidence. Remove placeholders and sensitive information. For PDF/Office/HTML, check the rendered output when a tool is available; never claim a visual check you did not perform.

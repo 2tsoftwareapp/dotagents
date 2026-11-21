@@ -31,19 +31,20 @@ echo
 failures=0
 
 # 1. Check the core directory structure
-echo "[1/4] Checking core directories:"
+echo "[1/5] Checking core directories:"
 required_dirs=("rules" "skills" "scripts" "template" "memory")
 for d in "${required_dirs[@]}"; do
   if [[ -d "$AGENTS_DIR/$d" ]]; then
     echo "  ✓ $d"
   else
     echo "  ✗ Missing directory $d"
+    failures=$((failures + 1))
   fi
 done
 
 # 2. Check script executable permissions
 echo
-echo "[2/4] Checking script executable permissions:"
+echo "[2/5] Checking script executable permissions:"
 for s in "$AGENTS_DIR/scripts"/*.sh "$AGENTS_DIR/scripts"/*.py; do
   [[ ! -f "$s" ]] && continue
   fname="$(basename "$s")"
@@ -57,7 +58,7 @@ done
 
 # 3. Run validate-skills.sh
 echo
-echo "[3/4] Checking skill validity:"
+echo "[3/5] Checking skill validity:"
 if "$AGENTS_DIR/scripts/validate-skills.sh" "$AGENTS_DIR/skills"; then
   echo "  ✓ All skills pass YAML frontmatter validation"
 else
@@ -67,7 +68,7 @@ fi
 
 # 4. Run validate-memory.py
 echo
-echo "[4/4] Checking memory schema validity:"
+echo "[4/5] Checking memory schema validity:"
 if python3 "$AGENTS_DIR/scripts/validate-memory.py" "$AGENTS_DIR/memory/entries"; then
   echo "  ✓ All memory entries have the 15 frontmatter fields and valid enums"
 else
@@ -76,7 +77,7 @@ else
 fi
 
 # 5. Run unit tests
-echo
+echo "[5/5] Running unit tests:"
 if python3 "$AGENTS_DIR/scripts/test-validate-memory.py" && \
    python3 "$AGENTS_DIR/scripts/test-search-memory.py" && \
    python3 "$AGENTS_DIR/scripts/test-skill-distiller.py" >/dev/null; then

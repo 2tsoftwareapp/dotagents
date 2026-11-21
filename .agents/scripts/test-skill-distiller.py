@@ -6,13 +6,23 @@ from __future__ import annotations
 import json
 import subprocess
 import tempfile
-from importlib.machinery import SourceFileLoader
+import importlib.util
 from pathlib import Path
 import sys
 
 SCRIPTS_DIR = Path(__file__).resolve().parent
-distiller_mod = SourceFileLoader("skill_distiller", str(SCRIPTS_DIR / "skill-distiller.py")).load_module()
-promote_mod = SourceFileLoader("promote_skill", str(SCRIPTS_DIR / "promote-skill.py")).load_module()
+
+
+def _load_module(name: str, filename: str):
+    spec = importlib.util.spec_from_file_location(name, SCRIPTS_DIR / filename)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load {filename}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+distiller_mod = _load_module("skill_distiller", "skill-distiller.py")
 
 
 def test_kebab_case() -> None:
@@ -134,6 +144,80 @@ def test_end_to_end_distill_and_promote() -> None:
         assert not draft_file.exists()
 
 
+def test_promote_rejects_path_traversal() -> None:
+    with tempfile.TemporaryDirectory() as td:
+        base_dir = Path(td)
+        staging_dir = base_dir / "staging"
+        skills_dir = base_dir / "skills"
+        staging_dir.mkdir()
+        outside = base_dir / "escape"
+        outside.mkdir()
+        (outside / "SKILL.md").write_text(
+            '---\nname: escape\ndescription: "demo"\n---\n# Demo\n', encoding="utf-8"
+        )
+
+        res = subprocess.run(
+            [
+                sys.executable,
+                str(SCRIPTS_DIR / "promote-skill.py"),
+                "../escape",
+                "--staging-dir", str(staging_dir),
+                "--skills-dir", str(skills_dir),
+                "--dry-run",
+            ],
+            capture_output=True,
+            text=True,
+        )
+        assert res.returncode == 2, f"Traversal name was accepted: {res.stdout}"
+        assert not skills_dir.exists(), "Promotion created an out-of-scope destination"
+
+
+def test_promote_rejects_missing_sections() -> None:
+    with tempfile.TemporaryDirectory() as td:
+        base_dir = Path(td)
+        staging_dir = base_dir / "staging"
+        skills_dir = base_dir / "skills"
+        draft_dir = staging_dir / "incomplete-skill"
+        draft_dir.mkdir(parents=True)
+        (draft_dir / "SKILL.md").write_text(
+            '---\nname: incomplete-skill\ndescription: "demo"\n---\n# Demo\n\n## Rules\n- Only one section\n',
+            encoding="utf-8",
+        )
+
+        res = subprocess.run(
+            [
+                sys.executable,
+                str(SCRIPTS_DIR / "promote-skill.py"),
+                "incomplete-skill",
+                "--staging-dir", str(staging_dir),
+                "--skills-dir", str(skills_dir),
+                "--dry-run",
+            ],
+            capture_output=True,
+            text=True,
+        )
+        assert res.returncode == 2, f"Incomplete draft was accepted: {res.stdout}"
+        assert "missing required section" in (res.stdout + res.stderr)
+
+
+def test_distiller_rejects_empty_slug() -> None:
+    with tempfile.TemporaryDirectory() as td:
+        staging_dir = Path(td) / "staging"
+        res = subprocess.run(
+            [
+                sys.executable,
+                str(SCRIPTS_DIR / "skill-distiller.py"),
+                "--name", "\u4fee\u590d\u6570\u636e\u5e93",
+                "--description", "demo",
+                "--staging-dir", str(staging_dir),
+            ],
+            capture_output=True,
+            text=True,
+        )
+        assert res.returncode == 1, res.stdout + res.stderr
+        assert not (staging_dir / "SKILL.md").exists(), "Empty slug wrote a draft into the staging root"
+
+
 def main() -> int:
     print("Running test_kebab_case...")
     test_kebab_case()
@@ -143,7 +227,13 @@ def main() -> int:
     test_similarity_and_deduplication()
     print("Running test_end_to_end_distill_and_promote...")
     test_end_to_end_distill_and_promote()
-    print("ALL TESTS PASSED! (4/4 test suites)")
+    print("Running test_promote_rejects_path_traversal...")
+    test_promote_rejects_path_traversal()
+    print("Running test_promote_rejects_missing_sections...")
+    test_promote_rejects_missing_sections()
+    print("Running test_distiller_rejects_empty_slug...")
+    test_distiller_rejects_empty_slug()
+    print("ALL TESTS PASSED! (7/7 test suites)")
     return 0
 
 

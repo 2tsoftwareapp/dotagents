@@ -45,7 +45,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ -z "$target_arg" ]]; then
-  target_arg="${HOME:-~}/.agents"
+  target_arg="${HOME:?HOME is not set; pass an explicit target directory}/.agents"
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -84,6 +84,9 @@ done
 
 # Ensure scripts are executable
 chmod +x "$TARGET/scripts/"*.sh "$TARGET/scripts/"*.py 2>/dev/null || true
+
+# Standard out-of-tree storage: <project>/ subdirectories are created on demand
+mkdir -p "$TARGET/outputs"
 
 echo "==> Global dotagents initialized successfully at: $TARGET"
 echo "Next steps:"

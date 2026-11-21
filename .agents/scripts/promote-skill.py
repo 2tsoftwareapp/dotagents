@@ -4,7 +4,7 @@
 Part of the dotagents Self-Learning Skill Loop system.
 Supports:
 - Check completeness and standards compliance of the `SKILL.md` draft.
-- Run the linter against the `.agents/AGENTS.md` standard.
+- Validate the draft with `validate-skills.sh`, the single source of the skill format contract.
 - Move the skill directory from `.agents/skills/.staging/<name>` to `.agents/skills/<name>`
   (or `~/.agents/skills/<name>` when --global is passed).
 """
@@ -12,7 +12,6 @@ Supports:
 from __future__ import annotations
 
 import argparse
-import os
 import re
 import shutil
 import subprocess
@@ -20,63 +19,29 @@ import sys
 from pathlib import Path
 
 
-def parse_frontmatter(content: str) -> dict[str, str]:
-    if not content.startswith("---\n"):
-        return {}
-    parts = content.split("---\n", 2)
-    if len(parts) < 3:
-        return {}
-    fm_raw = parts[1]
-    fields: dict[str, str] = {}
-    for line in fm_raw.splitlines():
-        line_str = line.strip()
-        if not line_str or line_str.startswith("#"):
-            continue
-        m = re.match(r"^([a-zA-Z0-9_-]+):\s*(.*)$", line)
-        if m:
-            key = m.group(1)
-            raw_val = m.group(2).strip().strip("\"'")
-            fields[key] = raw_val
-    return fields
-
-
 def validate_draft_skill(skill_dir: Path) -> list[str]:
-    """Validate the content and structure of a skill draft."""
-    errors: list[str] = []
+    """Validate a skill draft against the shared skill format contract.
+
+    The contract lives in validate-skills.sh so that promotion and the linter
+    can never disagree about what a valid skill looks like.
+    """
     skill_file = skill_dir / "SKILL.md"
     if not skill_file.exists():
         return [f"SKILL.md not found in directory {skill_dir}"]
 
-    content = skill_file.read_text(encoding="utf-8")
-    fm = parse_frontmatter(content)
+    validator = Path(__file__).with_name("validate-skills.sh")
+    if not validator.exists():
+        return [f"Skill validator not found next to promote-skill.py: {validator}"]
 
-    name = fm.get("name", "")
-    desc = fm.get("description", "")
-    dir_name = skill_dir.name
-
-    if not name:
-        errors.append("Missing 'name' field in YAML frontmatter")
-    elif name != dir_name:
-        errors.append(f"Skill name '{name}' does not match directory name '{dir_name}'")
-
-    if not desc:
-        errors.append("Missing 'description' field in YAML frontmatter")
-
-    if re.search(r"[^a-z0-9-]", name) or name.startswith("-") or name.endswith("-") or "--" in name:
-        errors.append(f"Name '{name}' is not valid kebab-case")
-
-    required_sections = [
-        "## When to use",
-        "## When not to use",
-        "## Process",
-        "## Rules",
-        "## Completion criteria"
-    ]
-    for sec in required_sections:
-        if sec not in content:
-            errors.append(f"Missing required section: '{sec}'")
-
-    return errors
+    res = subprocess.run(
+        ["bash", str(validator), str(skill_dir.parent), skill_dir.name],
+        capture_output=True,
+        text=True,
+    )
+    if res.returncode == 0:
+        return []
+    output = (res.stdout + res.stderr).strip()
+    return [line.strip() for line in output.splitlines() if line.strip()]
 
 
 def main() -> int:
@@ -91,6 +56,13 @@ def main() -> int:
     args = parser.parse_args()
 
     name = args.name.strip()
+    if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", name):
+        print(
+            f"Error: invalid skill name {name!r}: expected kebab-case ('a-z0-9' separated by single dashes)",
+            file=sys.stderr,
+        )
+        return 2
+
     staging_dir = Path(args.staging_dir)
     source_dir = staging_dir / name
 
@@ -113,6 +85,11 @@ def main() -> int:
         target_base = Path(args.skills_dir)
 
     target_dir = target_base / name
+    base_resolved = target_base.resolve()
+    target_resolved = target_dir.resolve()
+    if target_resolved != base_resolved / name:
+        print(f"Error: refusing to write outside {base_resolved}: {target_resolved}", file=sys.stderr)
+        return 2
 
     if target_dir.exists() and not args.overwrite:
         print(f"Error: skill '{name}' already exists at the destination: {target_dir.resolve()}", file=sys.stderr)
@@ -136,13 +113,16 @@ def main() -> int:
     print(f"[PROMOTED] Moved skill '{name}' to: {target_dir.resolve()}")
 
     # 4. Re-validate with validate-skills.sh when inside the repo scope
-    validate_script = Path(".agents/scripts/validate-skills.sh")
-    if not args.is_global and validate_script.exists():
-        res = subprocess.run([str(validate_script), str(target_base)], capture_output=True, text=True)
-        if res.returncode != 0:
-            print(f"[WARNING] validate-skills.sh reported issues:\n{res.stdout}\n{res.stderr}")
+    validate_script = Path(__file__).with_name("validate-skills.sh")
+    if not args.is_global:
+        if validate_script.exists():
+            res = subprocess.run(["bash", str(validate_script), str(target_base)], capture_output=True, text=True)
+            if res.returncode != 0:
+                print(f"[WARNING] validate-skills.sh reported issues:\n{res.stdout}\n{res.stderr}")
+            else:
+                print(f"[VALIDATION COMPLETE] {res.stdout.strip()}")
         else:
-            print(f"[VALIDATION COMPLETE] {res.stdout.strip()}")
+            print(f"[WARNING] Skipped catalog validation: {validate_script} not found")
 
     return 0
 

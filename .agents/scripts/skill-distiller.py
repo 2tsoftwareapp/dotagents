@@ -200,6 +200,9 @@ def main() -> int:
         return 1
 
     name = to_kebab_case(raw_name)
+    if not name:
+        print("Error: skill name must contain at least one ASCII letter or digit (kebab-case slug)", file=sys.stderr)
+        return 1
     description = (args.description or data.get("description") or "").strip()
     if not description:
         print("Error: missing skill description (--description or in --payload)", file=sys.stderr)

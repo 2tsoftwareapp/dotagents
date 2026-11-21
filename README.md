@@ -17,7 +17,7 @@ The goal is to turn memory into a **knowledge base that can be searched, verifie
 > bash -euo pipefail -c '
 >   TMP_DIR="$(mktemp -d)"
 >   trap "rm -rf \"$TMP_DIR\"" EXIT
->   git clone --depth 1 https://github.com/truongnat/dotagents.git "$TMP_DIR"
+>   git clone --depth 1 https://github.com/2tsoftwareapp/dotagents.git "$TMP_DIR"
 >   "$TMP_DIR/.agents/scripts/init-global.sh"
 >   chmod +x ~/.agents/scripts/*.sh ~/.agents/scripts/*.py
 >   ~/.agents/scripts/doctor.sh
@@ -38,7 +38,7 @@ The goal is to turn memory into a **knowledge base that can be searched, verifie
 > bash -euo pipefail -c '
 >   TMP_DIR="$(mktemp -d)"
 >   trap "rm -rf \"$TMP_DIR\"" EXIT
->   git clone --depth 1 https://github.com/truongnat/dotagents.git "$TMP_DIR"
+>   git clone --depth 1 https://github.com/2tsoftwareapp/dotagents.git "$TMP_DIR"
 >   "$TMP_DIR/.agents/scripts/init-project.sh" .
 >   chmod +x .agents/scripts/*.sh .agents/scripts/*.py
 >   ./.agents/scripts/doctor.sh
@@ -47,6 +47,9 @@ The goal is to turn memory into a **knowledge base that can be searched, verifie
 > 2. Open `.agents/rules/project.md` and, based on the current codebase (package.json, Cargo.toml, go.mod, README, etc.), fill in: technical stack, test/build/lint commands and the main business conventions.
 > 3. Re-run `./.agents/scripts/doctor.sh` and summarize which files were integrated.
 > ````
+
+**Before you run the setup prompts:** both commands clone `main` and execute the installer without pinning a revision. Read `.agents/scripts/init-global.sh` and `.agents/scripts/init-project.sh` first, or pin a commit (`git -C "$TMP_DIR" checkout <sha>`) when you need a repeatable, auditable install.
+
 ## 1. Design principles
 1. **Single source of truth:** keep rules, skills, MCP config, tools, scripts, templates and memory in `.agents/`.
 2. **Search before you work:** for any significant technical task, search project memory first and global memory second; read the matching entry and verify it still holds for the current code and dependencies.

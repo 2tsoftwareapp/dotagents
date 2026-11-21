@@ -4,7 +4,7 @@
 Checks:
 1. File naming: YYYY-MM-DD-<type>-<short-topic>.md (or legacy index/readme exemption)
 2. Valid YAML frontmatter demarcated by ---
-3. Exactly 15 required metadata fields:
+3. The 15 required metadata fields (extra fields are allowed):
    schema_version, id, title, type, scope, status, created, updated,
    verified_on, confidence, tags, applies_to, sources, related, supersedes
 4. Valid enum values for type, scope, status, confidence

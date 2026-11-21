@@ -29,6 +29,13 @@ description: "Find, verify, create, update or replace Markdown memory after solv
 7. Update `memory/INDEX.md` when an entry is high value or frequently consulted; do not turn the index into a copy of the whole corpus.
 8. Do not write secrets, personal data, tokens, sensitive raw logs or information that must not be stored.
 
+## Rules
+- Search project memory before global memory; do not skip the project scope.
+- Apply an entry only after checking it against the current code, tests and version.
+- Prefer updating an existing entry over creating a near-duplicate.
+- Set `status: active` only with verification evidence; otherwise use `needs-review` and state what is missing.
+- Never store secrets, personal data, tokens or raw sensitive logs, even inside examples.
+
 ## Entry quality checklist
 - Understandable without reading the whole original conversation.
 - States clearly when it applies and when it does not.

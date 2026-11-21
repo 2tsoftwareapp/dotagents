@@ -4,25 +4,32 @@ set -euo pipefail
 usage() {
   cat <<'USAGE'
 Usage:
-  init-project.sh [--force] <target-project-dir>
+  init-project.sh [--force] [--create] <target-project-dir>
 
 Initialize the .agents/ structure and AGENTS.md for a new repository from the dotagents framework.
+The target directory must already exist; pass --create (-c) to create it when missing.
 Safe by default: does NOT overwrite existing files (such as .agents/rules/project.md, AGENTS.md, ...)
 unless the --force flag is passed.
 
 Examples:
   ./init-project.sh ~/tx/GitHub/my-new-app
+  ./init-project.sh --create ~/tx/GitHub/my-new-app
   ./init-project.sh --force ~/tx/GitHub/my-new-app
 USAGE
 }
 
 force=false
+create=false
 target_arg=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --force|-f)
       force=true
+      shift
+      ;;
+    --create|-c)
+      create=true
       shift
       ;;
     -h|--help)
@@ -51,7 +58,15 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 # Ensure target directory exists first so cd/pwd resolves absolute path cleanly
-mkdir -p "$target_arg"
+if [[ ! -d "$target_arg" ]]; then
+  if [[ "$create" == true ]]; then
+    mkdir -p "$target_arg"
+  else
+    echo "Error: target directory does not exist: $target_arg" >&2
+    echo "Create it first, or pass --create to let this script create it." >&2
+    exit 1
+  fi
+fi
 TARGET="$(cd "$target_arg" && pwd)"
 
 

@@ -36,6 +36,7 @@ A skill describes **how to carry out one kind of work**; a template describes **
 - Each skill is a directory holding a `SKILL.md` with YAML frontmatter containing `name` and `description`; `name` must match the directory name and use kebab-case.
 - Write the prose in English per `rules/language.md`; keep technical names and structured fields unchanged.
 - Each skill states: when to use it, when not to use it, the process, the rules, the completion criteria and the related templates/references.
+- Required headings, enforced by `scripts/validate-skills.sh`: `## When to use`, `## When not to use`, `## Rules`, `## Completion criteria`, plus one process section whose heading ends in "process" (for example `## Process` or `## Handoff process`). Extra domain sections are allowed in addition to these.
 - Make triggers specific enough that an agent can select a skill from its description without loading the full content.
 - Keep skills focused; long or deep content belongs in `references/` instead of bloating `SKILL.md`.
 

@@ -157,9 +157,9 @@ def main() -> int:
     except Exception:
         rg_path = None
 
-    total_matches = 0
+    scopes_with_matches = 0
     for scope_name, dir_path in paths:
-        candidate_files: list[Path] = []
+        candidate_files: list[tuple[Path, dict[str, str]]] = []
         for f in sorted(dir_path.rglob("*.md")):
             if f.name in ("README.md", "INDEX.md"):
                 continue
@@ -203,7 +203,7 @@ def main() -> int:
                 typ = fm.get("type", "unknown")
                 mem_id = fm.get("id", f.stem)
                 print(f"[{mem_id}] ({typ} | {st}) {title}\n  File: {f}")
-                total_matches += 1
+                scopes_with_matches += 1
             print()
             continue
 
@@ -212,7 +212,7 @@ def main() -> int:
             print(f"--- Scope: {scope_name} ({dir_path}) ---")
             for f in ranked_files:
                 print(f"  {f}")
-                total_matches += 1
+                scopes_with_matches += 1
             print()
             continue
 
@@ -224,10 +224,10 @@ def main() -> int:
             matched = run_python_fallback_search(args.query, ranked_files)
 
         if matched:
-            total_matches += 1
+            scopes_with_matches += 1
             print()
 
-    if total_matches == 0:
+    if scopes_with_matches == 0:
         print("No matching results.")
         return 0
 

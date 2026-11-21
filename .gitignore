@@ -3,6 +3,9 @@ __pycache__/
 **/__pycache__/
 .DS_Store
 
+# Transient skill drafts produced by the self-learning loop
+.agents/skills/.staging/
+
 # Unignore .agents framework inside dotagents repository
 !.agents/
 !.agents/**

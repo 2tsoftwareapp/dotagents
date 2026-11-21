@@ -4,7 +4,7 @@ Operational and integrity-check tooling for the dotagents framework:
 
 ### 1. Health checks & validation
 - `doctor.sh` — Full system check: core directories, executable permissions, skill validity, memory schema, and unit tests.
-- `validate-skills.sh` — Basic check of YAML frontmatter, kebab-case, and that `name` matches the skill directory name.
+- `validate-skills.sh` — Skill format contract: YAML frontmatter, kebab-case `name` matching the directory, and the required sections (`## When to use`, `## When not to use`, a `## <something> process` heading, `## Rules`, `## Completion criteria`). Pass an optional second argument to check a single skill.
 - `validate-memory.py` — Validate memory entries against the 15 required frontmatter fields, valid enum values (`type`, `scope`, `status`, `confidence`), and ISO date format per `memory-policy.md`.
 - `test-validate-memory.py` — Unit tests for `validate-memory.py`.
 - `test-init-project.sh` — Integration test for `init-project.sh`.
@@ -24,4 +24,4 @@ Operational and integrity-check tooling for the dotagents framework:
 
 ### 4. Init & install
 - `init-global.sh [--force] [target-dir]` — Initialize the global dotagents structure (Global Framework) for the user in `~/.agents/` (or the given target directory); safe by default and never overwrites unless `--force` is passed.
-- `init-project.sh [--force] <target-dir>` — Safely initialize the `.agents/` structure and `AGENTS.md` into a target repository (by default it does not overwrite customized files such as `project.md` or `AGENTS.md` unless the `--force` flag is passed).
+- `init-project.sh [--force] [--create] <target-dir>` — Safely initialize the `.agents/` structure and `AGENTS.md` into a target repository (by default it does not overwrite customized files such as `project.md` or `AGENTS.md` unless the `--force` flag is passed).

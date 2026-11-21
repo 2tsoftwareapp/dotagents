@@ -54,7 +54,11 @@ fi
 # Scenario 2: Test relative destination directory handling inside an isolated temp sandbox
 (
   cd "$SANDBOX"
-  "$SCRIPT_DIR/init-project.sh" "my_relative_app"
+  if "$SCRIPT_DIR/init-project.sh" "my_relative_app" >/dev/null 2>&1; then
+    echo "FAIL: init-project created a missing target directory without --create!" >&2
+    exit 1
+  fi
+  "$SCRIPT_DIR/init-project.sh" --create "my_relative_app"
   if [[ ! -f "my_relative_app/AGENTS.md" || ! -f "my_relative_app/.agents/AGENTS.md" ]]; then
     echo "FAIL: init-project failed with a relative destination path!" >&2
     exit 1
@@ -65,6 +69,13 @@ fi
 "$SCRIPT_DIR/init-project.sh" --force "$TEMP_TARGET"
 if grep -q "CUSTOM PROJECT RULES DO NOT OVERWRITE" "$TEMP_TARGET/.agents/rules/project.md"; then
   echo "FAIL: --force did not overwrite .agents/rules/project.md!" >&2
+  exit 1
+fi
+
+# Scenario 4: doctor.sh must fail when a required directory is missing
+rm -rf "$TEMP_TARGET/.agents/memory"
+if "$TEMP_TARGET/.agents/scripts/doctor.sh" >/dev/null 2>&1; then
+  echo "FAIL: doctor.sh reported success although .agents/memory is missing!" >&2
   exit 1
 fi
 
